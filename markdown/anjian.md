@@ -73,7 +73,7 @@ If pvz = 0 Then ExitScript
 
 `GameClock()` 一个内部时钟, 游戏暂停时停止计时
 
-`Countdown()` 下一波刷新倒计时, 触发刷新时重置为 200, 减少至 0 刷出下一波
+`WaveCountdown()` 下一波刷新倒计时, 触发刷新时重置为 200, 减少至 0 刷出下一波
 
 `HugeWaveCountdown()` 大波刷新倒计时, 对于旗帜波, 刷新倒计时减少至 4 后停滞, 由该值代替减少
 
@@ -109,10 +109,10 @@ Function GameClock()
     GameClock = Plugin.Memory.Read32Bit(pvz, mainobject + &H5568)
 End Function
 
-Function Countdown()
+Function WaveCountdown()
     pvzbase = Plugin.Memory.Read32Bit(pvz, &H6a9ec0)
     mainobject = Plugin.Memory.Read32Bit(pvz, pvzbase + &H768)
-    Countdown = Plugin.Memory.Read32Bit(pvz, mainobject + &H559c)
+    WaveCountdown = Plugin.Memory.Read32Bit(pvz, mainobject + &H559c)
 End Function
 
 Function HugeWaveCountdown()
@@ -148,14 +148,14 @@ End Sub
 
 Sub PreJudge(time_cs, wave)
     If wave = 10 Or wave = 20 Then
-        While (Countdown() - 4 > 0)
+        While (WaveCountdown() - 4 > 0)
             Delay 1
         Wend
         While (HugeWaveCountdown() - time_cs > 0)
             Delay 1
         Wend
     Else
-        While (Countdown() - time_cs > 0)
+        While (WaveCountdown() - time_cs > 0)
             Delay 1
         Wend
     End If
@@ -431,13 +431,13 @@ Sub AutoCollectThread()
         item_count_max = Plugin.Memory.Read32Bit(pvz, mainobject + &He8)
         item_offset = Plugin.Memory.Read32Bit(pvz, mainobject + &He4)
         For index = 0 To item_count_max - 1 Step 1
+            While (GamePaused() = 1 Or MouseInGame() = 1)
+                Delay 100
+            Wend
             disappeared = Plugin.Memory.Read8Bit(pvz, item_offset + &H38 + &Hd8 * index)
             collected = Plugin.Memory.Read8Bit(pvz, item_offset + &H50 + &Hd8 * index)
             item_type = Plugin.Memory.Read32Bit(pvz, item_offset + &H58 + &Hd8 * index)
             If disappeared = 0 And collected = 0 And item_type >= 1 And item_type <= 6 Then
-                While (GamePaused() = 1 Or MouseInGame() = 1)
-                    Delay 100
-                Wend
                 item_x = Plugin.Memory.ReadSingle(pvz, item_offset + &H24 + &Hd8 * index)
                 item_y = Plugin.Memory.ReadSingle(pvz, item_offset + &H28 + &Hd8 * index)
                 If item_x >= 0.0 And item_y >= 70.0 Then
@@ -621,7 +621,7 @@ End Sub
 
 举例说明, 使用的阵型为 PE经典十炮, 节奏为核代 P6. 
 
-![PE经典十炮](images/PE10_P6.jpg)
+![PE经典十炮](images/PE经典十炮.jpg)
 
 每一波的操作如下: 
 
@@ -712,7 +712,7 @@ Call Main()
 
 另一个例子, 阵型为 PE超前置十二炮. 
 
-![PE超前置十二炮](images/PE12_ch6.jpg)
+![PE超前置十二炮](images/PE超前置十二炮.jpg)
 
 运行节奏为ch6 |PPCC|IPP-PP|PPCC|IPP-PP|
 

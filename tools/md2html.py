@@ -15,7 +15,7 @@ def md2html(md_str):
 <link rel="icon" href="/favicon.ico">
 <link rel="stylesheet" href="normalize.css">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="styles/monokai.css">
+<link rel="stylesheet" href="styles/atom-one-dark.css">
 </head>
 <body>
 %s

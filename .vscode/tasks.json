@@ -2,9 +2,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build",
+            "label": "Build HTML",
             "type": "shell",
-            "command": "${workspaceRoot}/tools/build.bat",
+            "command": "${workspaceRoot}/tools/build_html.bat",
+        },
+        {
+            "label": "Build DLL",
+            "type": "shell",
+            "command": "${workspaceRoot}/tools/build_dll.bat",
             "group": {
                 "kind": "build",
                 "isDefault": true

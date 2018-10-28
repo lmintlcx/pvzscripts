@@ -43,4 +43,6 @@ pre code {
     margin: 2rem 0;
     /* border-left: 5px solid #aaa; */
     overflow: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
 }

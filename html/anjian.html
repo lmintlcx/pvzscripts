@@ -6,7 +6,7 @@
 <link rel="icon" href="/favicon.ico">
 <link rel="stylesheet" href="normalize.css">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="styles/monokai.css">
+<link rel="stylesheet" href="styles/atom-one-dark.css">
 </head>
 <body>
 <p>这是一份入门级的按键精灵半自动化脚本编写教程, 假定读者已经了解了无尽入门以及编程基础. </p>
@@ -52,7 +52,7 @@ If pvz = 0 Then ExitScript
 <p><code>GamePaused()</code> 游戏是否暂停, 单字节逻辑值, 不为 0 时游戏暂停</p>
 <p><code>MouseInGame()</code> 鼠标是否在游戏窗口内, 不为 0 时鼠标位于游戏窗口内部</p>
 <p><code>GameClock()</code> 一个内部时钟, 游戏暂停时停止计时</p>
-<p><code>Countdown()</code> 下一波刷新倒计时, 触发刷新时重置为 200, 减少至 0 刷出下一波</p>
+<p><code>WaveCountdown()</code> 下一波刷新倒计时, 触发刷新时重置为 200, 减少至 0 刷出下一波</p>
 <p><code>HugeWaveCountdown()</code> 大波刷新倒计时, 对于旗帜波, 刷新倒计时减少至 4 后停滞, 由该值代替减少</p>
 <p><code>DanceClock()</code> 一个内部时钟, 可用于判断舞王/伴舞的舞蹈/前进</p>
 <pre><code class="vb">Function GameScene()
@@ -84,10 +84,10 @@ Function GameClock()
     GameClock = Plugin.Memory.Read32Bit(pvz, mainobject + &amp;H5568)
 End Function
 
-Function Countdown()
+Function WaveCountdown()
     pvzbase = Plugin.Memory.Read32Bit(pvz, &amp;H6a9ec0)
     mainobject = Plugin.Memory.Read32Bit(pvz, pvzbase + &amp;H768)
-    Countdown = Plugin.Memory.Read32Bit(pvz, mainobject + &amp;H559c)
+    WaveCountdown = Plugin.Memory.Read32Bit(pvz, mainobject + &amp;H559c)
 End Function
 
 Function HugeWaveCountdown()
@@ -116,14 +116,14 @@ End Sub
 
 Sub PreJudge(time_cs, wave)
     If wave = 10 Or wave = 20 Then
-        While (Countdown() - 4 &gt; 0)
+        While (WaveCountdown() - 4 &gt; 0)
             Delay 1
         Wend
         While (HugeWaveCountdown() - time_cs &gt; 0)
             Delay 1
         Wend
     Else
-        While (Countdown() - time_cs &gt; 0)
+        While (WaveCountdown() - time_cs &gt; 0)
             Delay 1
         Wend
     End If
@@ -336,13 +336,13 @@ End Sub
         item_count_max = Plugin.Memory.Read32Bit(pvz, mainobject + &amp;He8)
         item_offset = Plugin.Memory.Read32Bit(pvz, mainobject + &amp;He4)
         For index = 0 To item_count_max - 1 Step 1
+            While (GamePaused() = 1 Or MouseInGame() = 1)
+                Delay 100
+            Wend
             disappeared = Plugin.Memory.Read8Bit(pvz, item_offset + &amp;H38 + &amp;Hd8 * index)
             collected = Plugin.Memory.Read8Bit(pvz, item_offset + &amp;H50 + &amp;Hd8 * index)
             item_type = Plugin.Memory.Read32Bit(pvz, item_offset + &amp;H58 + &amp;Hd8 * index)
             If disappeared = 0 And collected = 0 And item_type &gt;= 1 And item_type &lt;= 6 Then
-                While (GamePaused() = 1 Or MouseInGame() = 1)
-                    Delay 100
-                Wend
                 item_x = Plugin.Memory.ReadSingle(pvz, item_offset + &amp;H24 + &amp;Hd8 * index)
                 item_y = Plugin.Memory.ReadSingle(pvz, item_offset + &amp;H28 + &amp;Hd8 * index)
                 If item_x &gt;= 0.0 And item_y &gt;= 70.0 Then
@@ -497,7 +497,7 @@ End Sub
 
 <p>根据 wave 值编写针对每一波的操作. </p>
 <p>举例说明, 使用的阵型为 PE经典十炮, 节奏为核代 P6. </p>
-<p><img alt="PE经典十炮" src="images/PE10_P6.jpg" /></p>
+<p><img alt="PE经典十炮" src="images/PE经典十炮.jpg" /></p>
 <p>每一波的操作如下: </p>
 <pre><code>1~9 PP PP PP PP PP N PP PP PP
 10~19 PPA PP PP PP PP N PP PP PP PP
@@ -570,7 +570,7 @@ Call Main()
 <p>示范视频 <a href="https://www.bilibili.com/video/av14935767/">Bilibili</a> <a href="https://www.youtube.com/watch?v=vdFhgg3d97Y">YouTube</a></p>
 <p><br><br></p>
 <p>另一个例子, 阵型为 PE超前置十二炮. </p>
-<p><img alt="PE超前置十二炮" src="images/PE12_ch6.jpg" /></p>
+<p><img alt="PE超前置十二炮" src="images/PE超前置十二炮.jpg" /></p>
 <p>运行节奏为ch6 |PPCC|IPP-PP|PPCC|IPP-PP|</p>
 <p>第 1 波 PPCC, 刷新前 0.95s 两门预判炮 PP, 垫撑杆操作写到下一波. </p>
 <p>由于从点下咖啡豆到寒冰菇生效的时间较长, 第 2 波的预判冰点咖啡豆的操作放在第 1 波进行. </p>
