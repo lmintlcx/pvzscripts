@@ -1,5 +1,5 @@
 
-最近更新: 2018-10-28
+最近更新: 2018-10-29
 
 
 # 项目简介
@@ -15,12 +15,14 @@ Python 的语法相比于按键精灵的 Q 语言来说更加简洁, 另外本�
 
 本项目尚在开发中, 如有问题报告或者功能需求可联系作者. (QQ群 [491610247](https://jq.qq.com/?_wv=1027&k=5Q6zrTD))
 
+[这个视频](https://www.bilibili.com/video/av34823283/) 足够说明脚本能够达到的操作精度了. 视频采用 60fps 无损录制, ICE3 成功率约 90%, 全程无肉眼可见卡顿. 作为参考, 笔者使用的是 2015 年不到 4000 元的笔记本电脑, 双核低压 CPU + 核显, 想必早就落后于主流配置了.
+
 
 ## Python 语言基础
 
 ### 安装
 
-本项目依赖于 Python3, 目前最新版 3.7.1, 下载地址 https://www.python.org/downloads/
+本项目依赖于 Python3, 下载地址 https://www.python.org/downloads/
 
 根据自己的操作系统位数选择合适的版本, 32 位选择"x86", 64 位选择"x86-64""AMD64".
 
@@ -98,16 +100,26 @@ Python 的语法相比于按键精灵的 Q 语言来说更加简洁, 另外本�
 
 [Visual Studio 2017](https://visualstudio.microsoft.com/zh-hans/downloads/) 宇宙最强 IDE, 过于庞大不推荐
 
-**不要用记事本!!!**
-
-**不要用记事本!!!**
-
-**不要用记事本!!!**
+**不要用记事本!!!** x 3
 
 
 ## PvZ 无尽基础
 
-略 TODO
+[无尽入门教程](https://tieba.baidu.com/p/5194693832)
+
+[九章阵华录](https://tieba.baidu.com/p/5272254427)
+
+[轨道读本提要](https://tieba.baidu.com/p/5288403187)
+
+[双冰变奏](https://tieba.baidu.com/p/2699120249)
+
+[那个世界的时空](https://tieba.baidu.com/p/732011315)
+
+[冰冰教你撸炮](https://tieba.baidu.com/p/5288033944)
+
+[内存数据地址](https://tieba.baidu.com/p/2843347257)
+
+更多资料请于 [植吧精品区](https://tieba.baidu.com/f?kw=%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8&ie=utf-8&tab=good) 查阅.
 
 
 # 快速入门
@@ -161,7 +173,7 @@ for wave in range(1, 21):
 
 完整代码 [scripts/python/pe12p_p6.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe12p_p6.py)
 
-示范视频 [Bilibili](https://www.bilibili.com/video/av34824128/) [YouTube]()
+示范视频 [Bilibili](https://www.bilibili.com/video/av34824128/) [YouTube](https://youtu.be/q7tdXP0OOG4)
 
 
 
@@ -790,6 +802,7 @@ def wave3():
 # ...
 
 # 第 20 波
+def wave20():
     Countdown(150, True)
     pass
 
@@ -878,7 +891,7 @@ Pao([(2, 9), (5, 9)])
 
 完整代码 [scripts/python/pe10p_p6.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe10p_p6.py)
 
-示范视频 [Bilibili](https://www.bilibili.com/video/av34824833/) [YouTube]()
+示范视频 [Bilibili](https://www.bilibili.com/video/av34824833/) [YouTube](https://youtu.be/_vqyPvBYAIE)
 
 
 ## PE双冰十六炮
@@ -905,36 +918,36 @@ Pao([(2, 9), (5, 9)])
 
 第 20 波炮炸珊瑚, 拖够时间攒齐八炮秒杀红眼, 留下一只普僵拖时间.
 
-完整代码 [scripts/python/pe16p_ch6.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/anjian/pe16p_ch6.py)
+完整代码 [scripts/python/pe16p_ch6.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe16p_ch6.py)
 
-示范视频 [Bilibili](https://www.bilibili.com/video/av34825956/) [YouTube]()
+示范视频 [Bilibili](https://www.bilibili.com/video/av34825956/) [YouTube](https://youtu.be/8e7phSRx7uk)
 
 
 ## PE新二十二炮
 
 ![PE新二十二炮](images/PE新二十二炮.jpg)
 
-完整代码 [scripts/python/pe22p_ch6.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/anjian/pe22p_ch6.py)
+完整代码 [scripts/python/pe22p_ch6.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe22p_ch6.py)
 
-示范视频 [Bilibili](https://www.bilibili.com/video/av34826849/) [YouTube]()
+示范视频 [Bilibili](https://www.bilibili.com/video/av34826849/) [YouTube](https://youtu.be/ycfmXAMYPms)
 
 
 ## PE二十四炮
 
 ![PE二十四炮](images/PE二十四炮.jpg)
 
-完整代码 [scripts/python/pe24p_p6.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/anjian/pe24p_p6.Q)
+完整代码 [scripts/python/pe24p_p6.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe24p_p6.py)
 
-示范视频 [Bilibili](https://www.bilibili.com/video/av34827600/) [YouTube]()
+示范视频 [Bilibili](https://www.bilibili.com/video/av34827600/) [YouTube](https://youtu.be/QPwp-mqbXGM)
 
 
 ## FE二十四炮
 
 ![FE二十四炮](images/FE二十四炮.jpg)
 
-完整代码 [scripts/python/fe24p_ch9.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/anjian/fe24p_ch9.py)
+完整代码 [scripts/python/fe24p_ch9.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/fe24p_ch9.py)
 
-示范视频 [Bilibili](https://www.bilibili.com/video/av34828474/) [YouTube]()
+示范视频 [Bilibili](https://www.bilibili.com/video/av34828474/) [YouTube](https://youtu.be/p-4ZbBtxBrI)
 
 
 <!-- # 构建流程 -->

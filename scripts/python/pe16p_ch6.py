@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 
+"""
+Author: lmintlcx
+Date: 2018-10-29
+---
+Name: PE双冰十六炮
+Rhythm: ch6: PPDD|IPP-PP|PPDD|IPP-PP, (6|12|6|12)
+Video:
+- https://www.bilibili.com/video/av34825956
+- https://youtu.be/8e7phSRx7uk
+"""
+
 from pvz import *
 
 SelectCards(["复制冰", "寒冰菇", "咖啡豆", "窝瓜", "坚果", "樱桃", "花盆", "胆小", "阳光", "小喷"])

@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 
+"""
+Author: lmintlcx
+Date: 2018-10-29
+---
+Name: PE火焰十二炮
+Rhythm: P6
+Video:
+- https://www.bilibili.com/video/av34824128
+- https://youtu.be/q7tdXP0OOG4
+"""
+
 from pvz import *
 
 SelectCards()

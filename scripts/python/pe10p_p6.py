@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 
+"""
+Author: lmintlcx
+Date: 2018-10-29
+---
+Name: PE经典十炮
+Rhythm: P6: PP|PP|PP|PP|PP|N
+Video:
+- https://www.bilibili.com/video/av34824833
+- https://youtu.be/_vqyPvBYAIE
+"""
+
 from pvz import *
 
 # 释放樱桃

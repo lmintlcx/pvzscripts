@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 
+"""
+Author: lmintlcx
+Date: 2018-10-29
+---
+Name: PE二十四炮
+Rhythm: P6: PPDD|ICE2|PPSSDD|PPDD|ICE2|PPSSDD
+Video:
+- https://www.bilibili.com/video/av34827600
+- https://youtu.be/QPwp-mqbXGM
+"""
+
 from pvz import *
 
 SelectCards(["复制冰", "寒冰菇", "咖啡豆", "窝瓜", "南瓜", "樱桃", "花盆", "胆小", "阳光", "小喷"])

@@ -9,16 +9,17 @@
 <link rel="stylesheet" href="styles/atom-one-dark.css">
 </head>
 <body>
-<p>最近更新: 2018-10-28</p>
+<p>最近更新: 2018-10-29</p>
 <h1>项目简介</h1>
 <p>蟒蛇大战僵尸(Python vs. Zombies, 以下简称 pvz.py)是一个以 Python 语言写成的用于植物大战僵尸"键控"的框架, 起源于 <a href="https://tieba.baidu.com/p/4997515699">这里</a>.</p>
 <p>本项目可以免去配置构建键控脚本所需基础框架的繁重工作, 用户不需要了解其中的实现细节和复杂逻辑, 只需要使用暴露出来的接口函数, 从而可以将精力集中在轨道主流程处理上, 有效快速地完成脚本编写和视频制作.</p>
 <p>Python 的语法相比于按键精灵的 Q 语言来说更加简洁, 另外本项目没有按键精灵的通用性考虑, 只针对特定版本的植物大战僵尸游戏, 直接调用底层 Windows API 来实现相关功能, 执行效率更高.</p>
 <p>本项目只能在 Windows 7 SP1 以及更高版本上面使用, 目前支持的 Python 版本 &gt;= 3.5, 只支持植物大战僵尸原版 1.0.0.1051 版本(英文原版和汉化二版).</p>
 <p>本项目尚在开发中, 如有问题报告或者功能需求可联系作者. (QQ群 <a href="https://jq.qq.com/?_wv=1027&amp;k=5Q6zrTD">491610247</a>)</p>
+<p><a href="https://www.bilibili.com/video/av34823283/">这个视频</a> 足够说明脚本能够达到的操作精度了. 视频采用 60fps 无损录制, ICE3 成功率约 90%, 全程无肉眼可见卡顿. 作为参考, 笔者使用的是 2015 年不到 4000 元的笔记本电脑, 双核低压 CPU + 核显, 想必早就落后于主流配置了.</p>
 <h2>Python 语言基础</h2>
 <h3>安装</h3>
-<p>本项目依赖于 Python3, 目前最新版 3.7.1, 下载地址 https://www.python.org/downloads/</p>
+<p>本项目依赖于 Python3, 下载地址 https://www.python.org/downloads/</p>
 <p>根据自己的操作系统位数选择合适的版本, 32 位选择"x86", 64 位选择"x86-64""AMD64".</p>
 <p>如果不清楚自己的操作系统位数就选择 32 位的 Python 安装包.</p>
 <p><img alt="Python 版本选择" src="images/版本选择.png" /></p>
@@ -63,11 +64,16 @@
 <p><a href="http://www.gnu.org/software/emacs/download.html">Emacs</a> 神之编辑器, 过于专业不推荐</p>
 <p><a href="http://www.jetbrains.com/pycharm/download/">PyCharm</a> 成熟好用, Python 专用, 社区版免费</p>
 <p><a href="https://visualstudio.microsoft.com/zh-hans/downloads/">Visual Studio 2017</a> 宇宙最强 IDE, 过于庞大不推荐</p>
-<p><strong>不要用记事本!!!</strong></p>
-<p><strong>不要用记事本!!!</strong></p>
-<p><strong>不要用记事本!!!</strong></p>
+<p><strong>不要用记事本!!!</strong> x 3</p>
 <h2>PvZ 无尽基础</h2>
-<p>略 TODO</p>
+<p><a href="https://tieba.baidu.com/p/5194693832">无尽入门教程</a></p>
+<p><a href="https://tieba.baidu.com/p/5272254427">九章阵华录</a></p>
+<p><a href="https://tieba.baidu.com/p/5288403187">轨道读本提要</a></p>
+<p><a href="https://tieba.baidu.com/p/2699120249">双冰变奏</a></p>
+<p><a href="https://tieba.baidu.com/p/732011315">那个世界的时空</a></p>
+<p><a href="https://tieba.baidu.com/p/5288033944">冰冰教你撸炮</a></p>
+<p><a href="https://tieba.baidu.com/p/2843347257">内存数据地址</a></p>
+<p>更多资料请于 <a href="https://tieba.baidu.com/f?kw=%E6%A4%8D%E7%89%A9%E5%A4%A7%E6%88%98%E5%83%B5%E5%B0%B8&amp;ie=utf-8&amp;tab=good">植吧精品区</a> 查阅.</p>
 <h1>快速入门</h1>
 <p><img alt="PE火焰十二炮" src="images/PE火焰十二炮.jpg" /></p>
 <p>以 PE.火焰十二炮 为例, 使用节奏 P6.</p>
@@ -105,7 +111,7 @@ for wave in range(1, 21):
 <p>将框架主文件 <a href="https://github.com/lmintlcx/pvzscripts/">pvz.py</a> 和脚本<code>pe12p_p6.py</code>放在同一文件夹下.</p>
 <p>按 Shift 同时右键, 点击"在此处打开命令窗口", 输入<code>python pe12p_p6.py</code>.</p>
 <p>完整代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe12p_p6.py">scripts/python/pe12p_p6.py</a></p>
-<p>示范视频 <a href="https://www.bilibili.com/video/av34824128/">Bilibili</a> <a href="">YouTube</a></p>
+<p>示范视频 <a href="https://www.bilibili.com/video/av34824128/">Bilibili</a> <a href="https://youtu.be/q7tdXP0OOG4">YouTube</a></p>
 <h1>API 文档</h1>
 <h2>进程内存读写</h2>
 <h3><code>FindWindow(class_name, window_name)</code></h3>
@@ -508,6 +514,7 @@ def wave3():
 # ...
 
 # 第 20 波
+def wave20():
     Countdown(150, True)
     pass
 
@@ -571,7 +578,7 @@ Pao([(2, 9), (5, 9)])
 <p>第 6/15 波使用核蘑菇代奏. 核蘑菇与玉米炮生效时间相同, 同样在预判过后 373cs. 点下咖啡豆到唤醒 198cs, 唤醒到生效 100cs, 所以要在预判 (373 - 198 - 100)cs 后释放核蘑菇. 第 6 波弹坑 3-9, 第 15 波弹坑 4-9.</p>
 <p>第 9/19 波分别预留 4 门炮(极限出怪下)用于手动收尾操作.</p>
 <p>完整代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe10p_p6.py">scripts/python/pe10p_p6.py</a></p>
-<p>示范视频 <a href="https://www.bilibili.com/video/av34824833/">Bilibili</a> <a href="">YouTube</a></p>
+<p>示范视频 <a href="https://www.bilibili.com/video/av34824833/">Bilibili</a> <a href="https://youtu.be/_vqyPvBYAIE">YouTube</a></p>
 <h2>PE双冰十六炮</h2>
 <p><img alt="PE双冰十六炮" src="images/PE双冰十六炮.jpg" /></p>
 <p>运行节奏为 ch6 |PPDD|IPP-PP|PPDD|IPP-PP|.</p>
@@ -584,20 +591,20 @@ Pao([(2, 9), (5, 9)])
 <p>计算得知在 IPP 操作之后 (1200 + 95 - 0 - 373 - 200)s 发射激活炮 PP 即可.</p>
 <p>第 9/19 波额外留出一定的炮数手动收尾(也可以算好时间自动操作收尾).</p>
 <p>第 20 波炮炸珊瑚, 拖够时间攒齐八炮秒杀红眼, 留下一只普僵拖时间.</p>
-<p>完整代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/anjian/pe16p_ch6.py">scripts/python/pe16p_ch6.py</a></p>
-<p>示范视频 <a href="https://www.bilibili.com/video/av34825956/">Bilibili</a> <a href="">YouTube</a></p>
+<p>完整代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe16p_ch6.py">scripts/python/pe16p_ch6.py</a></p>
+<p>示范视频 <a href="https://www.bilibili.com/video/av34825956/">Bilibili</a> <a href="https://youtu.be/8e7phSRx7uk">YouTube</a></p>
 <h2>PE新二十二炮</h2>
 <p><img alt="PE新二十二炮" src="images/PE新二十二炮.jpg" /></p>
-<p>完整代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/anjian/pe22p_ch6.py">scripts/python/pe22p_ch6.py</a></p>
-<p>示范视频 <a href="https://www.bilibili.com/video/av34826849/">Bilibili</a> <a href="">YouTube</a></p>
+<p>完整代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe22p_ch6.py">scripts/python/pe22p_ch6.py</a></p>
+<p>示范视频 <a href="https://www.bilibili.com/video/av34826849/">Bilibili</a> <a href="https://youtu.be/ycfmXAMYPms">YouTube</a></p>
 <h2>PE二十四炮</h2>
 <p><img alt="PE二十四炮" src="images/PE二十四炮.jpg" /></p>
-<p>完整代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/anjian/pe24p_p6.Q">scripts/python/pe24p_p6.py</a></p>
-<p>示范视频 <a href="https://www.bilibili.com/video/av34827600/">Bilibili</a> <a href="">YouTube</a></p>
+<p>完整代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe24p_p6.py">scripts/python/pe24p_p6.py</a></p>
+<p>示范视频 <a href="https://www.bilibili.com/video/av34827600/">Bilibili</a> <a href="https://youtu.be/QPwp-mqbXGM">YouTube</a></p>
 <h2>FE二十四炮</h2>
 <p><img alt="FE二十四炮" src="images/FE二十四炮.jpg" /></p>
-<p>完整代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/anjian/fe24p_ch9.py">scripts/python/fe24p_ch9.py</a></p>
-<p>示范视频 <a href="https://www.bilibili.com/video/av34828474/">Bilibili</a> <a href="">YouTube</a></p>
+<p>完整代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/fe24p_ch9.py">scripts/python/fe24p_ch9.py</a></p>
+<p>示范视频 <a href="https://www.bilibili.com/video/av34828474/">Bilibili</a> <a href="https://youtu.be/p-4ZbBtxBrI">YouTube</a></p>
 <!-- # 构建流程 -->
 
 <!-- 略 -->

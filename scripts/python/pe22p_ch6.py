@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 
+"""
+Author: lmintlcx
+Date: 2018-10-29
+---
+Name: PE新二十二炮
+Rhythm: ch6: PPSDDC|IPP-PPDD|PPSDDC|IPP-PPDD, (6|12|6|12)
+Video:
+- https://www.bilibili.com/video/av34826849
+- https://youtu.be/ycfmXAMYPms
+"""
+
 from pvz import *
 
 # 种垫材

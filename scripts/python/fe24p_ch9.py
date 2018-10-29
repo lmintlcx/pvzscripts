@@ -1,5 +1,16 @@
 # -*- coding: utf-8 -*-
 
+"""
+Author: lmintlcx
+Date: 2018-10-29
+---
+Name: FE二十四炮
+Rhythm: ch9-56s: PSD/PDC|IPP-PPDD|PSD/PDC|IPP-PPDD|PSD/PDC|AD/PDC|PSD/PDC, (6|13|6|13|6|6|6)
+Video:
+- https://www.bilibili.com/video/av34828474
+- https://youtu.be/p-4ZbBtxBrI
+"""
+
 from pvz import *
 
 # Ice-shroom
