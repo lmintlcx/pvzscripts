@@ -8,8 +8,8 @@ __author__ = "lmintlcx"
 __copyright__ = "Copyright 2018, lmintlcx"
 __credits__ = ["no_doudle"]
 __license__ = "GPL"
-__date__ = "2018-10-28"
-__version__ = "3.0.0"
+__date__ = "2018-10-31"
+__version__ = "3.0.1"
 __maintainer__ = "lmintlcx"
 __email__ = "lmintlcx@gmail.com"
 __status__ = "Prototype"
@@ -96,6 +96,7 @@ _UINT = wintypes.UINT
 _LONG = wintypes.LONG
 _HWND = wintypes.HWND
 _HANDLE = wintypes.HANDLE
+_HDC = wintypes.HDC
 _LPVOID = wintypes.LPVOID
 _LPCVOID = wintypes.LPCVOID
 _LPCWSTR = wintypes.LPCWSTR
@@ -133,6 +134,7 @@ _LPTHREAD_START_ROUTINE = ctypes.WINFUNCTYPE(_DWORD, _LPVOID)
 _user32 = ctypes.windll.user32
 _kernel32 = ctypes.windll.kernel32
 _winmm = ctypes.windll.winmm
+_gdi32 = ctypes.windll.gdi32
 
 
 ### win32 apis
@@ -342,6 +344,29 @@ _SetPriorityClass = _kernel32.SetPriorityClass
 _SetPriorityClass.argtypes = [_HANDLE, _DWORD]
 _SetPriorityClass.restype = _BOOL
 
+# HDC GetDC(
+#   HWND hWnd
+# );
+_GetDC = _user32.GetDC
+_GetDC.argtypes = [_HWND]
+_GetDC.restype = _HDC
+
+# int GetDeviceCaps(
+#   HDC hdc,
+#   int index
+# );
+_GetDeviceCaps = _gdi32.GetDeviceCaps
+_GetDeviceCaps.argtypes = [_HDC, _INT]
+_GetDeviceCaps.restype = _INT
+
+# int ReleaseDC(
+#   HWND hWnd,
+#   HDC  hDC
+# );
+_ReleaseDC = _user32.ReleaseDC
+_ReleaseDC.argtypes = [_HWND, _HDC]
+_ReleaseDC.restype = _INT
+
 
 ### win32 constants
 
@@ -375,6 +400,9 @@ _VK_RIGHT = 0x27
 _VK_DOWN = 0x28
 
 _HIGH_PRIORITY_CLASS = 0x00000080
+
+_HORZRES = 8
+_DESKTOPHORZRES = 118
 
 
 ### test
@@ -814,8 +842,30 @@ def _until_relative_time(time_relative_cs):
 
 ### Mouse
 
+_dpi_scale = 1.0
+
+
+def _get_dpi_scale():
+    """
+    获取 DPI 缩放比例.
+    """
+    screen = _GetDC(None)
+    if screen is not None:
+        virtual_width = _GetDeviceCaps(screen, _HORZRES)
+        physical_width = _GetDeviceCaps(screen, _DESKTOPHORZRES)
+        _ReleaseDC(None, screen)
+        scale = physical_width / virtual_width
+    else:
+        scale = 1.0
+
+    global _dpi_scale
+    _dpi_scale = scale
+    _logger.info(f"Get DPI scale {scale}.")
+
 
 def _MAKELONG(low, high):
+    if _dpi_scale != 1.0:
+        low, high = int(low / _dpi_scale), int(high / _dpi_scale)
     return ((high & 0xFFFF) << 16) | (low & 0xFFFF)
 
 
@@ -1088,7 +1138,7 @@ _game_scene = 2
 # (row, col, imitater) * n for 1 <= n <= 10
 _seeds_list = []
 
-# 卡片序号
+# 卡片序号, 目前用到的仅有咖啡豆
 _seeds_index = [None] * (48 * 2)
 
 
@@ -1990,6 +2040,8 @@ def _on_start():
     # disable log
     _enable_logger(False)  # TODO
     _set_logger_level("INFO")
+
+    _get_dpi_scale()
 
     if _find_pvz_1051():
         _SetPriorityClass(_pvz_handle, _HIGH_PRIORITY_CLASS)

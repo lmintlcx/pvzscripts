@@ -874,7 +874,9 @@ Pao([(2, 9), (5, 9)])
 节奏为核代 P6, 每一波的操作如下:
 
 > 1~9 PP PP PP PP PP N PP PP PP
+
 > 10~19 PPA PP PP PP PP N PP PP PP PP
+
 > 20 P-PP
 
 具体描述一下:
@@ -948,6 +950,16 @@ Pao([(2, 9), (5, 9)])
 完整代码 [scripts/python/fe24p_ch9.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/fe24p_ch9.py)
 
 示范视频 [Bilibili](https://www.bilibili.com/video/av34828474/) [YouTube](https://youtu.be/p-4ZbBtxBrI)
+
+
+
+## PE后花园十二炮
+
+![PE后花园十二炮](images/PE后花园十二炮.jpg)
+
+完整代码 [scripts/python/pe12p_ch6.py](https://github.com/lmintlcx/pvzscripts/blob/master/scripts/python/pe12p_ch6.py)
+
+示范视频 [Bilibili](https://www.bilibili.com/video/av34923817/) [YouTube](https://youtu.be/v6EKVQJnrCw)
 
 
 <!-- # 构建流程 -->
