@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# coding=utf-8
 # usage: md2html.py src_file dst_file
 
 import os
@@ -13,13 +13,13 @@ def md2html(md_str):
 <meta charset="UTF-8">
 <title>PvZ Scripts</title>
 <link rel="icon" href="/favicon.ico">
-<link rel="stylesheet" href="normalize.css">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="styles/atom-one-dark.css">
+<link rel="stylesheet" href="/scripts/normalize.css">
+<link rel="stylesheet" href="/scripts/style.css">
+<link rel="stylesheet" href="/scripts/styles/github.css">
 </head>
 <body>
 %s
-<script src="highlight.js"></script>
+<script src="/scripts/highlight.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 </body>
 </html>
