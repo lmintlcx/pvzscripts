@@ -123,8 +123,12 @@ def fire_cob_by_crood(cob_row, cob_col, fall_row, fall_col, time_delay_cs=0):
     mouse.safe_click()
     mouse_lock.release()
 
+    # TODO
     logger.info(
-        f"Fire Cob Cannon index {cobs.cob_index} from {(cob_row, cob_col)} to {(fall_row, fall_col)} delay {time_delay_cs}."
+        f"Fire Cob Cannon {cobs.cob_index}"
+        f" from {(cob_row, cob_col)}"
+        f" to {(fall_row, fall_col)}"
+        f" delay {time_delay_cs}."
     )
 
 

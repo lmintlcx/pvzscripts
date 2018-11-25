@@ -26,8 +26,8 @@ from pvz import *
 
 # def ChanDianCai():
 #     diancai_spot = [(1, 9), (2, 9), (5, 9), (6, 9)]
-#     for i in range(4):
-#         Shovel(diancai_spot[i])
+#     for spot in diancai_spot:
+#         Shovel(spot)
 
 
 def DianCai():

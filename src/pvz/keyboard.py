@@ -70,7 +70,7 @@ def pause_game():
     """
     暂停游戏.
     """
-    if not utils.game_paused():
+    if utils.game_ui() == 3 and not utils.game_paused():
         press_space()
 
 
@@ -78,5 +78,5 @@ def restore_game():
     """
     恢复游戏.
     """
-    if utils.game_paused():
+    if utils.game_ui() == 3 and utils.game_paused():
         press_space()

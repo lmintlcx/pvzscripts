@@ -95,9 +95,9 @@ def StartTallNutKeeperThread(spots):
     # 更新高坚果
     def UpdateTallnut(r, c):
         slots_offset = ReadMemory("unsigned int", 0x6A9EC0, 0x768, 0x144)
-        seed_usable = ReadMemory("bool", slots_offset + 0x70 + tallnut_seed * 0x50) # 该卡片是否可用
-        seed_cost = ReadMemory("int", 0x69F2C0 + 23 * 0x24) # 卡片价格
-        sun = ReadMemory("int", 0x6A9EC0, 0x768, 0x5560) # 当前阳光
+        seed_usable = ReadMemory("bool", slots_offset + 0x70 + tallnut_seed * 0x50)  # 该卡片是否可用
+        seed_cost = ReadMemory("int", 0x69F2C0 + 23 * 0x24)  # 卡片价格
+        sun = ReadMemory("int", 0x6A9EC0, 0x768, 0x5560)  # 当前阳光
         if seed_usable and sun >= seed_cost:
             while GamePaused():
                 Delay(1)
@@ -109,7 +109,7 @@ def StartTallNutKeeperThread(spots):
             Delay(1)
         Card("睡莲", spot)
         Card("高坚果", spot)
-        if spot != spots[-1]: # 不是最后一个
+        if spot != spots[-1]:  # 不是最后一个
             Delay(3000 + 1)
     Delay(1)
 
@@ -127,8 +127,8 @@ def StartTallNutKeeperThread(spots):
                 while GamePaused():
                     Delay(1)
                 print("Planting Umbrella Leaf to protect 2 Tall-nuts.")
-                Card("睡莲", umbrella_row, umbrella_col) 
-                Card("伞叶", umbrella_row, umbrella_col) 
+                Card("睡莲", umbrella_row, umbrella_col)
+                Card("伞叶", umbrella_row, umbrella_col)
                 umbrella_planted = True
             if not umbrella_shoveled and CurrentWave() >= 11:
                 while GamePaused():
@@ -141,7 +141,7 @@ def StartTallNutKeeperThread(spots):
         # 遍历指定要种植高坚果的格点
         for spot in spots:
             row, col = spot
-            index = GetTheTallnutIndex(row, col) # 获取该格点的高坚果下标
+            index = GetTheTallnutIndex(row, col)  # 获取该格点的高坚果下标
             if index is None:
                 # 没有则补种高坚果
                 UpdateTallnut(row, col)
@@ -154,7 +154,8 @@ def StartTallNutKeeperThread(spots):
                     UpdateTallnut(row, col)
                     Delay(3000 + 1)
 
-        Sleep(100) # 每 1s 检测一次
+        Sleep(100)  # 每 1s 检测一次
+
 
 ###
 ###

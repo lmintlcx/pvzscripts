@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name="pvz",
-    version="3.1.3",
+    version="3.1.4",
     author="lmintlcx",
     author_email="lmintlcx@gmail.com",
     description="Python vs. Zombies",

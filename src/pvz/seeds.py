@@ -32,8 +32,8 @@ seeds_string = [
     ["Grave Buster", "墓碑吞噬者", "墓碑", "墓碑苔藓", "苔藓", "咬咬碑"],
     ["Hypno-shroom", "魅惑菇", "魅惑", "迷惑菇", "催眠蘑菇", "催眠", "花蘑菇", "毒蘑菇"],
     ["Scaredy-shroom", "胆小菇", "胆小", "胆怯蘑菇", "胆小鬼蘑菇", "杠子蘑菇"],
-    ["Ice-shroom", "寒冰菇", "冰菇", "冷冻蘑菇", "冰蘑菇", "面瘫", "蓝冰","原版冰", "冰"],
-    ["Doom-shroom", "毁灭菇", "核蘑菇", "核弹", "核武", "毁灭", "末日蘑菇", "末日菇", "末日", "黑核", "原版核","核"],
+    ["Ice-shroom", "寒冰菇", "冰菇", "冷冻蘑菇", "冰蘑菇", "面瘫", "蓝冰", "原版冰", "冰"],
+    ["Doom-shroom", "毁灭菇", "核蘑菇", "核弹", "核武", "毁灭", "末日蘑菇", "末日菇", "末日", "黑核", "原版核", "核"],
     ["Lily Pad", "睡莲", "荷叶", "莲叶"],
     ["Squash", "窝瓜", "倭瓜", "窝瓜大叔", "倭瓜大叔", "镇压者"],
     ["Threepeater", "三线射手", "三线", "三头豌豆", "三头", "三管", "管"],
@@ -47,7 +47,7 @@ seeds_string = [
     ["Cactus", "仙人掌", "小仙", "掌"],
     ["Blover", "三叶草", "三叶", "风扇", "吹风", "愤青"],
     ["Split Pea", "裂荚射手", "裂荚", "双头", "分裂豌豆", "双头豌豆"],
-    ["Starfruit", "杨桃", "星星", "星星果", "五角星", "1437", "桃"],
+    ["Starfruit", "杨桃", "星星", "星星果", "五角星", "1437", "大帝", "桃"],
     ["Pumpkin", "南瓜头", "南瓜", "南瓜罩", "套"],
     ["Magnet-shroom", "磁力菇", "磁铁", "磁力蘑菇", "磁"],
     ["Cabbage-pult", "卷心菜投手", "包菜", "卷心菜", "卷心菜投抛者"],
@@ -61,7 +61,7 @@ seeds_string = [
     ["Gatling Pea", "机枪射手", "机枪", "加特林豌豆", "加特林", "格林豌豆", "枪"],
     ["Twin Sunflower", "双子向日葵", "双子", "双向", "双花"],
     ["Gloom-shroom", "忧郁蘑菇", "忧郁", "忧郁菇", "章鱼", "曾哥", "曾哥蘑菇", "曾"],
-    ["Cattail", "香蒲", "猫尾", "猫尾香蒲", "小猫", "猫"],
+    ["Cattail", "香蒲", "猫尾草", "猫尾", "猫尾香蒲", "小猫", "猫"],
     ["Winter Melon", "冰瓜", "冰西瓜", "冰冻西瓜"],
     ["Gold Magnet", "吸金磁", "吸金", "吸金草", "金磁铁"],
     ["Spikerock", "地刺王", "钢刺", "钢地刺", "尖刺岩石", "石荆棘"],
@@ -262,9 +262,7 @@ def select_all_seeds(seeds_selected=None):
                 break
 
     if len(seeds_selected) != slots_count:
-        raise Exception(
-            f"Seeds count {len(seeds_selected)} != slots count {slots_count}."
-        )
+        raise Exception(f"Seeds count {len(seeds_selected)} != slots count {slots_count}.")
 
     # 卡片列表转换为标准形式
     seeds_selected = [seed_to_crood(seed) for seed in seeds_selected]
@@ -298,6 +296,7 @@ def lets_rock():
         while process.read_memory("bool", 0x6A9EC0, 0x320, 0x94, 0x54):
             mouse.left_click(320, 400)
             time.sleep(0.3)
+
 
 def select_seeds_and_lets_rock(seeds_selected=None):
     """

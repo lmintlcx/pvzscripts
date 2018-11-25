@@ -13,6 +13,7 @@ from . import process
 from . import utils
 from . import delay
 from . import mouse
+from . import keyboard
 from . import seeds
 from . import scene
 from . import operate
@@ -134,6 +135,7 @@ def get_ice_seed_list():
             ice_seeds.append(i)
     logger.info(f"Get ice seed index {[i + 1 for i in ice_seeds]}.")
     return ice_seeds
+
 
 # # 获取所有场上寒冰菇的坐标.
 # def get_ice_spots_list():
@@ -283,3 +285,27 @@ def activate_ice():
         scene.click_grid(spot)
     mouse.safe_click()
     operate.mouse_lock.release()
+
+
+@running_in_thread
+def immobilize_dancer():
+    """
+    女仆秘籍. 通过暂停控制舞王/伴舞的跳舞/行走. (此函数实现不佳不建议使用.)
+    """
+
+    while utils.game_ui() != 3:
+        time.sleep(0.01)
+    # keyboard.pause_game()
+
+    logger.info("Start immobilize dancer.")
+
+    while utils.game_ui() == 3:
+        while (((utils.dance_clock() + 10) % (23 * 20)) // 20) > 11:
+            time.sleep(0.01)
+        keyboard.pause_game()
+        time.sleep(0.5)
+        while (((utils.dance_clock()) % (23 * 20)) // 20) <= 11:
+            time.sleep(0.01)
+        keyboard.restore_game()
+
+    logger.info("Stop immobilize dancer.")

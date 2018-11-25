@@ -17,7 +17,7 @@ var i = Math.floor(Math.random() * s.length);
 document.all("jjdjr").innerHTML=s[i];
 </script>
 
-<p>最近更新: 2018-11-24</p>
+<p>最近更新: 2018-11-25</p>
 <h1>项目简介</h1>
 <p>蟒蛇大战僵尸(Python vs. Zombies)是一个以 Python 语言写成的用于植物大战僵尸键控(脚本操控)的框架, 起源于 <a href="https://tieba.baidu.com/p/4997515699">这里</a>.</p>
 <p>本项目可以免去配置构建半自动化脚本所需基础框架的繁重工作, 用户不需要了解其中的实现细节和复杂逻辑, 只需要使用暴露出来的接口函数, 从而可以将精力集中在轨道主流程处理上, 有效快速地完成脚本编写和视频制作.</p>
@@ -168,7 +168,7 @@ document.all("jjdjr").innerHTML=s[i];
 <p>第 9/19 波(旗帜波前一波)刷新后, 倒计时被设置为 4500 并正常减少, 本波刷出至少 400cs 并且倒计时减少至 200 前将本波僵尸(除伴舞)全部消灭则被设置为 200. 倒计时减少至 5 时显示红字, 在 5 继续停留 25cs 在 4 停留 725cs, 由红字倒计时 <code>[[[6a9ec0] +768] +55a4]</code> 代替该值从 750 减少至 0, 即倒计时减少至 5 再过 750cs 之后(减少至 4 再过 725cs 之后)刷出下一波. (视觉红字在刷出前 85cs 消失.)</p>
 <p>第 20 波(最后一波)刷新后, 倒计时被设置为 5500, 正常减少至 0 时激活白字, 刷出后将场上僵尸全部消灭则立即激活白字并停止倒计时. 白字出现后 500cs 结束本次选卡并将倒计时重置为 600.</p>
 <p>此外每波僵尸刷新时倒计时被设置为 2500~3100 之间的随机数, 正常减少至 0 时刷出下一波. 同时确定的还有刷新触发(激活/临界)血量, 为本波总血量的 0.5~0.65 倍.</p>
-<p>在本波刷出至少 400cs 并且倒计时减少至 200 前, 若本波僵尸总血量不大于刷新激活血量, 则刷新倒计时被设置为 200, 即激活刷新 200cs 后刷出下一波. (两波僵尸的刷新间隔不小于 601cs.)</p>
+<p>在本波刷出至少 400cs 并且倒计时减少至 200 前, 若本波僵尸总血量不大于刷新激活血量, 则刷新倒计时被设置为 200, 即激活刷新 201cs 后刷出下一波. (两波僵尸的刷新间隔不小于 601cs.)</p>
 <p>本波僵尸总血量计算方式为: (除魅惑断头秒杀垂死小偷外僵尸的)本体血量 + I类饰品血量 + 0.2 * II类饰品血量.</p>
 <p>P6 节奏下, 每波僵尸刷新即消灭的一轮时长为 600+601*17+(601-5+750)*2+0+500=14009 (cs), 第 9/19/20 波拖够时间的一轮时长为 600+601*17+(4500-5+750)*2+5500+500=27307 (cs).</p>
 <p><em>以上部分数据与植吧已有资料有出入, 读者自行甄别.</em></p>
@@ -186,7 +186,7 @@ document.all("jjdjr").innerHTML=s[i];
 <p>DE/PE/RE 白天有天降阳光, 掉落间隔 = min{已掉落阳光数量 x 10 + 425, 950} + rand(0, 275), 开局掉落较快, 掉落 52 个之后稳定在 950~1225.</p>
 <p>NE/FE/ME 夜间蘑菇无须唤醒.</p>
 <p>DE/NE 舞王只在 2/3/4 路出现.</p>
-<p>NE 无冰车, 关底前五列冒出墓碑, 墓碑冒出一只普僵/路障/铁桶. 场上最多 12 块墓碑, 墓碑未满且前场没空位则顶掉植物(玉米炮顶掉前轮不受影响, 即"压碑").</p>
+<p>NE 无冰车, 关底前五列冒出一块墓碑, 每块墓碑冒出一只普僵/路障. 场上最多 12 块墓碑, 墓碑未满且前场没空位则顶掉植物(玉米炮顶掉前轮不受影响, 即"压碑").</p>
 <p>PE/FE 3/4 路有水池, 水路植物需要种植在睡莲上, 有鸭子潜水海豚, 关底水路前四列出现珊瑚三人组(普僵/路障/铁桶).</p>
 <p>FE 前场有浓雾, 可用三叶草临时吹走或者灯笼(火树)照亮.</p>
 <p>RE/ME 后场倾斜, 植物需要种植在花盆上, 无矿工舞王, 存在上界之风, 关底前五列出现空降三人组(普僵/路障/铁桶).</p>
@@ -651,7 +651,7 @@ for wave in range(1, 21):
 </li>
 </ul>
 <h1>示例</h1>
-<p><strong>以下部分脚本后期有更新, 可能会出现代码操作和视频内容不一致的情况.</strong></p>
+<p><strong>以下部分脚本后期有更新, 可能会出现代码和视频内容不一致的情况.</strong></p>
 <h2>PE经典十二炮</h2>
 <p><img alt="PE经典十二炮" src="/scripts/images/PE经典十二炮.jpg" /></p>
 <p>使用节奏 P6.</p>
@@ -662,7 +662,7 @@ for wave in range(1, 21):
 <p>第 10 波推迟到 33cs 预判, 同时补炸樱桃. 炮飞行时间 373cs, 樱桃释放后 100cs 爆炸, 在 (373 - 100)cs 后释放樱桃让樱桃与玉米炮同时生效.</p>
 <p>第 20 波预判 150cs 炮炸珊瑚, 落点 4-7. 等待 90cs 后(等效预判 60cs)往前场发射两枚玉米炮, 然后关底手动收尾或者编写脚本自动收尾.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE12_P6.py">PE12_P6.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av33569737/">Bilibili</a> <a href="https://youtu.be/sHGGMe3xxeY">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av33569737/">Bilibili</a> / <a href="https://youtu.be/sHGGMe3xxeY">YouTube</a></p>
 <h2>PE经典十炮</h2>
 <p><img alt="PE经典十炮" src="/scripts/images/PE经典十炮.jpg" /></p>
 <p>节奏为核代 P6, 每一波的操作如下:</p>
@@ -679,7 +679,7 @@ for wave in range(1, 21):
 <p>第 9/19 波分别预留 4 门炮(极限出怪下)用于手动收尾操作或者编写脚本自动收尾.</p>
 <p>另外, 定义了一个"偷菜"函数并且运行在子线程, 第 11 波模拟被小偷偷取后重新种植的情况. (示例用意, 可优化.)</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE10_P6-N.py">PE10_P6-N.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34824833/">Bilibili</a> <a href="https://youtu.be/_vqyPvBYAIE">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av34824833/">Bilibili</a> / <a href="https://youtu.be/_vqyPvBYAIE">YouTube</a></p>
 <h2>PE二十四炮</h2>
 <p><img alt="PE二十四炮" src="/scripts/images/PE二十四炮.jpg" /></p>
 <p>节奏依然是万能的 P6, PPDD|ICE2|PPSSDD|PPDD|ICE2|PPSSDD.</p>
@@ -688,7 +688,7 @@ for wave in range(1, 21):
 <p>六神乱舞, 四炮齐发秒白眼并触发红眼投掷, 两炮拦截并重复伤害红眼以及收掉撑杆.</p>
 <p>这里用到了内置存冰点冰函数, 只需指定存冰点, 本项目会自动在可用的情况下及时存冰.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE24_P6-2I.py">PE24_P6-2I.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34827600/">Bilibili</a> <a href="https://youtu.be/QPwp-mqbXGM">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av34827600/">Bilibili</a> / <a href="https://youtu.be/QPwp-mqbXGM">YouTube</a></p>
 <h2>PE超前置十六炮</h2>
 <p><img alt="PE超前置十六炮" src="/scripts/images/PE超前置十六炮.jpg" /></p>
 <p>运行节奏为 ch6, |PPDD|IPP-PP|PPDD|IPP-PP|.</p>
@@ -702,7 +702,7 @@ for wave in range(1, 21):
 <p>第 9/19 波额外留出一定的炮数手动收尾(也可以算好时间自动操作收尾).</p>
 <p>第 20 波炮炸珊瑚, 拖够时间攒齐八炮秒杀红眼, 留下一只普僵拖时间.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE16_ch6.py">PE16_ch6.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34825956/">Bilibili</a> <a href="https://youtu.be/8e7phSRx7uk">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av34825956/">Bilibili</a> / <a href="https://youtu.be/8e7phSRx7uk">YouTube</a></p>
 <h2>PE超前置十二炮</h2>
 <p><img alt="PE超前置十二炮" src="/scripts/images/PE超前置十二炮.jpg" /></p>
 <p>节奏为 ch6, PPCC|IPP-PP|PPCC|IPP-PP.</p>
@@ -717,7 +717,7 @@ for wave in range(1, 21):
 <p>第 19 波我们假设 1 路留有红眼, 更合理的方式是预留炮手动收尾或者更智能地判断哪一路留有红眼.</p>
 <p>第 20 波炮炸珊瑚时为了避免炮落点位于自身附近无法发射, 预判时机提前 30cs, 点炮身 30cs 之后再发射.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE12_ch6.py">PE12_ch6.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34923817/">Bilibili</a> <a href="https://youtu.be/v6EKVQJnrCw">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av34923817/">Bilibili</a> / <a href="https://youtu.be/v6EKVQJnrCw">YouTube</a></p>
 <h2>PE新二十二炮</h2>
 <p><img alt="PE新二十二炮" src="/scripts/images/PE新二十二炮.jpg" /></p>
 <p>ch6, PSD/PDC|IPP-PPDD|PSD/PDC|IPP-PPDD.</p>
@@ -727,7 +727,7 @@ for wave in range(1, 21):
 <p>下半场刷新后 180 落点 7.2 列热过渡炮收本波矿工冰车和上波撑杆.</p>
 <p>其他细节请看代码注释.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE22_ch6.py">PE22_ch6.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34826849/">Bilibili</a> <a href="https://youtu.be/ycfmXAMYPms">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av34826849/">Bilibili</a> / <a href="https://youtu.be/ycfmXAMYPms">YouTube</a></p>
 <h2>FE二十四炮</h2>
 <p><img alt="FE二十四炮" src="/scripts/images/FE二十四炮.jpg" /></p>
 <p>ch9-56s: PSD/PDC|IPP-PPDD|PSD/PDC|IPP-PPDD|PSD/PDC|AD/PDC|PSD/PDC, (6|13|6|13|6|6|6).</p>
@@ -737,7 +737,7 @@ for wave in range(1, 21):
 <p>多个<code>Until</code>连用时注意参数大小按时间顺序从小到大.</p>
 <p>适当调节波长等数据保证复用炮冷却能跟上.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/FE24_ch9.py">FE24_ch9.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34828474/">Bilibili</a> <a href="https://youtu.be/p-4ZbBtxBrI">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av34828474/">Bilibili</a> / <a href="https://youtu.be/p-4ZbBtxBrI">YouTube</a></p>
 <h2>PE真二炮</h2>
 <p><img alt="PE真二炮" src="/scripts/images/PE真二炮.jpg" /></p>
 <p>节奏 ch5-35.4s: PPddCC|IPPCC-PPDD|IPPCC-PPDD, (6|14.7|14.7)</p>
@@ -747,7 +747,33 @@ for wave in range(1, 21):
 <p>冰波刷新后 630 用垫, 垫住快速僵尸并减压红眼. 巨人砸垫材 134 收手 74, 激活炮发炮前 (134 + 74) * 2 - 373 = 43cs 铲除垫材避免本波白眼受垫干扰空拦.</p>
 <p>上下半场均使用连续拦截, 水路临时高坚果. 附带一个简单的高坚果维护函数供参考.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE16_ch5.py">PE16_ch5.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av35369870/">Bilibili</a> <a href="https://youtu.be/dS2iNkAOoHQ">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av35369870/">Bilibili</a> / <a href="https://youtu.be/dS2iNkAOoHQ">YouTube</a></p>
+<h2>PE垫材二十四炮</h2>
+<p><img alt="PE垫材二十四炮" src="/scripts/images/PE垫材二十四炮.jpg" /></p>
+<p>P6-C, PDC|PDC|PDC|PDC|PDC|PDC.</p>
+<p>调整炮序使得 P 均用前场炮 D 均用后场炮.</p>
+<p>垫材选用价格少冷却快的植物, 不早于玉米炮发射后 81 种植, 尽早铲除以免巨人受垫干扰空拦. 垫材函数放在单独的线程运行(新开线程有一定开销不过此处影响不大).</p>
+<p>巨人对 78 列炮 887 开始举锤, 加上一次扔小鬼两次砸垫材一次砸炮, D 需要在 887 + (105 + 37) + (134 + 74) * 2 + 134 = 1579 之前落下, 对应的 P 预判时间不晚于 1579 - 108 - 600 - 600 - 373 = -102.</p>
+<p>第 10 波至少三个运算量以期消除延迟, 半场 PDC 另一半场分配两门炮, 考虑到玉米炮冷却问题以及处理小偷的需求, 第三个额外运算量不使用樱桃而是用稍晚的同步炮秒杀白眼并炸小偷, 再用樱桃拦截.</p>
+<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE24_P6-C.py">PE24_P6-C.py</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av36724031/">Bilibili</a> / <a href="https://youtu.be/EXdlnIGzKAg">YouTube</a></p>
+<h2>NE舞夜惊魂</h2>
+<p><img alt="NE舞夜惊魂" src="/scripts/images/NE舞夜惊魂.jpg" /></p>
+<p>P6-C, PC|PC|PC|PC|PC|PC.</p>
+<p>控制舞王/伴舞行走还是舞蹈的时钟 <code>[[6A9EC0]+838]</code> 不随暂停变化, 通过暂停来跳过行走的过程使舞王/伴舞原地踏步, 即女仆秘籍.</p>
+<p>曾哥的命中判定相比开火判定收缩 1 个像素, 利用固定位置的伴舞使曾哥处于永动状态.</p>
+<p>1 路地刺王加两曾杀跳跳.</p>
+<p>2 路常规预判炸(95cs 预判), 4 路延迟炸撑杆(15cs 预判).</p>
+<p>3 路重叠火力攻击.</p>
+<p>4 路两个免费垫材轮流垫舞王/红眼. 垫材函数放在单独的线程运行.</p>
+<p>刷新后 175 (开炮后 175 + 15) 放垫材, 舞王受垫后 43 开始召唤, 召唤用时 150, 伴舞完全出土前即可被炸.</p>
+<p>1/5 路靠 2/4 路冰瓜溅射减速有红眼砸炮可能.</p>
+<p>玉米炮前轮的花盆可以被冰车投篮车碾掉/小丑炸掉/墓碑顶掉.</p>
+<p>黑夜场地最多冒出 12 块墓碑.</p>
+<p>墓碑僵尸大约刷新后 325 冒头, 350 开啃 (目测数据仅供参考), 预判时机 325 - 373 &lt; x &lt; 350 - 373.</p>
+<p>此阵运行无阳光消耗.</p>
+<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/NE12_P6-C.py">NE12_P6-C.py</a></p>
+<p>演示视频 <a href="http://www.bilibili.com/video/av36765461/">Bilibili</a> / <a href="https://youtu.be/lHwCc5WCSq4">YouTube</a></p>
 <h1>API 文档</h1>
 <p><strong>以下公开接口函数均采用大驼峰法命名, 对应的内部实现均为下划线法命名并以下划线开头.</strong></p>
 <h2>查找进程读写内存</h2>
@@ -865,7 +891,7 @@ for wave in range(1, 21):
 <p>列表长度需与卡槽格数相同. 单张卡片 seed 可用 int/tuple/str 表示, 不同表示方法可混用.</p>
 <p>seed(int): 卡片序号, 0 为豌豆射手, 47 为玉米加农炮, 对于模仿者这个数字再加上 48.</p>
 <p>seed(tuple): 卡片位置, 用 (行, 列, 是否模仿者) 表示, 第三项可省略, 默认非模仿者.</p>
-<p>seed(str): 卡片名称, 参考 seeds.py/seeds_string, 包含了一些常用名字.</p>
+<p>seed(str): 卡片常用名称参考附录.</p>
 <p>@示例:</p>
 <pre><code class="python">SelectCards()
 </code></pre>
@@ -990,6 +1016,64 @@ def this_function_runs_on_subthread():
 <h3><code>Coffee()</code></h3>
 <p>点冰. 使用咖啡豆激活存冰.</p>
 <p>优先点临时位. 该函数需要配合自动存冰线程 StartAutoCollectThread() 使用.</p>
+<h3><code>StartStopDancerThread()</code></h3>
+<p>女仆秘籍. 通过暂停控制舞王/伴舞的跳舞/行走. (此函数实现不佳不建议使用.)</p>
+<h1>附录</h1>
+<h2>卡片(种子包)名称</h2>
+<p>部分函数(<code>SelectCards</code> <code>ClickSeed</code> <code>Card</code>)支持用卡片名称字符串作为参数, 卡片常用名称以及模仿者前缀如下.</p>
+<pre><code class="python">seeds_string = [
+    [&quot;Peashooter&quot;, &quot;豌豆射手&quot;, &quot;单发&quot;],
+    [&quot;Sunflower&quot;, &quot;向日葵&quot;, &quot;小向&quot;],
+    [&quot;Cherry Bomb&quot;, &quot;樱桃炸弹&quot;, &quot;樱桃&quot;],
+    [&quot;Wall-nut&quot;, &quot;坚果墙&quot;, &quot;坚果&quot;],
+    [&quot;Potato Mine&quot;, &quot;土豆雷&quot;, &quot;地雷&quot;],
+    [&quot;Snow Pea&quot;, &quot;寒冰射手&quot;, &quot;冰豆&quot;],
+    [&quot;Chomper&quot;, &quot;大嘴花&quot;, &quot;食人花&quot;],
+    [&quot;Repeater&quot;, &quot;双发射手&quot;, &quot;双发&quot;],
+    [&quot;Puff-shroom&quot;, &quot;小喷菇&quot;, &quot;小喷&quot;],
+    [&quot;Sun-shroom&quot;, &quot;阳光菇&quot;, &quot;阳光&quot;],
+    [&quot;Fume-shroom&quot;, &quot;大喷菇&quot;, &quot;大喷&quot;],
+    [&quot;Grave Buster&quot;, &quot;墓碑吞噬者&quot;, &quot;墓碑&quot;],
+    [&quot;Hypno-shroom&quot;, &quot;魅惑菇&quot;, &quot;魅惑&quot;],
+    [&quot;Scaredy-shroom&quot;, &quot;胆小菇&quot;, &quot;胆小&quot;],
+    [&quot;Ice-shroom&quot;, &quot;寒冰菇&quot;, &quot;冰蘑菇&quot;, &quot;冰&quot;],
+    [&quot;Doom-shroom&quot;, &quot;毁灭菇&quot;, &quot;核蘑菇&quot;, &quot;核&quot;],
+    [&quot;Lily Pad&quot;, &quot;睡莲&quot;, &quot;荷叶&quot;],
+    [&quot;Squash&quot;, &quot;窝瓜&quot;, &quot;倭瓜&quot;],
+    [&quot;Threepeater&quot;, &quot;三线射手&quot;, &quot;三线&quot;],
+    [&quot;Tangle Kelp&quot;, &quot;缠绕海草&quot;, &quot;海草&quot;],
+    [&quot;Jalapeno&quot;, &quot;火爆辣椒&quot;, &quot;辣椒&quot;],
+    [&quot;Spikeweed&quot;, &quot;地刺&quot;],
+    [&quot;Torchwood&quot;, &quot;火炬树桩&quot;, &quot;火树&quot;],
+    [&quot;Tall-nut&quot;, &quot;高坚果&quot;, &quot;搞基果&quot;],
+    [&quot;Sea-shroom&quot;, &quot;海蘑菇&quot;],
+    [&quot;Plantern&quot;, &quot;路灯花&quot;, &quot;灯笼&quot;],
+    [&quot;Cactus&quot;, &quot;仙人掌&quot;],
+    [&quot;Blover&quot;, &quot;三叶草&quot;, &quot;三叶&quot;],
+    [&quot;Split Pea&quot;, &quot;裂荚射手&quot;, &quot;裂荚&quot;],
+    [&quot;Starfruit&quot;, &quot;杨桃&quot;, &quot;五角星&quot;, &quot;大帝&quot;],
+    [&quot;Pumpkin&quot;, &quot;南瓜头&quot;, &quot;南瓜&quot;],
+    [&quot;Magnet-shroom&quot;, &quot;磁力菇&quot;, &quot;磁铁&quot;],
+    [&quot;Cabbage-pult&quot;, &quot;卷心菜投手&quot;, &quot;包菜&quot;],
+    [&quot;Flower Pot&quot;, &quot;花盆&quot;],
+    [&quot;Kernel-pult&quot;, &quot;玉米投手&quot;, &quot;玉米&quot;],
+    [&quot;Coffee Bean&quot;, &quot;咖啡豆&quot;, &quot;咖啡&quot;],
+    [&quot;Garlic&quot;, &quot;大蒜&quot;],
+    [&quot;Umbrella Leaf&quot;, &quot;叶子保护伞&quot;, &quot;莴苣&quot;],
+    [&quot;Marigold&quot;, &quot;金盏花&quot;],
+    [&quot;Melon-pult&quot;, &quot;西瓜投手&quot;, &quot;西瓜&quot;],
+    [&quot;Gatling Pea&quot;, &quot;机枪射手&quot;, &quot;机枪&quot;, &quot;加特林&quot;],
+    [&quot;Twin Sunflower&quot;, &quot;双子向日葵&quot;, &quot;双子&quot;],
+    [&quot;Gloom-shroom&quot;, &quot;忧郁蘑菇&quot;, &quot;忧郁菇&quot;, &quot;曾哥&quot;],
+    [&quot;Cattail&quot;, &quot;香蒲&quot;, &quot;猫尾草&quot;, &quot;小猫&quot;],
+    [&quot;Winter Melon&quot;, &quot;冰瓜&quot;, &quot;冰西瓜&quot;],
+    [&quot;Gold Magnet&quot;, &quot;吸金磁&quot;, &quot;吸金&quot;],
+    [&quot;Spikerock&quot;, &quot;地刺王&quot;, &quot;钢刺&quot;],
+    [&quot;Cob Cannon&quot;, &quot;玉米加农炮&quot;, &quot;玉米炮&quot;, &quot;春哥&quot;],
+]
+
+seeds_imitater_string = [&quot;Imitater&quot;, &quot;模仿者&quot;, &quot;复制&quot;,]
+</code></pre>
 <script src="/scripts/highlight.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 </body>

@@ -5,9 +5,9 @@ Python vs. Zombies
 """
 
 __name__ = "pvz"
-__version__ = "3.1.3"
+__version__ = "3.1.4"
 __description__ = "Python vs. Zombies"
-__date__ = "2018-11-24"
+__date__ = "2018-11-25"
 __status__ = "Development"  # Prototype -> Development -> Production
 __author__ = "lmintlcx"
 __copyright__ = "Copyright 2018, lmintlcx"
@@ -84,6 +84,7 @@ from .threads import running_in_thread as RunningInThread
 from .threads import auto_collect as StartAutoCollectThread
 from .threads import auto_fill_ice as StartAutoFillIceThread
 from .threads import activate_ice as Coffee
+from .threads import immobilize_dancer as StartStopDancerThread
 
 
 __all__ = [
@@ -106,12 +107,13 @@ __all__ = [
     "ClickGrid",
     "Card",
     "Pao",
-    "Coffee",
     "SkipPao",
     "Shovel",
     "RunningInThread",
     "StartAutoCollectThread",
     "StartAutoFillIceThread",
+    "Coffee",
+    "StartStopDancerThread",
 ]
 
 
