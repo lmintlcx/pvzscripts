@@ -2,13 +2,13 @@
 
 """
 Author: lmintlcx
-Date: 2018-11-25
+Date: 2018-12-18
 ---
 Name: NE舞夜惊魂
-Rhythm: P6: PPC|PPC|PPC|PPC|PPC|PPC
+Rhythm: P6-C: PPC|PPC|PPC|PPC|PPC|PPC
 Video:
-- http://www.bilibili.com/video/av36765461
-- https://youtu.be/lHwCc5WCSq4
+- https://www.bilibili.com/video/av38406841
+- https://youtu.be/ldJiGuXWiDQ
 """
 
 """
@@ -21,14 +21,14 @@ from pvz import *
 
 
 # Cannon Fodder
+diancai_list = ["小喷菇", "模仿者小喷菇"]
+diancai_spot = (4, 9)
 diancai_index = 0
 
 
 @RunningInThread
 def DianCai():
     global diancai_index
-    diancai_list = ["小喷菇", "模仿者小喷菇"]
-    diancai_spot = (4, 9)
     # 种垫材
     while ReadMemory("bool", 0x6A9EC0, 0x768, 0x164):  # 等待取消暂停
         Delay(1)
@@ -42,10 +42,10 @@ def DianCai():
     Shovel(diancai_spot)
 
 
-# 收尾操作, 炸三轮
+# 收尾操作, 多炸三轮
 def Ending():
     for _ in range(3):
-        Delay(600 - 175 - 95)
+        Delay(601 - 175 - 95)
         Pao(2, 9)
         Delay(80)
         Pao(4, 9)
@@ -61,9 +61,7 @@ Sleep(300)
 
 SelectCards(["小喷菇", "模仿者小喷菇"])
 
-UpdatePaoList(
-    [(1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (1, 6), (2, 6), (3, 5), (3, 7), (4, 5), (4, 7), (5, 6)]
-)
+UpdatePaoList([(1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (1, 6), (2, 6), (3, 5), (3, 7), (4, 5), (4, 7), (5, 6)])
 
 StartAutoCollectThread()
 StartStopDancerThread()

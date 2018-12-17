@@ -18,7 +18,7 @@ asm_code = bytes()
 # init
 
 
-def _asm_init():
+def asm_init():
     global asm_code
     asm_code = bytes()
 
@@ -27,35 +27,35 @@ def _asm_init():
 
 
 # unsigned char
-def asm_add_byte(value):
+def asm_add_byte(code):
     global asm_code
-    asm_code += struct.pack("<1B", value)
+    asm_code += struct.pack("<1B", code)
 
 
 # unsigned short
-def asm_add_word(value):
+def asm_add_word(code):
     global asm_code
-    asm_code += struct.pack("<1H", value)
+    asm_code += struct.pack("<1H", code)
 
 
 # unsigned int
-def asm_add_dword(value):
+def asm_add_dword(code):
     global asm_code
-    asm_code += struct.pack("<1I", value)
+    asm_code += struct.pack("<1I", code)
 
 
 # bytes from list/tuple
-def asm_add_bytes(values):
-    for code in values:
+def asm_add_bytes(codes):
+    for code in codes:
         asm_add_byte(code)
 
 
 # push 0x12345678
 
 
-def asm_push(value):
+def asm_push(code):
     asm_add_byte(0x68)
-    asm_add_dword(value)
+    asm_add_dword(code)
 
 
 # mov exx, 0x12345678
@@ -72,9 +72,9 @@ asm_mov_exx_code = {
 }
 
 
-def asm_mov_exx(register, value):
+def asm_mov_exx(register, code):
     asm_add_bytes(asm_mov_exx_code[register])
-    asm_add_dword(value)
+    asm_add_dword(code)
 
 
 # add exx, 0x12345678
@@ -91,9 +91,9 @@ asm_add_exx_code = {
 }
 
 
-def asm_add_exx(register, value):
+def asm_add_exx(register, code):
     asm_add_bytes(asm_add_exx_code[register])
-    asm_add_dword(value)
+    asm_add_dword(code)
 
 
 # mov exx, ds:[0x12345678]
@@ -110,9 +110,9 @@ asm_mov_exx_dword_ptr_code = {
 }
 
 
-def asm_mov_exx_dword_ptr(register, value):
+def asm_mov_exx_dword_ptr(register, code):
     asm_add_bytes(asm_mov_exx_dword_ptr_code[register])
-    asm_add_dword(value)
+    asm_add_dword(code)
 
 
 # mov exx, [exx + 0x12345678]
@@ -129,9 +129,9 @@ asm_mov_exx_dword_ptr_exx_add_code = {
 }
 
 
-def asm_mov_exx_dword_ptr_exx_add(register, value):
+def asm_mov_exx_dword_ptr_exx_add(register, code):
     asm_add_bytes(asm_mov_exx_dword_ptr_exx_add_code[register])
-    asm_add_dword(value)
+    asm_add_dword(code)
 
 
 # push exx

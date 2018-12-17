@@ -2,59 +2,57 @@
 
 """
 Author: lmintlcx
-Date: 2018-11-24
+Date: 2018-12-18
 ---
 Name: PE新二十二炮
 Rhythm: ch6: PSD/PDC|IPP-PPDD|PSD/PDC|IPP-PPDD, (6|12|6|12)
 Video:
-- https://www.bilibili.com/video/av34826849
-- https://youtu.be/ycfmXAMYPms
+- https://www.bilibili.com/video/av38402840
+- https://youtu.be/5e52yWxsMZU
 """
 
 from pvz import *
 
-# 种垫材
+
+@RunningInThread
 def DianCai():
-    Card("阳光菇", 5, 9)
-    Card("小喷菇", 6, 9)
-
-
-# 铲垫材
-def ChanDianCai():
-    Shovel(5, 9)
-    Shovel(6, 9)
+    Card("阳光菇", (5, 9))
+    Card("小喷菇", (6, 9))
+    Delay(30)
+    Shovel((5, 9))
+    Shovel((6, 9))
 
 
 Sleep(300)
 
-SelectCards(["咖啡豆", "寒冰菇", "复制冰", "樱桃", "窝瓜", "南瓜", "花盆", "胆小", "阳光", "小喷"])
+SelectCards(["玉米", "玉米炮", "咖啡豆", "复制冰", "寒冰菇", "樱桃", "窝瓜", "南瓜", "阳光", "小喷"])
 
-# UpdatePaoList(
-#     [
-#         (1, 1),
-#         (2, 1),
-#         (3, 1),
-#         (4, 1),
-#         (5, 1),
-#         (6, 1),
-#         (1, 3),
-#         (2, 3),
-#         (3, 3),
-#         (4, 3),
-#         (5, 3),
-#         (6, 3),
-#         (1, 5),
-#         (2, 5),
-#         (3, 5),
-#         (4, 5),
-#         (5, 5),
-#         (6, 5),
-#         (1, 7),
-#         (2, 7),
-#         (5, 7),
-#         (6, 7),
-#     ]
-# )
+UpdatePaoList(
+    [
+        (1, 1),
+        (2, 1),
+        (3, 1),
+        (4, 1),
+        (5, 1),
+        (6, 1),
+        (1, 3),
+        (2, 3),
+        (3, 3),
+        (4, 3),
+        (5, 3),
+        (6, 3),
+        (1, 5),
+        (2, 5),
+        (3, 5),
+        (4, 5),
+        (5, 5),
+        (6, 5),
+        (1, 7),
+        (2, 7),
+        (5, 7),
+        (6, 7),
+    ]
+)
 
 # UpdatePaoList(
 #     [
@@ -71,6 +69,8 @@ StartAutoFillIceThread([(4, 9), (3, 9), (2, 9)], 10)
 # StartAutoFillIceThread([(4, 9), (3, 9)], 10)  # 只用两个存冰位中场需要拖时间
 
 for wave in range(1, 21):
+    # if wave == 19:
+    #     SetFixPao((2, 7))
     if wave in (1, 3, 5, 7, 9, 12, 14, 16, 18):
         Prejudge(-135, wave)
         Pao((1, 9), (5, 9))
@@ -80,25 +80,24 @@ for wave in range(1, 21):
         Pao(5, 7.8)
         Until(-95 + 110)
         Pao(1, 8.8)
-        Until(600 + 50 - 298)  # 50cs 预判冰
+        Until(601 + 50 - 298)  # 50cs 预判冰
         Coffee()
         if wave == 9:
-            Until(600 - 135)
+            Until(601 - 135)
             DianCai()
-            Until(600 - 135 + 20)
-            ChanDianCai()
             Until(-95)
-            Pao(2, 8.5)  # 上半场已清空 ==
-            Until(600 + 180 - 30)
+            Pao(2, 8.5)  # 上半场清空 ==
+            Until(601 + 180 - 30)
             Pao(5, 7.2, 30)
-            Until(600 + 1200 - 373 - 200)
+            Until(601 + 1200 - 373 - 200)
             Pao(5, 9)
             Delay(220)
             Pao(5, 8.4)
-            Until(600 + 1200 - 135)
+            Until(601 + 1200 - 135)
+            Delay(270)  # 等会儿
             Pao((2, 9), (5, 9))  # 清场
     elif wave == 10:
-        #  预判推迟到 55cs
+        # 预判推迟到 55cs
         Prejudge(-55, wave)
         Pao((1, 9), (5, 9))
         # Until(-55)
@@ -107,7 +106,7 @@ for wave in range(1, 21):
         Pao(5, 7.8)
         Until(-55 + 110)
         Pao(1, 8.8)
-        Until(600 + 50 - 298)  # 50cs 预判冰
+        Until(601 + 50 - 298)  # 50cs 预判冰
         Coffee()
     elif wave in (2, 4, 6, 8, 11, 13, 15, 17, 19):
         # -135 种垫材
@@ -115,8 +114,6 @@ for wave in range(1, 21):
         # 50 冰生效
         Prejudge(-135, wave)
         DianCai()
-        Until(-135 + 20)
-        ChanDianCai()
         Until(-95)  # 刷新前 95cs
         Pao(2, 8.5)  # 上半场热过渡
         Until(180 - 30)  # 刷新后 180cs, 提前 30cs 点炮
@@ -128,7 +125,7 @@ for wave in range(1, 21):
         if wave == 19:
             Until(1200 - 135)
             Pao((1, 9), (5, 9))
-            Until(1200 + 600)
+            Until(1200 + 601)
             Pao((2, 9), (5, 9))  # 清场
     elif wave == 20:
         Prejudge(-180, wave)

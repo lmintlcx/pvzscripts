@@ -6,6 +6,7 @@ Process / Memory
 
 import ctypes
 import struct
+import threading
 
 from . import logger
 from . import win32
@@ -26,6 +27,7 @@ cpp_typename = {
     "char": "b",
     "bool": "?",
     "unsigned char": "B",
+    "byte": "B",  # byte = unsigned char
     "short": "h",
     "unsigned short": "H",
     "int": "i",
@@ -54,6 +56,10 @@ def is_valid():
     return exit_code.value == win32.STILL_ACTIVE
 
 
+# TODO 读写内存时加锁
+memory_lock = threading.Lock()
+
+
 def read_memory(data_type, *address, array=1):
     """
     读取内存数据.
@@ -79,6 +85,8 @@ def read_memory(data_type, *address, array=1):
         logger.error("Process not valid, read memory failed.")
         return
 
+    # memory_lock.acquire()
+
     level = len(address)  # 偏移级数
     offset = ctypes.c_void_p()  # 内存地址
     buffer = ctypes.c_uint()  # 中间数据缓冲
@@ -97,6 +105,8 @@ def read_memory(data_type, *address, array=1):
                 result = struct.unpack(fmt_str, buff.raw)[0]
             else:
                 result = struct.unpack(fmt_str, buff.raw)
+
+    # memory_lock.release()
 
     logger.debug(f"Read memory '{data_type}' {address} x {array} result {result}.")
     return result
@@ -125,6 +135,8 @@ def write_memory(data_type, values, *address):
         logger.error("Process not valid, write memory failed.")
         return
 
+    # memory_lock.acquire()
+
     level = len(address)  # 偏移级数
     offset = ctypes.c_void_p()  # 内存地址
     buffer = ctypes.c_uint()  # 中间数据缓冲
@@ -140,9 +152,11 @@ def write_memory(data_type, values, *address):
             array = len(values)  # 目标数据的数量
             fmt_str = "<" + str(array) + cpp_typename[data_type]
             size = struct.calcsize(fmt_str)  # 目标数据大小
-            buff = ctypes.create_string_buffer(size)  # 创建目标数据缓冲
-            buff = struct.pack(fmt_str, *values)  # 将参数载入缓冲区
+            # buff = ctypes.create_string_buffer(size)  # 创建目标数据缓冲
+            buff = struct.pack(fmt_str, *values)  # 将目标数据载入缓冲区
             win32.WriteProcessMemory(pvz_handle, offset, buff, size, None)
+
+    # memory_lock.release()
 
     logger.debug(f"Write memory '{data_type}' {values} to {address}.")
 

@@ -50,15 +50,13 @@ def click_seed(seed):
     """
 
     if isinstance(seed, str):
-        if not seed in seeds.seeds_string_dict:
-            raise Exception(f"Unknown seed: {seed}.")
-        seed_index = seeds.seeds_string_dict[seed]  # 卡片代号(+48)
-        slot_index = seeds.seeds_in_slot[seed_index]  # 该卡片在卡槽中的位置
+        slot_index = seeds.get_index_by_name(seed)
+        if slot_index is None:
+            raise Exception(f"No seed {seed} in slots, operation failed.")
     else:  # int
         slot_index = seed
-
-    if slot_index is None:
-        raise Exception(f"No seed {seeds.seeds_string[seed_index][1]} in slots, operation failed.")
+        if slot_index not in range(1, 11):
+            raise Exception(f"Index {slot_index} out of range, operation failed.")
 
     if slots_count == 10:
         x = 63 + 51 * slot_index
@@ -70,7 +68,7 @@ def click_seed(seed):
         x = 61 + 59 * slot_index
     else:
         x = 61 + 59 * slot_index
-    y = 42
+    y = 12
     mouse.left_click(x, y)
 
 
@@ -88,8 +86,33 @@ def click_shovel():
         x = 550
     else:
         x = 490
-    y = 42
+    y = 36
     mouse.left_click(x, y)
+
+
+# 坐标转换
+def rc2xy(*crood):
+    """
+    row, col -> x, y
+    """
+
+    if isinstance(crood[0], tuple):
+        row, col = crood[0]
+    else:
+        row, col = crood
+
+    x = 80 * col
+    if game_scene in (2, 3):
+        y = 55 + 85 * row
+    elif game_scene in (4, 5):
+        if col >= 6:
+            y = 45 + 85 * row
+        else:
+            y = 45 + 85 * row + 20 * (6 - col)
+    else:
+        y = 40 + 100 * row
+
+    return int(x), int(y)  # 取整
 
 
 def click_grid(*crood):
@@ -102,20 +125,5 @@ def click_grid(*crood):
 
     >>> click_grid(2, 9)  # click_grid((2, 9))  # 点击 2 行 9 列
     """
-    if isinstance(crood[0], tuple):
-        row, col = crood[0][0], crood[0][1]
-    else:
-        row, col = crood[0], crood[1]
-
-    x = 80 * col
-    if game_scene in (2, 3):
-        y = 55 + 85 * row
-    elif game_scene in (4, 5):
-        if col >= 6:
-            y = 45 + 85 * row
-        else:
-            y = 45 + 85 * row + 20 * (6 - col)
-    else:
-        y = 40 + 100 * row
-    x, y = int(x), int(y)
+    x, y = rc2xy(*crood)
     mouse.left_click(x, y)

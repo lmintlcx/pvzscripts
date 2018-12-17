@@ -2,13 +2,13 @@
 
 """
 Author: lmintlcx
-Date: 2018-11-24
+Date: 2018-12-18
 ---
 Name: PE二十四炮
 Rhythm: P6: PPDD|ICE2|PPSSDD|PPDD|ICE2|PPSSDD
 Video:
-- https://www.bilibili.com/video/av34827600
-- https://youtu.be/QPwp-mqbXGM
+- https://www.bilibili.com/video/av38400974
+- https://youtu.be/88S5vZjfg5I
 """
 
 from pvz import *
@@ -61,7 +61,7 @@ for wave in range(1, 21):
         # 冰之旋舞
         Prejudge(-95, wave)
         Pao((2, 9), (5, 9))
-        Delay(373 - 298 - 5)  # 冰稍早生效
+        Delay(373 - 100 - 198 - 0)  # 冰同步于炮生效
         Coffee()
     elif wave in (3, 6, 9, 13, 16, 19):
         # 六神乱舞
@@ -70,7 +70,7 @@ for wave in range(1, 21):
         Delay(108)
         Pao((1, 8.8), (5, 8.8))
         if wave in (9, 19):
-            Delay(600 + 95 - 110 - 15)  # Until(600 - 15)
+            Delay(601 + 95 - 108 - 15)  # Until(601 - 15)
             Pao((2, 9), (5, 9))
     elif wave == 10:
         Prejudge(-55, wave)

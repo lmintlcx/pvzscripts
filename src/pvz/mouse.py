@@ -6,6 +6,7 @@ Mouse
 
 import time
 import ctypes
+import random
 
 from . import logger
 from . import win32
@@ -154,6 +155,7 @@ def special_button_click(x, y):
     title_height = rect.bottom - rect.top - border_width - PVZ_WINDOW_HEIGHT
     x_1 = int(rect.left + border_width + x)
     y_1 = int(rect.top + title_height + y)
+
     win32.SetCursorPos(x_1, y_1)
     time.sleep(0.01)
     win32.SetCursorPos(x_1, y_1)
@@ -170,3 +172,35 @@ def special_button_click(x, y):
         left_click(0, 0)
 
     win32.SetCursorPos(x_0, y_0)
+
+
+def move_to_click(x, y, click=True):
+    """
+    光标移动到目标位置再点击.
+    """
+    point = win32.POINT()
+    win32.GetCursorPos(ctypes.byref(point))
+    x_0 = point.x
+    y_0 = point.y
+    rect = win32.RECT()
+    win32.GetWindowRect(process.pvz_hwnd, ctypes.byref(rect))
+    border_width = (rect.right - rect.left - PVZ_WINDOW_WIDTH) / 2
+    title_height = rect.bottom - rect.top - border_width - PVZ_WINDOW_HEIGHT
+    x_1 = int(rect.left + border_width + x)
+    y_1 = int(rect.top + title_height + y)
+
+    distance = pow(pow((x_1 - x_0), 2) + pow((y_1 - y_0), 2), 0.5)
+    speed = random.randint(12, 36)  # px/cs
+    steps = int(distance / speed)
+    for i in range(steps):
+        time.sleep(0.01)
+        x_tmp = int(x_0 + (x_1 - x_0) * i / steps)
+        y_tmp = int(y_0 + (y_1 - y_0) * i / steps)
+        win32.SetCursorPos(x_tmp, y_tmp)
+    time.sleep(0.01)
+    win32.SetCursorPos(x_1, y_1)
+    time.sleep(0.05)
+    if click:
+        left_click(x, y)
+    delay = random.randint(10, 20)  # 随机延时
+    time.sleep(delay / 100)

@@ -2,13 +2,13 @@
 
 """
 Author: lmintlcx
-Date: 2018-11-24
+Date: 2018-12-18
 ---
 Name: PE真二炮 (2字十六炮)
-Rhythm: ch5-35.4s: PPddCC|IPPCC-PPDD|IPPCC-PPDD, (6|14.7|14.7)
+Rhythm: ch5-35.4s: PPDDCC|IPPCC-PPDD|IPPCC-PPDD, (6|14.7|14.7)
 Video:
-- https://www.bilibili.com/video/av35369870
-- https://youtu.be/dS2iNkAOoHQ
+- https://www.bilibili.com/video/av38404377
+- https://youtu.be/NTEVuTSwPZQ
 """
 
 from pvz import *
@@ -44,7 +44,7 @@ def StartTallNutKeeperThread(spots):
     slots_offset = ReadMemory("unsigned int", 0x6A9EC0, 0x768, 0x144)
     slots_count = ReadMemory("unsigned int", 0x6A9EC0, 0x768, 0x144, 0x24)
 
-    # 睡莲/高坚果/保护伞的下标
+    # 睡莲/高坚果/保护伞的卡槽数组下标
     lilypad_seed = None
     tallnut_seed = None
     umbrella_seed = None
@@ -52,26 +52,10 @@ def StartTallNutKeeperThread(spots):
         seed_type = ReadMemory("int", slots_offset + 0x5C + i * 0x50)
         if seed_type == 16:
             lilypad_seed = i
-        if seed_type == 23:
+        elif seed_type == 23:
             tallnut_seed = i
-        if seed_type == 37:
+        elif seed_type == 37:
             umbrella_seed = i
-
-    # 游戏界面
-    def GameUI():
-        return ReadMemory("int", 0x6A9EC0, 0x7FC)
-
-    # 是否暂停
-    def GamePaused():
-        return ReadMemory("bool", 0x6A9EC0, 0x768, 0x164)
-
-    # (非旗帜波)刷新倒计时
-    def WaveCountdown():
-        return ReadMemory("int", 0x6A9EC0, 0x768, 0x559C)
-
-    # 当前刷新波数
-    def CurrentWave():
-        return ReadMemory("int", 0x6A9EC0, 0x768, 0x557C)
 
     # 获取指定位置的高坚果下标, 没有返回 None
     def GetTheTallnutIndex(r, c):
@@ -101,7 +85,7 @@ def StartTallNutKeeperThread(spots):
         if seed_usable and sun >= seed_cost:
             while GamePaused():
                 Delay(1)
-            Card("高坚果", r, c)
+            Card("高坚果", (r, c))
 
     # 开场种
     for spot in spots:
@@ -114,8 +98,8 @@ def StartTallNutKeeperThread(spots):
     Delay(1)
 
     # 保护伞状态, 种植于第一个高坚果前一列
-    umbrella_planted = False
-    umbrella_shoveled = False
+    umbrella_planted = False  # 已经种植
+    umbrella_shoveled = False  # 已经铲除
     umbrella_row, umbrella_col = spots[0][0], spots[0][1] + 1
 
     # 主循环, 第 20 波刷新前持续运行
@@ -126,16 +110,16 @@ def StartTallNutKeeperThread(spots):
             if not umbrella_planted and 9 <= CurrentWave() <= 10 and WaveCountdown() <= 600:
                 while GamePaused():
                     Delay(1)
-                print("Planting Umbrella Leaf to protect 2 Tall-nuts.")
-                Card("睡莲", umbrella_row, umbrella_col)
-                Card("伞叶", umbrella_row, umbrella_col)
+                # print("Planting Umbrella Leaf to protect 2 Tall-nuts.")
+                Card("睡莲", (umbrella_row, umbrella_col))
+                Card("伞叶", (umbrella_row, umbrella_col))
                 umbrella_planted = True
-            if not umbrella_shoveled and CurrentWave() >= 11:
+            elif not umbrella_shoveled and CurrentWave() >= 11:
                 while GamePaused():
                     Delay(1)
-                print("Shovel Umbrella Leaf.")
-                Shovel(umbrella_row, umbrella_col)
-                Shovel(umbrella_row, umbrella_col)
+                # print("Shovel Umbrella Leaf.")
+                Shovel((umbrella_row, umbrella_col))
+                Shovel((umbrella_row, umbrella_col))
                 umbrella_shoveled = True
 
         # 遍历指定要种植高坚果的格点
@@ -167,9 +151,9 @@ SelectCards(["复制冰", "寒冰菇", "咖啡豆", "睡莲", "高坚果", "樱�
 
 # UpdatePaoList([(1, 2), (1, 4), (1, 6), (2, 1), (2, 5), (2, 7), (3, 4), (3, 6), (4, 3), (4, 5), (5, 2), (5, 4), (6, 1), (6, 3), (6, 5), (6, 7)])
 
-StartAutoCollectThread()
 StartAutoFillIceThread([(5, 1), (4, 1), (2, 3), (2, 4)], 13)
 StartTallNutKeeperThread([(3, 8)])
+StartAutoCollectThread()
 
 
 for wave in range(1, 21):
@@ -187,11 +171,11 @@ for wave in range(1, 21):
         Pao((2, 9), (5, 9))
         Until(-135 + 110)
         Pao((1, 7.7), (5, 7.7))
-        Until(600 + 10 - 298)  # 10cs 预判冰
+        Until(601 + 20 - 298)  # 20cs 预判冰
         Coffee()
-        Until(600 - 175)  # 190
+        Until(601 - 165)
         DianCai()
-        Until(600 - 175 + 10)
+        Until(601 - 165 + 10)
         ChanDianCai()
 
     # PPADDCC
@@ -202,11 +186,11 @@ for wave in range(1, 21):
         Pao((1, 9), (5, 7.6))
         Until(-135 + 373 - 100)
         Card("樱桃", 2, 9)  # A
-        Until(600 + 10 - 298)  # 10cs 预判冰
+        Until(601 + 20 - 298)  # 20cs 预判冰
         Coffee()
-        Until(600 - 175)  # 190
+        Until(601 - 165)
         DianCai()
-        Until(600 - 175 + 10)
+        Until(601 - 165 + 10)
         ChanDianCai()
 
     # IPPCC-PPDD
@@ -221,7 +205,7 @@ for wave in range(1, 21):
         Pao((2, 9), (5, 9))
         Until(1470 - 200 - 373 + 220)
         Pao((1, 7.5), (5, 7.5))
-        Until(1470 + 15 - 298)  # 15cs 预判冰
+        Until(1470 + 20 - 298)  # 20cs 预判冰
         Coffee()
         if wave == 9:
             Until(1470 + 180)
@@ -245,34 +229,30 @@ for wave in range(1, 21):
         Until(1470 - 200 - 373 - 43)
         ChanDianCai()
         Until(1470 - 200 - 373)
-        Pao((2, 9), (5, 9))
+        Pao((2, 8.5), (5, 8.5))  # 左移兼炸跳跳
         Delay(220)
-        Pao((1, 8.5), (5, 8.5))
+        Pao((1, 8.4), (5, 8.4))  # 左移兼炸跳跳
 
-    # PPddCC
+    # PPDDCC
     elif wave in (5, 8, 13, 16, 19):
         Prejudge(-135, wave)
         Pao((1, 8.8), (5, 8.8))
-        Until(-135 + 250)  # 原速尾炸参考时机
-        # 调整炮序
-        if wave in (13, 16, 19):
-            Pao((5, 4.5), (1, 4.5))
-        else:
-            Pao((1, 4.5), (5, 4.5))
-        Until(600 + 10 - 298)  # 10cs 预判冰
+        Until(-135 + 110)
+        Pao((1, 7.7), (5, 7.7))
+        Until(601 + 20 - 298)  # 20cs 预判冰
         Coffee()
-        Until(600 - 175)
+        Until(601 - 165)
         DianCai()
-        Until(600 - 175 + 10)
+        Until(601 - 165 + 10)
         ChanDianCai()
         if wave == 19:
-            Until(600 + 180)
+            Until(601 + 180)
             Pao((1, 7.2), (5, 7.2))
-            Until(600 + 630)
+            Until(601 + 630)
             DianCai()
-            Until(600 + 1470 - 200 - 373 - 43)
+            Until(601 + 1470 - 200 - 373 - 43)
             ChanDianCai()
-            Until(600 + 1470 - 200 - 373)
+            Until(601 + 1470 - 200 - 373)
             Pao((2, 9), (5, 9))
             Delay(220)
             Pao((1, 7.8), (5, 7.8))

@@ -19,6 +19,7 @@ def md2html(md_str):
 </head>
 <body>
 %s
+<script src="/scripts/script.js"></script>
 <script src="/scripts/highlight.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 </body>

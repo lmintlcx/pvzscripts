@@ -12,12 +12,12 @@
 <div id="jjdjr" style="color:gray"></div>
 
 <script>
-var s = ["五年前 我们开始破坏墙壁 对人类展开攻击 我是铠之巨人 这家伙是超大型巨人"];
+var s = ["五年前, 我们开始破坏墙壁, 对人类展开攻击. 我是铠之巨人, 这家伙是超大型巨人.", "莱纳! 要做吗? 现在? 就在这里?"];
 var i = Math.floor(Math.random() * s.length);
 document.all("jjdjr").innerHTML=s[i];
 </script>
 
-<p>最近更新: 2018-11-25</p>
+<p>最近更新: 2018-12-18</p>
 <h1>项目简介</h1>
 <p>蟒蛇大战僵尸(Python vs. Zombies)是一个以 Python 语言写成的用于植物大战僵尸键控(脚本操控)的框架, 起源于 <a href="https://tieba.baidu.com/p/4997515699">这里</a>.</p>
 <p>本项目可以免去配置构建半自动化脚本所需基础框架的繁重工作, 用户不需要了解其中的实现细节和复杂逻辑, 只需要使用暴露出来的接口函数, 从而可以将精力集中在轨道主流程处理上, 有效快速地完成脚本编写和视频制作.</p>
@@ -27,33 +27,59 @@ document.all("jjdjr").innerHTML=s[i];
 <p>本项目已提交至 <a href="https://pypi.org/project/pvz/">pypi</a>, 可打开命令提示符通过 <code>pip install pvz</code> 来安装, <code>pip install --upgrade pvz</code> 来升级.</p>
 <h1>植物大战僵尸无尽模式</h1>
 <h2>游戏本体及修改器下载</h2>
-<p><a href="https://pvz.lmintlcx.com/">https://pvz.lmintlcx.com/</a></p>
+<p><a href="https://pvz.lmintlcx.com/getpvztools/">点我</a></p>
+<h2>植吧参考资料</h2>
+<p><a href="https://tieba.baidu.com/p/882307246">【PVZ】特殊时期的特殊贴吧导航。如果能发完就已是最大的幸运</a></p>
+<p><a href="https://tieba.baidu.com/p/711786586">【资料】植物大战僵尸吧大百科词典1.0版</a></p>
+<p><a href="https://tieba.baidu.com/p/5194693832">无尽模式新手入门教程</a></p>
+<p><a href="https://tieba.baidu.com/p/698297408">【伪视频&amp;百科】“梯子南瓜”使用手册V1.0</a></p>
+<p><a href="https://tieba.baidu.com/p/2306159144">这两天研究了一下PVZ的出怪机制</a></p>
+<p><a href="https://tieba.baidu.com/p/5714350581">无尽生存僵尸出现概率统计</a></p>
+<p><a href="https://tieba.baidu.com/p/2843347257">图片之下——PVZ程序内存中的数据地址列表(PC v1.0.0.1051限定)</a></p>
+<p><a href="https://tieba.baidu.com/p/2155500986">【我是礼物】【EL最多炮合集】来，射个痛快！</a></p>
+<p><a href="https://tieba.baidu.com/p/652063536">【Plants VS Zombies】植物/僵尸作战报告最大百科全书</a></p>
+<p><a href="https://tieba.baidu.com/p/732011315">历史遗留问题清算——那个世界的时空。</a></p>
+<p><a href="https://tieba.baidu.com/p/702245299">【最后的秘密】无尽生存模式全关卡介绍（含隐藏关）</a></p>
+<p><a href="https://tieba.baidu.com/p/5288033944">【阵三篇】【补档】给男孩子的自X指南——冰冰教你撸炮</a></p>
+<p><a href="https://tieba.baidu.com/p/669861842">〖上界之风〗屋顶火箭弹落点描述</a></p>
+<p><a href="https://tieba.baidu.com/p/5499822084">【新人首贴+元旦礼物】乱敲键盘！</a></p>
+<p><a href="https://tieba.baidu.com/p/5263235942">【二合一】数据计算相关</a></p>
+<p><a href="https://tieba.baidu.com/p/5865997365">超多炮数据的计算校验</a></p>
+<p><a href="https://tieba.baidu.com/p/3745008287">【PVZ六周年礼物】关于僵尸出生点分布的测量</a></p>
+<p><a href="https://tieba.baidu.com/p/2699120249">【Endless】你们要的奇怪名词——双冰变奏体系讲解</a></p>
+<p><a href="https://tieba.baidu.com/p/5288403187">轨道读本提要V3.0</a></p>
+<p><a href="https://tieba.baidu.com/p/5272254427">【Kaleidoscope of Endless Build Culture】九章阵华录</a></p>
+<p><a href="https://tieba.baidu.com/p/5065514837">【阵三篇】无炮简史V2.233</a></p>
 <h2>阵型</h2>
 <p>以下默认时间单位 cs(厘秒), 空间单位 px(像素), 血量单位 HP.</p>
 <p>以下只讨论 PC 原版(1.0.0.1051)在获得金向日葵, 解锁生存无尽模式, 买齐所有紫卡植物/模仿者/坚果修复术, 买齐 10 格卡槽, 完成阵型布置之后, 不使用修改器完成生存无尽后期阵型运转.</p>
-<p>持续存在的植物布置构成阵型, 在游戏设定框架内能够有效处理所有僵尸组合并且保持阵型完整的操作称为阵解.</p>
+<p>持续存在的植物布置构成阵型, 在游戏设定框架内能够有效处理所有僵尸组合并且保持阵型完整的操作称为阵解. 非极限阵在冲关过程中保证阳光不减或者动态平衡.</p>
 <p>阵型布置可借助修改器完成, 无需手动开局. 阵型运转可借助半自动化脚本, 再辅助以手动操作.</p>
-<p>阵型和操作密不可分. 脱离解法谈阵型, 只摆阵图不给解法和视频的, 都是耍流氓. 目前还不存在(可以预见的未来也不会有)(在战斗界面)无需任何操作实现挂机无尽的阵型.</p>
-<p>模仿者变身的植物都是白色, 使用白色植物多是出于美观因素.</p>
-<p>植物种在草地花盆上没有实质作用. 无论有没有花盆花盆上植物的判定范围都不会变(只是贴图位置变高). 相比于花盆上面的永久植物消失而被破阵的代价来说, 花盆被多啃几口拖点时间这点好处也是几乎没有意义的.</p>
-<p>玉米炮的右判定相比前轮的花盆/睡莲要偏左(11px?), 因此可以通过投石车/冰车/小丑僵尸碾压/炸掉的方法来实现玉米炮前轮悬空, 同样无实质作用.</p>
+<p>阵型和操作密不可分. 目前还不存在(可以预见的未来也不会有)(在战斗界面)无需任何操作实现挂机无尽的阵型.</p>
+<p>模仿者变身的植物都是白色, 阵型布置使用白色植物多是出于美观因素. (选卡使用模仿者则是变相减少该卡片的冷却时间.)</p>
+<p>植物种在草地花盆上没有实质作用. 无论有没有花盆花盆上植物的判定范围都不会变(只是贴图位置变高). 相比于花盆上面的永久植物消失而被破阵的代价来说, 花盆被多啃几口拖点时间这点好处几乎没有意义.</p>
+<p>玉米炮的右判定相比前轮的花盆/睡莲要偏左(10px), 因此可以通过投石车/冰车/小丑僵尸碾压/炸掉的方法来实现玉米炮前轮悬空, 同样无实质作用.</p>
+<p>南瓜的判定范围相比其内的植物偏右(30px), 南瓜壳被砸/碾时其内植物会被一起压扁, 可通过临时铲除南瓜壳骗击巨人/避免过早被碾.</p>
 <p>在合适的时机生效冰蘑菇可以消除最后一大波水池的三只缠绕着珊瑚的僵尸上浮, 即冰消珊瑚. 释放咖啡豆的时机约为红字出现后玉米炮闪 6~8 下, 冰消屋顶空降三人组的时机相同.</p>
 <p>通过临时铲除攻击植物/大蒜变道/厚血僵尸做盾等方法引导梯子僵尸靠近南瓜并将梯子搭在南瓜上构成梯子南瓜, 即搭梯. 作用是保护梯子南瓜里的植物, 实现南瓜和植物无伤, 减小经济压力.</p>
 <p>可无尽的阵型都有就算不存在小推车救场也不会让僵尸进家的能力, 为了避免出现触发小推车这种尴尬情况的出现一般会在布阵的时候就把小推车去掉.</p>
+<p>春哥为玉米加农炮, 曾哥为忧郁蘑菇, 都是纯爷们以及神一般的存在. 因为春哥粉丝称为玉米, 曾哥表情和博客底部图片神似忧郁菇而得名.</p>
+<!-- 除无尽模式外一路不出巨人(避免遮挡卡槽的设定), 而不是"自古一路无巨人". -->
+
+<!-- 矿工在地底可以被炸死, 出土后同样可以被炸, 单曾守底可以冰杀, 并不是"来个矿工就神作了". -->
+
+<!-- 寒冰菇可以用于改变刷新节奏/冰消珊瑚/冰消空降, 不是什么"冰了个寂寞". -->
+
 <p>存档所在目录 <code>C:\ProgramData\PopCap Games\PlantsVsZombies\userdata</code>.</p>
-<p>推荐新手阵型: <a href="https://www.bilibili.com/video/av10358654">DE双冰六炮</a> <a href="https://www.bilibili.com/video/av14555712">NE快六炮</a> <a href="https://www.bilibili.com/video/av13110045">PE经典八炮</a> <a href="https://www.bilibili.com/video/av10978047">FE经典八炮</a> <a href="https://www.bilibili.com/video/av13154832">RE十炮</a> <a href="https://www.bilibili.com/video/av10337164">ME月夜十炮</a> / <a href="https://www.bilibili.com/video/av10915095">搭梯教程</a></p>
-<p>参考资料:</p>
-<p><a href="https://tieba.baidu.com/p/882307246">【PVZ】特殊时期的特殊贴吧导航。如果能发完就已是最大的幸运</a></p>
-<p><a href="https://tieba.baidu.com/p/5194693832">无尽模式新手入门教程</a></p>
-<p><a href="https://tieba.baidu.com/f?kz=698297408">【伪视频&amp;百科】“梯子南瓜”使用手册V1.0</a></p>
+<p><a href="https://tieba.baidu.com/p/5970982471">无尽新手阵型</a>, 具体玩法和植物布置原理请玩家自行探索.</p>
 <h2>出怪生成机制</h2>
 <p>游戏内置函数 0x00425840 生成出怪类型, 结果位于 <code>[[[6a9ec0] +768] +54d4]</code> 开始的连续 33 个 bool 类型的地址.</p>
 <p>游戏内置函数 0x004092e0 从出怪类型生成出怪列表, 结果位于 <code>[[[6a9ec0] +768] +6b4]</code> 开始的连续 1000 个 int_32 类型的地址.</p>
-<p>无尽后期(大约 80flags 之后)每轮总共 1000 只僵尸, 每波 50 只(不含伴舞小鬼), 每次选卡 20 波, 按列表顺序刷出.</p>
+<p>无尽后期(大约 80flags 之后)每轮总共 1000 只僵尸, 每波 50 只(伴舞小鬼除外), 每次选卡 20 波, 按列表顺序刷出.</p>
 <p>以下简述从出怪种子到出怪类型的算法:</p>
 <p>:begin</p>
 <p>设定出普僵.</p>
-<p>合成 MT19937 随机数算法所需要的种子, 由以下几个内存值相加, 若算出的种子为 0 则重置为 0x1105.</p>
+<p>合成 MT19937 随机数算法所需要的种子, 由以下几个数值相加, 若算出的种子为 0 则重置为 0x1105.</p>
 <pre><code class="plaintext">[[[6a9ec0] +82c] +20]              // 用户序号
 [[6a9ec0] +7f8]                    // 当前模式
 [[[[6a9ec0] +768] +160] +6c] * 65  // 当前轮数乘以 101
@@ -158,29 +184,38 @@ document.all("jjdjr").innerHTML=s[i];
 </tr>
 </tbody>
 </table>
-<p><em>从出怪类型到出怪列表的算法过于复杂目前未有详细资料.</em></p>
-<p>参考资料:</p>
-<p><a href="https://tieba.baidu.com/p/2306159144">这两天研究了一下PVZ的出怪机制</a></p>
-<p><a href="https://tieba.baidu.com/p/5714350581">无尽生存僵尸出现概率统计</a></p>
+<p>从出怪类型到出怪列表的算法过于复杂目前未有详细资料.</p>
 <h2>出怪刷新机制</h2>
-<p>每次选卡 20 波僵尸, 上半场 9 波, 下半场 10 波, 关底 1 大波.</p>
-<p>刷怪倒计时 <code>[[[6a9ec0] +768] +559c]</code>, 除第一次选卡外开场均为 600 (第一次选卡为 1800), 600cs 后正常减少至 0 再刷出第一波.</p>
-<p>第 9/19 波(旗帜波前一波)刷新后, 倒计时被设置为 4500 并正常减少, 本波刷出至少 400cs 并且倒计时减少至 200 前将本波僵尸(除伴舞)全部消灭则被设置为 200. 倒计时减少至 5 时显示红字, 在 5 继续停留 25cs 在 4 停留 725cs, 由红字倒计时 <code>[[[6a9ec0] +768] +55a4]</code> 代替该值从 750 减少至 0, 即倒计时减少至 5 再过 750cs 之后(减少至 4 再过 725cs 之后)刷出下一波. (视觉红字在刷出前 85cs 消失.)</p>
-<p>第 20 波(最后一波)刷新后, 倒计时被设置为 5500, 正常减少至 0 时激活白字, 刷出后将场上僵尸全部消灭则立即激活白字并停止倒计时. 白字出现后 500cs 结束本次选卡并将倒计时重置为 600.</p>
-<p>此外每波僵尸刷新时倒计时被设置为 2500~3100 之间的随机数, 正常减少至 0 时刷出下一波. 同时确定的还有刷新触发(激活/临界)血量, 为本波总血量的 0.5~0.65 倍.</p>
-<p>在本波刷出至少 400cs 并且倒计时减少至 200 前, 若本波僵尸总血量不大于刷新激活血量, 则刷新倒计时被设置为 200, 即激活刷新 201cs 后刷出下一波. (两波僵尸的刷新间隔不小于 601cs.)</p>
-<p>本波僵尸总血量计算方式为: (除魅惑断头秒杀垂死小偷外僵尸的)本体血量 + I类饰品血量 + 0.2 * II类饰品血量.</p>
-<p>P6 节奏下, 每波僵尸刷新即消灭的一轮时长为 600+601*17+(601-5+750)*2+0+500=14009 (cs), 第 9/19/20 波拖够时间的一轮时长为 600+601*17+(4500-5+750)*2+5500+500=27307 (cs).</p>
-<p><em>以上部分数据与植吧已有资料有出入, 读者自行甄别.</em></p>
+<p>每次选卡(一轮) 20 波僵尸, 上半场 9 波, 下半场 10 波, 关底 1 波. 第 10/20 波称为大波(旗帜波).</p>
+<p>除第一次选卡外刷新倒计时开场均为 600 (第一次选卡为 1800), 开场后从 599 正常减少至 1 再刷出第一波. (刷新该帧倒计时数值从 0 迅速变为另一初始值.)</p>
+<p>第 9/19 波(旗帜波前一波)刷新时, 倒计时被设置为 4500 并正常减少, 倒计时初始值与当前倒计时的差值大于 400 (即本波刷出至少 401cs)并且倒计时大于 200 时将本波僵尸(除伴舞)全部消灭则倒计时被设置为 200. 倒计时减少至 5 时显示红字, 在 5 停留 25cs 在 4 停留 725cs, 由红字倒计时代替该值从 750 减少, 即倒计时减少至 5 之后 750cs(减少至 4 之后 725cs)刷出下一波. (视觉红字约在刷出前 85cs 消失.)</p>
+<p>第 20 波(最后一波)刷新时, 倒计时被设置为 5500, 减少至 0 时激活白字, 刷出后将场上僵尸全部消灭则立即激活白字并停止倒计时. 白字显示 500cs 后结束本次选卡并将倒计时重置为 600.</p>
+<p>此外每波僵尸刷新时倒计时被设置为 2500 + rand(0, 600), 减少至 1 后刷出下一波. 同时确定的还有刷新激活(触发/临界)血量, 为本波总血量的 0.50~0.65 倍. 在本波刷出至少 401cs 并且倒计时减少至 200 前, 若本波僵尸总血量小于等于刷新激活血量, 则刷新倒计时被设置为 200, 即激活刷新 200cs 后刷出下一波. (相邻两波僵尸的刷新间隔不小于 601cs, 即自然上限.)</p>
+<p>本波僵尸总血量计算方式为: (除魅惑/消失/变黑/秒杀/蹦极外僵尸的?)本体血量 + I 类饰品(路障/铁桶/橄榄球帽/雪橇车/气球/矿工帽/僵尸坚果/僵尸高坚果)血量 + 0.20 * II 类饰品(报纸/铁栅门/扶梯)血量.</p>
+<p>一轮选卡理论时长计算:</p>
+<p>每波僵尸刷新即消灭: 600+(401+200)*17+(401+200-5+750)*2+0+500 = 14009 (cs)</p>
+<p>P6 第 9/19/20 波拖够时间: 600+(401+200)*17+(4500-5+750)*2+5500+500 = 27307 (cs)</p>
+<p>全程 ch4 并拖够时间: 600+(401+200)*2+1800*15+(4500-5+750)*2+5500+500 = 45292 (cs)</p>
+<p>相关内存地址:</p>
+<pre><code class="plaintext">6A9EC0
+├┬768
+│├―5564  // 本轮总波数
+│├―5568  // 游戏时钟
+│├―556C  // 游戏时钟(包括选卡时)
+│├―557C  // 已刷新波数
+│├―5594  // 刷新触发血量
+│├―5598  // 本波总血量
+│├―559C  // 刷新倒计时
+│├―55A0  // 刷新倒计时初始值
+│├―55A4  // 旗帜波刷新倒计时
+</code></pre>
+
 <p>同样的自然输出的情况下出怪有无巨人时的刷新速度不同, 因此可以分为慢速关和快速关. 自然出怪下很容易出现第 10 波之后某波突然不出红眼的情况, 亦即变速关.</p>
-<p>录制表演视频时会使用修改器调出全难度出怪组合(对阵型有威胁的僵尸), 通常都是慢速(极限全红).</p>
-<p>自然出怪下旗帜波红眼密度较大(约为其他波次的 3.5 倍), 再加上部分僵尸出生点后移, 通常采用推迟玉米炮发射时机以及补加运算量的方法来避免刷怪延迟.</p>
-<p>参考资料:</p>
-<p><a href="https://tieba.baidu.com/p/2843347257">图片之下——PVZ程序内存中的数据地址列表(PC v1.0.0.1051限定)</a></p>
-<p><a href="https://tieba.baidu.com/p/2155500986">【我是礼物】【EL最多炮合集】来，射个痛快！</a></p>
+<p>录制表演视频时会使用修改器调出全难度出怪组合(对阵型有威胁的僵尸), 通常都是慢速(极限全红, 修改器均匀填充使每波都有红眼).</p>
+<p>自然出怪下旗帜波红眼密度较大(约为其他波次的 3.5 倍), 部分僵尸出生点右移, 通常采用推迟玉米炮发射时机以及补加运算量的方法来避免刷怪延迟.</p>
 <h2>常用精确数据</h2>
 <p>六大场地及特性:</p>
-<p>白天(Day), 黑夜(Night), 泳池(Pool), 浓雾(Fog), 屋顶(Roof), 月夜(Moon).</p>
+<p>白天/白昼(Day), 黑夜(Night), 泳池(Pool), 浓雾(Fog), 屋顶(Roof), 月夜(Moon).</p>
 <p>对应的六大场地无尽模式(Survival: Endless)简称为: DE, NE, PE, FE, RE, ME.</p>
 <p>除泳池无尽外其他场地无尽需要通过混乱进入. 先进入对应场地的 生存困难/隐藏无尽/僵王的复仇 模式再混乱到(修改器混乱/改存档编号) 泳池无尽 模式.</p>
 <p>DE/PE/RE 白天有天降阳光, 掉落间隔 = min{已掉落阳光数量 x 10 + 425, 950} + rand(0, 275), 开局掉落较快, 掉落 52 个之后稳定在 950~1225.</p>
@@ -218,11 +253,11 @@ y = 40 + 100 * r
 
 <p>卡片(种子包)相关数据:</p>
 <p>玉米炮种下后 625 可用, 发射到分离 205, 发射到命中 373, 冷却时间 3475.</p>
-<p>屋顶落点位于前场(8~9 列)时 1~7 列(左轮坐标)玉米炮的飞行时间分别为 359 362 364 367 369 372 373.</p>
+<p>屋顶落点位于前场(7~9 列)时 1~7 列(左轮坐标)玉米炮的飞行时间分别为 359 362 364 367 369 372 373.</p>
 <p>咖啡豆种下到开始唤醒 100, 种下到完成唤醒 198.</p>
 <p>核蘑菇/冰蘑菇/樱桃/辣椒 种下到生效 100.</p>
 <p>冰蘑菇首次冻结 400~600, 多次冻结 300~400, 冻结加减速 2000, 冻结水面和云朵 300. 减速效果 50%(部分僵尸 40%), 附带 20 HP 攻击.</p>
-<p>窝瓜瞪眼到起跳 126, 瞪眼到生效 181.</p>
+<p>倭瓜瞪眼到起跳 126, 瞪眼到生效 181.</p>
 <p>垫材常用 CD 750 的植物(花盆/胆小菇/阳光菇/小喷菇).</p>
 <p>土豆准备时间 1500, 破土用时 106.</p>
 <p>核蘑菇/冰蘑菇/樱桃/辣椒 CD 5000, 土豆/倭瓜 CD 3000.</p>
@@ -231,6 +266,8 @@ y = 40 + 100 * r
 <p>模仿者变身 320.</p>
 <p>向日葵种下(升级为双子向日葵) 300~1250 后首次生产阳光, 生产间隔 2350~2500.</p>
 <p>HP: 坚果/南瓜 4000, 高坚果 8000, 大蒜 400, 地刺王 450, 其余植物 300.</p>
+<p>种植坐标偏移 (x, y): 小喷菇/海蘑菇 (-5~+4, -3~+2), 阳光菇 (-5~+4, -5~+4).</p>
+<p>冷却时间为 750/3000/5000 的卡片开局冷却时间为 0/2000/3500.</p>
 <p>僵尸相关数据:</p>
 <p>撑杆入场较晚(贴图左对齐), 刷新后 358 完全进入可伤害域(等效 15 预判炮). 对超前置炮最早 607 开始跳跃, 跳跃用时 180. 跳跃后 70 啃普通植物, 113 啃炮.</p>
 <p>舞王滑步 300~311, 最早的刚好不能开始召唤伴舞的时间, 超前置炮存在时约为 318(等效 55 预判炮), 超前置炮不存在时约为 340(等效 33 预判炮). 可在刷新后 175 垫舞王.</p>
@@ -238,45 +275,40 @@ y = 40 + 100 * r
 <p>海豚最早跳过 8 列啃食 650, 最早跳过 7 列啃食 702.</p>
 <p>冰车碾压南瓜/普通植物/玉米炮的时间: 九列 197 317 357, 八列 520 652 698, 七列 892 1052 1108, 六列 1350 1553 1625, 五列 1945 2223 2323.</p>
 <p>冰道阻止种植: 九列 740, 八列 1178, 七列 1716, 六列 2443. 冰道持续时间 3000.</p>
-<p>小丑开盒区间 440~750(早爆丑, 占 5%) 及 1320~2270(晚爆丑, 占 95%), 开盒到爆炸 40+70. 冻结时开盒倒计时停滞.</p>
+<p>小丑生成时开盒倒计时均为偶数, 区间 440~754(早爆, 占 5%) 及 1322~2268(晚爆, 占 95%), 边界值出现频率低, 寒冰菇冻结/黄油定身时倒计时停滞, 开盒到爆炸 40+70.</p>
+<p><img alt="小丑初始开盒倒计时分布" src="/scripts/images/小丑初始开盒倒计时分布.png" /></p>
 <p>矿工出土到站稳 130, 眩晕时间 350, 出土后开始啃食 1 列植物最早时机 1620.</p>
 <p>跳跳运动过程中判定范围随之变化, 因此在炮落点上一行容易漏掉, 尤其是在前院场地.</p>
 <p>小偷刷新后最早 375 可受伤害/冻结, 最晚至少 670 时仍可受冻结. 靶子触地到小偷可被攻击 325, 等待 300. 判定范围 1x3, 在两个曾哥的攻击范围内冻住可稳定冰杀. 小偷不会主动偷取场上最后一株阳光植物.</p>
 <p>梯子最早开始啃食时机: 九列普通 126, 九列炮 179, 八列普通 358, 超前置炮 370, 七列普通 543, 准超前置 553, 六列普通 726, 前置炮 780, 五列普通 957, 后置炮 974. 梯子从开始放到放下 48.</p>
-<p>投篮坐标达到 650 进入可投篮模式, 转把手时间 73, 攻击间隔 300. 对底线植物刷新后 550-560 之间投掷启动, 完美预判冰免疫波长 1975.</p>
+<p>投篮坐标达到 650 进入可投篮模式, 转把手时间 73, 攻击间隔 300. 对底线植物刷新后 550-560 之间投掷启动, 完美预判冰免疫波长 1975(此数据有误).</p>
 <p>白眼血量 3000, 红眼血量 6000. 巨人血量低于一半且横坐标大于 400 时会扔小鬼, 进入伤害域最晚时间为刷新后 218(等效 155 预判炮). 开敲到命中 134, 收手用时 74, 开始扔小鬼到分离 105, 收手用时 37.</p>
 <p>巨人对南瓜/普通植物/玉米炮开始举锤的时间: 九列 202 441 468, 八列 732 854 887, 七列 1156 1245 1417, 六列 1573 1811 1844.</p>
 <p>小鬼拦截时机为 106~126, 减速则为 210 之后. 平地(非屋顶)玉米炮及樱桃拦截的范围是生效点所在行及其下一行(共两路).</p>
+<p>尾炸小鬼原速延时 250, 减速延时 350. (仅供参考, 追求无伤应适当减小. 小鬼落地后大约 25 开啃并非变黑就有伤.)</p>
 <p>珊瑚三人组刷新后 200 出现, 50 之后开啃. 水面冻结期间无法出现(冰消珊瑚).</p>
 <p>出生点: 旗帜 800, 撑杆 870~879, 冰车 800~809, 投篮 825~834, 巨人 845~854, 雪橇 880~1030, 其他 780~819(旗帜波整体右移 40).</p>
 <p>僵尸啃植物 4HP/4cs, 减速 4HP/8cs.</p>
-<p><em>以上数据部分为精确内存数值, 部分为实战测量值, 部分为理论计算值, 可能存在一定误差.</em></p>
-<p>参考资料:</p>
-<p><a href="https://tieba.baidu.com/p/652063536">【Plants VS Zombies】植物/僵尸作战报告最大百科全书</a></p>
-<p><a href="https://tieba.baidu.com/p/5288033944">【阵三篇】【补档】给男孩子的自X指南——冰冰教你撸炮</a></p>
-<p><a href="https://tieba.baidu.com/p/732011315">历史遗留问题清算——那个世界的时空。</a></p>
-<p><a href="https://tieba.baidu.com/p/669861842">〖上界之风〗屋顶火箭弹落点描述</a></p>
-<p><a href="https://tieba.baidu.com/p/5499822084">【新人首贴+元旦礼物】乱敲键盘！</a></p>
-<p><a href="https://tieba.baidu.com/p/5263235942">【二合一】数据计算相关</a></p>
-<p><a href="https://tieba.baidu.com/p/5865997365">超多炮数据的计算校验</a></p>
-<p><a href="https://tieba.baidu.com/p/3745008287">【PVZ六周年礼物】关于僵尸出生点分布的测量</a></p>
-<h2>轨道语言简述</h2>
-<p>用炮操作: P 玉米炮  B 提前炮  S 同步炮  D 延迟炮  d 尾炸炮  p 铲种炮</p>
-<p>用卡操作: I 冰蘑菇  N 核蘑菇  A/A'/a 灰烬植物(樱桃/辣椒/倭瓜)  C 垫材</p>
+<p><strong>以上数据部分为精确内存数值, 部分为实战测量值, 部分为理论计算值, 可能存在一定误差.</strong></p>
+<h2>轨道理论简述</h2>
+<p>可无尽的操作都是可循环的, 一个循环里的操作称为节奏, 用指定语言记录的循环操作称为轨道.</p>
 <p>P 类循环常用时长 34.75~36s. C 类循环常用时长 50~56s.</p>
-<p>双冰变奏: 一个循环用两个冰的节奏, 范式 ch6/ch9/ch5/ch8/ch4/ch7/ch5*/ch7*/C2f/C5u.</p>
+<p>用炮操作: <code>P</code> 玉米炮  <code>B</code> 提前炮  <code>S</code> 同步炮  <code>D</code> 延迟炮  <code>d</code> 尾炸炮  <code>p</code> 铲种炮</p>
+<p>用卡操作: <code>I</code> 冰蘑菇  <code>N</code> 核蘑菇  <code>A/A'/a</code> 灰烬植物(樱桃/辣椒/倭瓜)  <code>C</code> 垫材</p>
 <p>"|": 隔离符, 区分对应不同波次僵尸的操作.</p>
 <p>"-": 刷新符, 区分同一波次中的过渡和刷新操作.</p>
 <p>"/": 分场符, 区分上下半场在同一波次的不同步操作.</p>
 <p>括号内的数字: 波长, 本波到下波的刷新间隔.</p>
-<p>催化僵尸刷新的行为称为加法操作(灰烬植物), 延缓僵尸刷新的行为称为减法操作(冰蘑菇/垫材).</p>
-<p>刷新时不用冰/立即触发刷新的一波称为无冰波/加速波, 刷新时用冰减速则称为减速波.</p>
+<p>催化僵尸刷新(灰烬植物)的行为称为 加法操作, 延缓僵尸刷新(冰蘑菇/垫材)的行为称为 减法操作.</p>
+<p>刷新时不用冰/立即触发刷新的一波称为 无冰波/加速波, 刷新时用冰减速则称为 冰波/减速波.</p>
 <p>代奏: 使用加速卡片起到代替玉米炮的效果.</p>
 <p>变奏: 有规律有目的地使用冰蘑菇改变循环的节奏.</p>
+<p>双冰变奏: 一个循环用两个冰的节奏, 范式 <code>ch6/ch9/ch5/ch8/ch4/ch7/ch5*/ch7*/C2f/C5u</code>.</p>
 <p>常用节奏. (不包含过渡冰和激活炸之外的附加轨, 波长单位秒.)</p>
+<p>P3: P|P|P, (12|12|12)</p>
 <p>P4: P|P|P|P, (9|9|9|9)</p>
 <p>P5: P|P|P|P|P, (7|7|7|7|7)</p>
-<p>P5u: P|P|P|P|P, (6|9|6|9|6)</p>
+<p>P5u: P|P|P|P|P, (6|6|6|9|9)</p>
 <p>P6: P|P|P|P|P|P, (6|6|6|6|6|6)</p>
 <p>C2: IN|IAA', (25|25)</p>
 <p>C3: N|IN|AA'a, (17|17|17)</p>
@@ -298,14 +330,19 @@ y = 40 + 100 * r
 
 <p>C4u-36s: I-P|P|P, (18|9|9)</p>
 <p>C5u-36s: I-P|P|P|P, (18|6|6|6)</p>
+<p>C5u-50s: I-P|I-P|N, (21|21|8)</p>
+<p>C6u-36s: I-P|P|P|P|P, (12|6|6|6|6)</p>
 <p>C6u: I-P|I-P|N|P, (18|18|9|9)</p>
-<p>C7u: I-P|I-P|N|P|P, (17|17|6|6|6)</p>
-<p>C8u: I-P|I-P|P|N|P|P, (13|13|6|6|6|6)</p>
+<p>C7u(邻): I-P|I-P|P|N|P, (17|17|6|6|6)</p>
+<p>C7u(间): I-P|P|I-P|N|P, (17|6|17|6|6)</p>
+<p>C8u(邻): I-P|I-P|P|P|N|P, (13|13|6|6|6|6)</p>
+<p>C8u(间): I-P|P|I-P|P|N|P, (13|6|13|6|6|6)</p>
+<p>C8u(对): I-P|P|P|I-P|N|P, (13|6|6|13|6|6)</p>
 <!-- 三冰变奏 Cxi: -->
 
 <p>C6i-36s: I-P|I-P|I-P, (12|12|12)</p>
 <p>C7i: I-P|I-P|I-N|P, (18|18|12|6)</p>
-<p>C8i: I-P|I-P|I-P|N|P, (13|13|13|6|6)</p>
+<p>C8i-48s: I-P|I-P|I-P|N|P, (12|12|12|6|6)</p>
 <p>C9i(ch6): I-P|P|I-P|P|I-P|P, (12|6|12|6|12|6)</p>
 <p>常用复合运算:</p>
 <p>IP-: 热过渡, 刷新后冰生效并炸掉矿工冰车, 几乎不会触发刷新</p>
@@ -315,7 +352,7 @@ y = 40 + 100 * r
 <p>CP: 九列垫舞王, P 不早于刷新前 15 收撑杆</p>
 <p>I-CP: 较长冰波垫九列快速僵尸, 保护 78 列炮</p>
 <p>P(S)D: P/PS 不早于刷新前 155 全收巨人, 延迟 106~126 拦截小鬼</p>
-<p>Pd: 尾炸小鬼, 原速参考延时 250, 减速参考延时 350</p>
+<p>Pd: 尾炸小鬼, 落点 2.4 列可同时收矿工.</p>
 <p>PI (ICE1): 冰减压, 冻住红眼和撑杆</p>
 <p>PI (ICE2): 冰同步或者稍早于炮生效, 冻住即将投掷小鬼的巨人于下一波解决</p>
 <p>PI (ICE3): 冰延迟 105(减速 210) 生效取消小鬼投掷</p>
@@ -325,9 +362,6 @@ y = 40 + 100 * r
 <p>I-PD|PD (下半场节奏/连续拦截): P 冰波激活炮, D 延迟 220 落点前移, P 刷新前 135 拦截并触发本波白眼投掷, D 空拦(尾炸)白眼小鬼</p>
 <p>PN (ND5): 前院 3 行核蘑菇延迟 106 生效空拦五路小鬼</p>
 <p>PCD: C 于 P 生效之前种植, 延缓巨人投掷时间, D 拦截小鬼同时分离下一波快速僵尸</p>
-<p>参考资料:</p>
-<p><a href="https://tieba.baidu.com/p/2699120249">【Endless】你们要的奇怪名词——双冰变奏体系讲解</a></p>
-<p><a href="https://tieba.baidu.com/p/5288403187">轨道读本提要V3.0</a></p>
 <h1>Python 语言</h1>
 <h2>安装</h2>
 <p>本项目依赖于 Python3, <a href="https://www.python.org/downloads/">下载地址</a>.</p>
@@ -413,11 +447,11 @@ def N(row, col):
     Card(&quot;咖啡豆&quot;, row, col)
 
 # 在某行某列释放原版冰
-def Ice(row, col):
+def I(row, col):
     Card(&quot;原版冰&quot;, row, col)
 
 # 在某行某列释放复制冰
-def ImitaterIce(row, col):
+def II(row, col):
     Card(&quot;复制冰&quot;, row, col)
 
 # 补坚果/南瓜
@@ -443,7 +477,7 @@ def StoreIce():
             ClickGrid(spot)
         SafeClick()
         if i != (5 - 1):
-            Delay(5000 + 10)
+            Delay(5000 + 1)
 
 # 点冰
 def UseIce():
@@ -454,19 +488,15 @@ def UseIce():
         ClickGrid(spot)
     SafeClick()
 
-# 种垫材
+# 种垫材后铲除
+# 在子线程里运行
+@RunningInThread
 def DianCai():
-    Card(&quot;花盆&quot;, 1, 9)
-    Card(&quot;胆小菇&quot;, 2, 9)
-    Card(&quot;阳光菇&quot;, 5, 9)
-    Card(&quot;小喷菇&quot;, 6, 9)
-
-# 铲垫材
-def ChanDianCai():
-    Shovel(1, 9)
-    Shovel(2, 9)
-    Shovel(5, 9)
-    Shovel(6, 9)
+    Card(&quot;阳光菇&quot;, (5, 9))
+    Card(&quot;小喷菇&quot;, (6, 9))
+    Delay(30)
+    Shovel((5, 9))
+    Shovel((6, 9))
 
 # 吹 10 次风扇
 # 在子线程里运行
@@ -587,7 +617,7 @@ wave20()
 <p>第 9/19 波执行完主要操作后可能还需要额外用炮收尾, 所以要在对应波次的地方跳过一定数量的炮数, 使第 10/20 波自动选择的炮位相应地延后. 当然也可以算好时间写好脚本操作自动收尾.</p>
 <p>第 20 波视情况炮炸珊瑚/冰消珊瑚/冰杀小偷/炮炸小偷.</p>
 <p><code>Countdown</code>和<code>Prejudge</code>的区别: <code>Countdown</code>只阻塞到刷新倒计时数值小于指定数值, 需要用户保证本波操作执行到刷新时间点之后再进行下一波操作. <code>Prejudge</code>参数为相对于刷新时间点的相对时间, 用于预判则为负值, 可自动判断本波的上一波有没有刷出.</p>
-<p><code>Sleep</code>和<code>Delay</code>的区别: <code>Sleep</code>借助于操作系统实现延时, 由于 Windows 不是实时操作系统所以实际睡眠时间会有波动. <code>Delay</code>靠读取游戏内部时钟来实现延时, 相比线程睡眠更加精确, 也不用担心游戏中途突然暂停的影响, 缺点是只能在战斗界面使用.</p>
+<p><code>Sleep</code>和<code>Delay</code>的区别: <code>Sleep</code>借助于操作系统实现延时, 由于 Windows 不是实时操作系统所以实际睡眠时间会有波动. <code>Delay</code>靠读取游戏内部时钟来实现延时, 相比线程睡眠更加精确, 也不用担心游戏中途突然暂停的影响.</p>
 <p><code>Until</code>的参数为与本波刷新时间点的差值, 需要与<code>Prejudge</code>配合使用. 多个<code>Until</code>连用时注意参数大小按时间顺序从小到大.</p>
 <p><code>Coffee</code>需要与<code>StartAutoFillIceThread</code>配合使用. 为了减少资源占用该函数存冰并不及时, 需要更精确的控制存冰时间可参考上面的<code>StoreIce</code>和<code>UseIce</code>示例自己实现存冰和点冰函数.</p>
 <p>以泳池场地第 3 波预判 95cs 延迟 80cs 的双边 PD 为例, 以下几种写法均可:</p>
@@ -651,65 +681,56 @@ for wave in range(1, 21):
 </li>
 </ul>
 <h1>示例</h1>
-<p><strong>以下部分脚本后期有更新, 可能会出现代码和视频内容不一致的情况.</strong></p>
+<p><strong>以下部分脚本后期有更新, 可能会出现脚本代码和视频内容不一致的情况.</strong></p>
 <h2>PE经典十二炮</h2>
 <p><img alt="PE经典十二炮" src="/scripts/images/PE经典十二炮.jpg" /></p>
+<p>阵型出处 https://tieba.baidu.com/p/675626485</p>
 <p>使用节奏 P6.</p>
-<p>声明文件编码. 导入本项目所有函数.</p>
-<p>选卡后启动自动收集线程.</p>
-<p>变量 wave 值遍历 1~20, 针对波数编写操作.</p>
+<p>声明文件编码, 导入本项目所有函数.</p>
+<p>选卡, 声明炮位, 启动自动收集线程. 变量 wave 值遍历 1~20, 针对波数编写操作.</p>
 <p>通常采用 95cs 预判, 往 2-9 5-9 发射两枚玉米炮. 第 9/19 波预留 4 门炮用于手动收尾或者编写脚本自动收尾.</p>
-<p>第 10 波推迟到 33cs 预判, 同时补炸樱桃. 炮飞行时间 373cs, 樱桃释放后 100cs 爆炸, 在 (373 - 100)cs 后释放樱桃让樱桃与玉米炮同时生效.</p>
-<p>第 20 波预判 150cs 炮炸珊瑚, 落点 4-7. 等待 90cs 后(等效预判 60cs)往前场发射两枚玉米炮, 然后关底手动收尾或者编写脚本自动收尾.</p>
+<p>第 10 波推迟到 33cs 预判, 同时补炸樱桃. 炮飞行时间 373cs, 樱桃释放后 100cs 爆炸, 在炮发射 (373 - 100)cs 后释放樱桃使樱桃与玉米炮同时生效.</p>
+<p>第 20 波预判 150cs 炮炸珊瑚, 此门炮预判提前 30cs, 点炮身 30cs 后再发射, 落点 4-7. 等待 90cs 后(等效 60cs 预判)往前场发射两枚玉米炮, 然后关底预留炮手动收尾或者编写脚本自动收尾.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE12_P6.py">PE12_P6.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av33569737/">Bilibili</a> / <a href="https://youtu.be/sHGGMe3xxeY">YouTube</a></p>
-<h2>PE经典十炮</h2>
-<p><img alt="PE经典十炮" src="/scripts/images/PE经典十炮.jpg" /></p>
-<p>节奏为核代 P6, 每一波的操作如下:</p>
-<blockquote>
-<p>1~9 PP PP PP PP PP N PP PP PP
-10~19 PPA PP PP PP PP N PP PP PP PP
-20 P-PP</p>
-</blockquote>
-<p>具体描述一下:</p>
-<p>第 1/2/3/4/5/7/8/9/11/12/13/14/16/17/18/19 波的操作为预判 95cs 往前场射两门炮, 落点 2-9 5-9.</p>
-<p>第 10 波的操作为预判 33cs 往前场射两门炮, 落点 2-9 5-9. 并且在 2-9 加个樱桃以期消除刷怪延迟.</p>
-<p>第 20 波的操作为预判 150cs 炮炸珊瑚, 等待 90cs(等效 60cs 预判) 后再炸前场, 落点 2-9 5-9.</p>
-<p>第 6/15 波使用核蘑菇代奏. 核蘑菇与玉米炮生效时间相同, 同样在预判过后 373cs. 点下咖啡豆到唤醒 198cs, 唤醒到生效 100cs, 所以要在预判 (373 - 198 - 100)cs 后释放核蘑菇. 第 6 波弹坑 3-9, 第 15 波弹坑 4-9.</p>
-<p>第 9/19 波分别预留 4 门炮(极限出怪下)用于手动收尾操作或者编写脚本自动收尾.</p>
-<p>另外, 定义了一个"偷菜"函数并且运行在子线程, 第 11 波模拟被小偷偷取后重新种植的情况. (示例用意, 可优化.)</p>
-<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE10_P6-N.py">PE10_P6-N.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34824833/">Bilibili</a> / <a href="https://youtu.be/_vqyPvBYAIE">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38400383">Bilibili</a> / <a href="https://youtu.be/Ey1g_HmnKGw">YouTube</a></p>
 <h2>PE二十四炮</h2>
 <p><img alt="PE二十四炮" src="/scripts/images/PE二十四炮.jpg" /></p>
+<p>阵型出处 https://tieba.baidu.com/p/991306518</p>
 <p>节奏依然是万能的 P6, PPDD|ICE2|PPSSDD|PPDD|ICE2|PPSSDD.</p>
-<p>精准之舞, 收掉本波撑杆伴舞, 拦截白眼小鬼并不再伤红眼. 撑杆最晚 358 进入伤害域, P 不早于 358 生效. 超前置炮存在时伴舞最早 466 出土, D 早于 466 生效. 同时 PD 间隔不小于 106. 综合考虑, P 操作为 15cs 预判, D 延迟 107cs, D 落点七列偏右.</p>
+<p>精准之舞, 收掉本波撑杆伴舞, 拦截白眼小鬼并不再伤红眼. 撑杆最晚 358 进入伤害域, P 不早于 358 生效. 超前置炮存在时伴舞最早 466 出土, D 早于 466 生效. 同时 PD 间隔不小于 106. 综合考虑, P 操作为 15cs 预判, D 延迟 107cs, 落点七列偏右.</p>
 <p>冰之旋舞, 即 ICE2, 冰同步或稍早于炮生效, 冻住撑杆和准备扔小鬼的巨人等待下一波解决.</p>
 <p>六神乱舞, 四炮齐发秒白眼并触发红眼投掷, 两炮拦截并重复伤害红眼以及收掉撑杆.</p>
-<p>这里用到了内置存冰点冰函数, 只需指定存冰点, 本项目会自动在可用的情况下及时存冰.</p>
+<p>这里用到了内置存冰点冰函数, 只需指定存冰点, 脚本会自动在可用的情况下及时存冰.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE24_P6-2I.py">PE24_P6-2I.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34827600/">Bilibili</a> / <a href="https://youtu.be/QPwp-mqbXGM">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38400974">Bilibili</a> / <a href="https://youtu.be/88S5vZjfg5I">YouTube</a></p>
+<h2>PE垫材二十四炮</h2>
+<p><img alt="PE垫材二十四炮" src="/scripts/images/PE垫材二十四炮.jpg" /></p>
+<p>阵型出处 https://tieba.baidu.com/p/1688588122</p>
+<p>P6-C, PDC|PDC|PDC|PDC|PDC|PDC.</p>
+<p>调整炮序使得 P 均用前场炮(前置超前置) D 均用后场炮(鬼位底线).</p>
+<p>垫材选用价格少冷却快的植物, 不早于玉米炮发射后 81 种植, 尽早铲除以免巨人受垫干扰空拦. 垫材的种植和铲除放在单独的线程运行(新开线程有一定开销不过此处影响不大).</p>
+<p>巨人对 78 列炮 887 开始举锤, 加上一次扔小鬼两次砸垫材一次砸炮, D 需要在 887 + (105 + 37) + (134 + 74) * 2 + 134 = 1579 之前落下, 对应的 P 预判时间不晚于 1579 - 108 - 601 - 601 - 373 = -104. (由于速度重置问题此计算方法并不准确.)</p>
+<p>第 10 波至少三个运算量以期消除延迟, 半场 PDC 另一半场分配两门炮, 考虑到玉米炮冷却问题以及处理小偷的需求, 第三个额外运算量不使用樱桃而是用稍晚的同步炮秒杀白眼并炸小偷, 然后再用樱桃拦截.</p>
+<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE24_P6-C.py">PE24_P6-C.py</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38401606">Bilibili</a> / <a href="https://youtu.be/GTei1zO7B3w">YouTube</a></p>
 <h2>PE超前置十六炮</h2>
 <p><img alt="PE超前置十六炮" src="/scripts/images/PE超前置十六炮.jpg" /></p>
-<p>运行节奏为 ch6, |PPDD|IPP-PP|PPDD|IPP-PP|.</p>
-<p>第 1 波 PPDD, 刷新前 95cs 两门预判炮 PP, 至少 80cs 后接两门延迟炮 DD, 收撑杆并补刀红眼.</p>
-<p>从点下咖啡豆到寒冰菇生效的时间较长, 第 2 波的预判冰点咖啡豆的操作放在第 1 波进行.</p>
-<p>本波波长 600cs, 本波操作在刷新前 95cs 开始, 中途累计延时 80cs, 寒冰菇从点下咖啡豆到生效 298cs (唤醒 198cs + 生效 100cs).</p>
-<p>采用 50cs(&gt;=36cs 炸全巨人?) 预判冰, 即下一波在刷新后 50cs 被冻住. 计算可知在 DD 操作之后 (600 + 95 - 80 - 298 + 50)cs 点下咖啡豆即可.</p>
-<p>第 2 波僵尸刷新即被冻住, 首先是两门热过渡炮处理掉矿工冰车, 落点可以左移避免炸到刚冒头的其他僵尸.</p>
-<p>本波波长是由激活炮的时机决定的, 波长 1200cs, 预判 95cs, 中途累计延时 0, 玉米炮发射后 373cs 生效, 激活到下一波刷出 200cs.</p>
-<p>计算得知在 IPP 操作之后 (1200 + 95 - 0 - 373 - 200)s 发射激活炮 PP 即可.</p>
+<p>阵型出处 https://tieba.baidu.com/p/1059655283</p>
+<p>运行节奏为 ch6, PPDD|IPP-PP|PPDD|IPP-PP.</p>
+<p>第 1 波 PPDD, 刷新前 95cs 两门预判炮 PP, 至少 80cs 后接两门延迟炮 DD, 收撑杆并补刀红眼. 从点下咖啡豆到寒冰菇生效的时间较长, 第 2 波的预判冰点咖啡豆的操作放在第 1 波进行. 本波波长 601cs, 本波操作在刷新前 95cs 开始, 中途累计延时 80cs, 寒冰菇从点下咖啡豆到生效 298cs (唤醒 198cs + 生效 100cs). 采用 50cs(&gt;=36cs 炸全巨人?) 预判冰, 即下一波在刷新后 50cs 被冻住. 计算可知在 DD 操作之后 (601 + 95 - 80 - 298 + 50)cs 点下咖啡豆即可.</p>
+<p>第 2 波僵尸刷新即被冻住, 首先是两门热过渡炮处理掉矿工冰车, 落点可以左移避免炸到刚冒头的其他僵尸. 本波波长是由激活炮的时机决定的, 波长 1200cs, 预判 95cs, 中途累计延时 0, 玉米炮发射后 373cs 生效, 激活到下一波刷出 200cs. 计算得知在 IPP 操作之后 (1200 + 95 - 0 - 373 - 200)cs 发射激活炮 PP 即可.</p>
 <p>第 9/19 波额外留出一定的炮数手动收尾(也可以算好时间自动操作收尾).</p>
 <p>第 20 波炮炸珊瑚, 拖够时间攒齐八炮秒杀红眼, 留下一只普僵拖时间.</p>
+<p>这个例子对发炮的精度要求不高, 尝试使用读内存随机找炮的 <code>TryPao</code> 函数(此函数开销较大不适合精确键控), 不需要考虑炮组分配和预留炮数的问题.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE16_ch6.py">PE16_ch6.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34825956/">Bilibili</a> / <a href="https://youtu.be/8e7phSRx7uk">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38402042">Bilibili</a> / <a href="https://youtu.be/7RIwOCl7xNI">YouTube</a></p>
 <h2>PE超前置十二炮</h2>
 <p><img alt="PE超前置十二炮" src="/scripts/images/PE超前置十二炮.jpg" /></p>
 <p>节奏为 ch6, PPCC|IPP-PP|PPCC|IPP-PP.</p>
-<p>这里的存冰位均为永久位, 使用内置存冰函数时无需指定总个数.</p>
+<p>这里的存冰位均为永久位, 使用内置存冰函数时无需指定总个数(当然了指定这个参数更好).</p>
 <p>节奏大体与上一个例子相同, 缺少炸撑杆补刀红眼的炮, 用垫材起到类似的作用. (通常使用阳光少冷却快的植物作为垫材, 此处恶趣味地滥用昂贵植物.)</p>
 <p>常规预判炸无法炸到撑杆, 撑杆对超前置炮最早 607 起跳, 等下一波预判炸落地时撑杆早已跳过超前置炮了, 因此在其跳跃超前置炮之前放置垫材强迫跳跃.</p>
-<p>跳跃用时 180, 跳跃后 113 啃炮, 因此垫材需要在发炮之后至少 81 种植以免撑杆啃超前置炮.</p>
+<p>跳跃用时 180, 跳跃后 113 啃炮, 垫材需要在发炮之后至少 81 种植以免撑杆啃超前置炮.</p>
 <p>小丑最早 440 开盒, 开盒后 110 爆炸, 冻结最小时间 400, 为避免小丑炸九列植物冰波长度缩减为 440 + 110 + 400 + 200 = 1150cs.</p>
 <p>相应地预判冰生效时机推迟到刷新后 75cs(&gt;=86cs 炸全巨人?), 第 11 波预判冰不要太晚以免没冻到小偷.</p>
 <p>第 9 波收尾稍微拖一下时间, 以免下半场存冰冷却跟不上.</p>
@@ -717,50 +738,48 @@ for wave in range(1, 21):
 <p>第 19 波我们假设 1 路留有红眼, 更合理的方式是预留炮手动收尾或者更智能地判断哪一路留有红眼.</p>
 <p>第 20 波炮炸珊瑚时为了避免炮落点位于自身附近无法发射, 预判时机提前 30cs, 点炮身 30cs 之后再发射.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE12_ch6.py">PE12_ch6.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34923817/">Bilibili</a> / <a href="https://youtu.be/v6EKVQJnrCw">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38402440">Bilibili</a> / <a href="https://youtu.be/RgNcSKLFX4E">YouTube</a></p>
 <h2>PE新二十二炮</h2>
 <p><img alt="PE新二十二炮" src="/scripts/images/PE新二十二炮.jpg" /></p>
+<p>阵型出处 https://tieba.baidu.com/p/1628467712</p>
 <p>ch6, PSD/PDC|IPP-PPDD|PSD/PDC|IPP-PPDD.</p>
-<p>上半场为手控常用节奏, 下半场于加速波缩减一炮采用连续拦截定式.</p>
-<p>开场时上半场九列临时存冰. (有概率被吃掉)</p>
+<p>上半场为手控 24 炮常用节奏, 下半场于加速波少用一炮采用连续拦截定式.</p>
+<p>开场时上半场九列临时存冰. (注意有概率被吃掉)</p>
 <p>撑杆跳跃用时 180, 冰至少在垫材种植后 181 生效. 此处(下一波)预判 135 种植垫材, 刷新后 45 撑杆落地, 刷新后 50 冰生效.</p>
-<p>下半场刷新后 180 落点 7.2 列热过渡炮收本波矿工冰车和上波撑杆.</p>
-<p>其他细节请看代码注释.</p>
+<p>下半场刷新后 180 落点 7.2 列热过渡炮收本波矿工冰车和上波撑杆. 这是循环中的一门有可能射到自己身上(污)的炮, 使用延迟发射解决. (缩减冰波长度就没法提前点炮了, 可通过调整炮列表顺序解决.)</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE22_ch6.py">PE22_ch6.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34826849/">Bilibili</a> / <a href="https://youtu.be/ycfmXAMYPms">YouTube</a></p>
-<h2>FE二十四炮</h2>
-<p><img alt="FE二十四炮" src="/scripts/images/FE二十四炮.jpg" /></p>
-<p>ch9-56s: PSD/PDC|IPP-PPDD|PSD/PDC|IPP-PPDD|PSD/PDC|AD/PDC|PSD/PDC, (6|13|6|13|6|6|6).</p>
-<p>这个节奏相对复杂, 不像之前的例子里有相当多的操作几乎完全相同的波次可以合并, 因此给每一波单独定义一个函数再逐个运行.</p>
-<p>原版冰操作写在本波, 复制冰操作写在上波. 垫撑杆操作同样写在下一波.</p>
-<p>预判 180 种植垫材, 刷新前 - 100 + 5 种植原版冰, 刷新前 - 100 - 320 + 5 种植复制冰, 使冰稍晚于撑杆跳跃完成后生效.</p>
-<p>多个<code>Until</code>连用时注意参数大小按时间顺序从小到大.</p>
-<p>适当调节波长等数据保证复用炮冷却能跟上.</p>
-<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/FE24_ch9.py">FE24_ch9.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av34828474/">Bilibili</a> / <a href="https://youtu.be/p-4ZbBtxBrI">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38402840">Bilibili</a> / <a href="https://youtu.be/5e52yWxsMZU">YouTube</a></p>
+<h2>PE十四炮</h2>
+<p><img alt="PE十四炮" src="/scripts/images/PE十四炮.jpg" /></p>
+<p>阵型出处 https://tieba.baidu.com/p/5102612180</p>
+<p>节奏 ch5u-35.62s: PPDD|I-PPdd|IPP-PPDDCC, (6|13|16.62).</p>
+<p>冰车最早 1108 碾压 67 列炮, 第一用冰波长度定为 1300cs. 拦截运算量尾炸矿工小鬼.</p>
+<p>第二用冰波预判冰时机为刷新后 20cs, 等小鬼脱手后生效. 波长较长激活炮发炮后垫一下撑杆以免跳炮.</p>
+<p>加速波采用统一空拦和精准之舞定式. 精准之舞的预判炸在刷新后 358 生效, 为了使上一波的减速红眼恢复原速后再让本波加速运算量生效, 第二用冰波波长需要延长到 20 + 2000 - 358 = 1662.</p>
+<p>水路临时高坚果, 附带一个简单的高坚果维护函数供参考.</p>
+<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE14_ch5.py">PE14_ch5.py</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38403391">Bilibili</a> / <a href="https://youtu.be/aH3ek0axMrQ">YouTube</a></p>
 <h2>PE真二炮</h2>
 <p><img alt="PE真二炮" src="/scripts/images/PE真二炮.jpg" /></p>
-<p>节奏 ch5-35.4s: PPddCC|IPPCC-PPDD|IPPCC-PPDD, (6|14.7|14.7)</p>
-<p><em>此解法可能因为小丑炸炮/漏炸撑杆导致破阵.</em></p>
-<p>冰波较长预判冰时机相应地提前, 定为 10cs. 对于第一个冰波需要等激活炸触发投掷的小鬼抛出后即下一波刷新 210 - 200 之后再生效, 因此使用 15cs.</p>
-<p>加速波垫材操作均放在本波进行, 在本波刷新 600 - 175 后(即下一波刷新 175 前)种植并尽快铲除(注意最晚操作时间要早于下一波预判设定时间), 下一波刷新 5 之后撑杆落地(稍早于冰生效时机).</p>
+<p>阵型出处 http://tieba.baidu.com/p/2527652701</p>
+<p>节奏 ch5-35.4s: PPDDCC|IPPCC-PPDD|IPPCC-PPDD, (6|14.7|14.7).</p>
+<p>加速波垫材操作均放在本波进行, 在本波刷新 601 - 165 后(即下一波刷新 165 前)种植并尽快铲除(注意最晚操作时间要早于下一波预判设定时间), 下一波刷新 15 之后撑杆落地(稍早于冰生效时机).</p>
 <p>冰波刷新后 630 用垫, 垫住快速僵尸并减压红眼. 巨人砸垫材 134 收手 74, 激活炮发炮前 (134 + 74) * 2 - 373 = 43cs 铲除垫材避免本波白眼受垫干扰空拦.</p>
-<p>上下半场均使用连续拦截, 水路临时高坚果. 附带一个简单的高坚果维护函数供参考.</p>
+<p>上下半场均使用连续拦截, 水路临时高坚果, 附带一个简单的高坚果维护函数供参考.</p>
+<p>此解法可能因为小丑炸炮/漏炸撑杆导致破阵.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE16_ch5.py">PE16_ch5.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av35369870/">Bilibili</a> / <a href="https://youtu.be/dS2iNkAOoHQ">YouTube</a></p>
-<h2>PE垫材二十四炮</h2>
-<p><img alt="PE垫材二十四炮" src="/scripts/images/PE垫材二十四炮.jpg" /></p>
-<p>P6-C, PDC|PDC|PDC|PDC|PDC|PDC.</p>
-<p>调整炮序使得 P 均用前场炮 D 均用后场炮.</p>
-<p>垫材选用价格少冷却快的植物, 不早于玉米炮发射后 81 种植, 尽早铲除以免巨人受垫干扰空拦. 垫材函数放在单独的线程运行(新开线程有一定开销不过此处影响不大).</p>
-<p>巨人对 78 列炮 887 开始举锤, 加上一次扔小鬼两次砸垫材一次砸炮, D 需要在 887 + (105 + 37) + (134 + 74) * 2 + 134 = 1579 之前落下, 对应的 P 预判时间不晚于 1579 - 108 - 600 - 600 - 373 = -102.</p>
-<p>第 10 波至少三个运算量以期消除延迟, 半场 PDC 另一半场分配两门炮, 考虑到玉米炮冷却问题以及处理小偷的需求, 第三个额外运算量不使用樱桃而是用稍晚的同步炮秒杀白眼并炸小偷, 再用樱桃拦截.</p>
-<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/PE24_P6-C.py">PE24_P6-C.py</a></p>
-<p>演示视频 <a href="https://www.bilibili.com/video/av36724031/">Bilibili</a> / <a href="https://youtu.be/EXdlnIGzKAg">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38404377">Bilibili</a> / <a href="https://youtu.be/NTEVuTSwPZQ">YouTube</a></p>
+<h2>DE十四炮</h2>
+<p><img alt="DE十四炮" src="/scripts/images/DE十四炮.jpg" /></p>
+<p>节奏 ch6: PPdC|IP-PPD|PPdC|IP-PPD, (6|12|6|12).</p>
+<p>上半场垫三路撑杆. 下半场连续拦截, 尾炸矿工小鬼. 关底拖够时间攒炮炸小偷.</p>
+<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/DE14_ch6.py">DE14_ch6.py</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38405871">Bilibili</a> / <a href="https://youtu.be/5_3ezGon-Sk">YouTube</a></p>
 <h2>NE舞夜惊魂</h2>
 <p><img alt="NE舞夜惊魂" src="/scripts/images/NE舞夜惊魂.jpg" /></p>
-<p>P6-C, PC|PC|PC|PC|PC|PC.</p>
-<p>控制舞王/伴舞行走还是舞蹈的时钟 <code>[[6A9EC0]+838]</code> 不随暂停变化, 通过暂停来跳过行走的过程使舞王/伴舞原地踏步, 即女仆秘籍.</p>
+<p>阵型出处 https://tieba.baidu.com/p/4354954825</p>
+<p>P6-C, PPC|PPC|PPC|PPC|PPC|PPC.</p>
+<p>控制舞王/伴舞行走还是舞蹈的时钟 <code>[[6A9EC0]+838]</code> 不受暂停影响, 通过暂停来跳过行走的过程使舞王/伴舞原地踏步, 即女仆秘籍.</p>
 <p>曾哥的命中判定相比开火判定收缩 1 个像素, 利用固定位置的伴舞使曾哥处于永动状态.</p>
 <p>1 路地刺王加两曾杀跳跳.</p>
 <p>2 路常规预判炸(95cs 预判), 4 路延迟炸撑杆(15cs 预判).</p>
@@ -773,10 +792,59 @@ for wave in range(1, 21):
 <p>墓碑僵尸大约刷新后 325 冒头, 350 开啃 (目测数据仅供参考), 预判时机 325 - 373 &lt; x &lt; 350 - 373.</p>
 <p>此阵运行无阳光消耗.</p>
 <p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/NE12_P6-C.py">NE12_P6-C.py</a></p>
-<p>演示视频 <a href="http://www.bilibili.com/video/av36765461/">Bilibili</a> / <a href="https://youtu.be/lHwCc5WCSq4">YouTube</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38406841">Bilibili</a> / <a href="https://youtu.be/ldJiGuXWiDQ">YouTube</a></p>
+<h2>ME十三炮</h2>
+<p><img alt="ME十三炮" src="/scripts/images/ME十三炮.jpg" /></p>
+<p>阵型出处 https://tieba.baidu.com/p/5288033944</p>
+<p>C5u-35s: PPD|PPD|PPD|IP-PPD, (6|6|6|17).</p>
+<p>原版冰种植操作写在本波, 复制冰种植操作写在上一波. 种植和铲除过程均放在单独的线程运行.</p>
+<p>调整炮序使用底线炮空拦三行小鬼, 落点稍微偏左, 时机相比平地稍微推迟. 并炸炮落点 2/4 路使 3 路受到重叠攻击尽早消灭红眼方便种植复制冰, 两门炮同时落下使 1/2 路 和 3 路巨人同时投掷.</p>
+<p>因为有同时落地的需求, 这里使用 <code>RoofPao</code> 函数来修正不同列炮飞行时间. 使用这个函数时, 每门炮的等效飞行时间变为 373 (只适用于屋顶前场落点).</p>
+<p>无需预判炸, 预判时机可以设在刷新之后.</p>
+<p>冰波后一波加速炮落地时巨人已经解冻以达成统一空拦.</p>
+<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/ME13_C5u.py">ME13_C5u.py</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38407390">Bilibili</a> / <a href="https://youtu.be/jUjvLI_bUqM">YouTube</a></p>
+<h2>RE十六炮</h2>
+<p><img alt="RE十六炮" src="/scripts/images/RE十六炮.jpg" /></p>
+<p>阵型出处 https://tieba.baidu.com/p/1249179381</p>
+<p>ch6: PSD/P|IP-PPD|PSD/P|IP-PPD, (6|12|6|12).</p>
+<p>调整炮序使用底线炮空拦三行小鬼. 并炸炮于 2/4 路同时落下.</p>
+<p>发炮时机尽量晚以免下路小鬼落在炮上, 梯子最早约 382 啃食超前置炮, 选用 10cs 预判.</p>
+<p>关底冰消空降, 炮炸小偷.</p>
+<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/RE16_ch6.py">RE16_ch6.py</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38407808">Bilibili</a> / <a href="https://youtu.be/g1xNVLRDyKo">YouTube</a></p>
+<h2>RE椭盘十四炮</h2>
+<p><img alt="RE椭盘十四炮" src="/scripts/images/RE椭盘十四炮.jpg" /></p>
+<p>阵型出处 https://tieba.baidu.com/p/5029428684</p>
+<p>ch4-35.6s: ICE3+PPDD+P-PP|ICE3+PPDD+P-PP, (17.8|17.8).</p>
+<p>在小鬼脱手的关键帧生效寒冰菇触发巨人重复投掷来推迟白眼投掷小鬼.</p>
+<p>冰冻 400 后炮落地消灭白眼同时炸掉冰车跳跳, 空拦红眼小鬼并重复伤害红眼, 约 1350 等效波长的分离炮炸掉 3/4(/5) 路靠前的梯子小丑.</p>
+<p>收尾波(9/19)前一波波长延长至 1950 给玉米炮冷却争取时间, 收尾波使用 NPPDD+DD 连续拦截, 留下 1 路红眼为卡炮冷却争取时间.</p>
+<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/RE14_ch4-ICE3.py">RE14_ch4-ICE3.py</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38408382">Bilibili</a> / <a href="https://youtu.be/KoFX0SIMzWk">YouTube</a></p>
+<h2>FE二十四炮</h2>
+<p><img alt="FE二十四炮" src="/scripts/images/FE二十四炮.jpg" /></p>
+<p>阵型出处 https://tieba.baidu.com/p/2155500986</p>
+<p>ch9-56s: PSD/PDC|IPP-PPDD|PSD/PDC|IPP-PPDD|PSD/PDC|AD/PDC|PDD/PDC, (6|13|6|13|6|6|6).</p>
+<p>这个节奏相对复杂, 不像之前的例子里有相当多的操作几乎完全相同的波次可以合并, 因此给每一波单独定义一个函数再逐个运行.</p>
+<p>原版冰种植操作写在本波, 复制冰种植操作写在上波, 垫撑杆操作写在下一波.</p>
+<p>预判 180 种植垫材, 刷新前 -100 + 5 种植原版冰, 刷新前 -100 - 320 + 5 种植复制冰, 使冰稍晚于撑杆跳跃完成后生效.</p>
+<p>冰波时间较长中间垫一下红眼减压.</p>
+<p>多个<code>Until</code>连用时注意参数大小按时间顺序从小到大.</p>
+<p>适当调节波长和发射时机等数据使复用炮冷却能跟上.</p>
+<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/FE24_ch9.py">FE24_ch9.py</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38409007">Bilibili</a> / <a href="https://youtu.be/kNBwhHvhark">YouTube</a></p>
+<h2>FE花环十六炮</h2>
+<p><img alt="FE花环十六炮" src="/scripts/images/FE花环十六炮.jpg" /></p>
+<p>阵型出处 https://tieba.baidu.com/p/4394965593</p>
+<p>C8u-50s: I-PPDD|I-PPDD|PPA'dd|PPDD|NAd|PPDD, (13|13|6|6|6|6).</p>
+<p>自然上限波长 601 实际循环时长 5004, 因此循环中冰核等卡片的冷却不成问题. (这里仅仅是照搬原解法即重组 ch9, 为了等待卡片冷却各种拖时间 ==.)</p>
+<p>在合适的地方插入 <code>SetFixPao</code> 声明铲种炮位置, 下一次该门炮发射后会自动替换并在可用时更新炮列表相关数据.</p>
+<p>脚本代码 <a href="https://github.com/lmintlcx/pvzscripts/blob/master/scripts/FE16_C8u.py">FE16_C8u.py</a></p>
+<p>演示视频 <a href="https://www.bilibili.com/video/av38409700">Bilibili</a> / <a href="https://youtu.be/La31spQ_bzU">YouTube</a></p>
 <h1>API 文档</h1>
 <p><strong>以下公开接口函数均采用大驼峰法命名, 对应的内部实现均为下划线法命名并以下划线开头.</strong></p>
-<h2>查找进程读写内存</h2>
+<h2>查找游戏读取内存</h2>
 <h3><code>FindPvZ()</code></h3>
 <p>查找原版植物大战僵尸游戏进程. 该函数会在导入本项目时自动运行.</p>
 <p>@返回值 (bool): 查找成功返回 True, 没找到或是版本不符则返回 False.</p>
@@ -795,18 +863,31 @@ for wave in range(1, 21):
 (True, False, True, True, False, True, True, False, True, False, False, False, True, False, False, True, False, False, True, True, False, False, False, False, False, True, False, False, False, False, False, False, True)
 </code></pre>
 
-<h3><code>WriteMemory(data_type, values, *address)</code></h3>
-<p>写入内存数据.</p>
-<p>@参数 data_type(str): 数据类型, 取自 C/C++ 语言关键字, 包括 ["char", "bool", "unsigned char", "short", "unsigned short", "int", "unsigned int", "long", "unsigned long", "long long", "unsigned long long", "float", "double"]</p>
-<p>@参数 values(int/float/bool/list/tuple): 需要写入的数据, 多个数据采用列表或者元组形式.</p>
-<p>@参数 address(int): 地址, 可为多级偏移.</p>
-<p>目标进程不可用时立即返回.</p>
-<p>@示例:</p>
-<pre><code class="python">WriteMemory(&quot;int&quot;, 9990, 0x6a9ec0, 0x768, 0x5560)
-</code></pre>
+<!--
 
-<pre><code class="python">WriteMemory(&quot;unsigned char&quot;, [0xb0, 0x01, 0xc3], 0x0041d7d0)
-</code></pre>
+### `WriteMemory(data_type, values, *address)`
+
+写入内存数据.
+
+@参数 data_type(str): 数据类型, 取自 C/C++ 语言关键字, 包括 ["char", "bool", "unsigned char", "short", "unsigned short", "int", "unsigned int", "long", "unsigned long", "long long", "unsigned long long", "float", "double"]
+
+@参数 values(int/float/bool/list/tuple): 需要写入的数据, 多个数据采用列表或者元组形式.
+
+@参数 address(int): 地址, 可为多级偏移.
+
+目标进程不可用时立即返回.
+
+@示例:
+
+
+wzxhzdk:18
+
+
+
+wzxhzdk:19
+
+
+-->
 
 <h2>模拟鼠标点击</h2>
 <h3><code>LeftClick(x, y)</code></h3>
@@ -845,7 +926,7 @@ for wave in range(1, 21):
 <p>@参数 time_cs(int): 时间, 单位 cs, 精度 1.</p>
 <h3><code>Countdown(time_cs, hugewave=False)</code></h3>
 <p>等待直至本波刷新倒计时数值达到指定值. 调用时需要保证上一波已经刷出.</p>
-<p>@参数 time_cs(int): 倒计时数值, 单位 cs, 精度 1. 范围 [200, 0].</p>
+<p>@参数 time_cs(int): 倒计时数值, 单位 cs, 精度 1. 范围 [200, 1].</p>
 <p>@参数 hugewave(bool): 是否为旗帜波, 默认不是. 可用 (波数 % 10 == 0) 判断.</p>
 <p>@示例:</p>
 <pre><code class="python">Countdown(95)  # 非旗帜波 95cs 预判
@@ -886,7 +967,7 @@ for wave in range(1, 21):
 <h2>选卡/更新炮列表</h2>
 <h3><code>SelectCards(seeds_selected=None)</code></h3>
 <p>选卡并开始游戏.</p>
-<p>选择所有卡片. 点击开始. 更新加农炮列表. 等待开场红字消失.</p>
+<p>选择所有卡片, 点击开始游戏, 更新加农炮列表, 更新卡片列表, 更新场景数据, 等待开场红字消失.</p>
 <p>@参数 seeds_selected(list): 卡片列表, 参数为空默认选择八张紫卡和两张免费卡. 参数个数小于卡槽数则用默认卡片填充.</p>
 <p>列表长度需与卡槽格数相同. 单张卡片 seed 可用 int/tuple/str 表示, 不同表示方法可混用.</p>
 <p>seed(int): 卡片序号, 0 为豌豆射手, 47 为玉米加农炮, 对于模仿者这个数字再加上 48.</p>
@@ -941,17 +1022,27 @@ for wave in range(1, 21):
 <h3><code>Card(seed, *crood)</code></h3>
 <p>用卡操作.</p>
 <p>@参数 seed(int/str): 卡槽第几格或者卡片名称.</p>
-<p>@参数 crood(float/tuple): 坐标, 两个分别表示 行/列 的数字或者一个 (行, 列) 元组, 数字可为小数.</p>
+<p>@参数 crood(int/tuple): 坐标, 两个分别表示 行/列 的数字或者一个 (行, 列) 元组, 数字均为整数.</p>
 <p>@示例:</p>
-<pre><code class="python">Card(1, 2, 3)  # 将第 1 张卡片种在 2 行 3 列
+<pre><code class="python">Card(1, 2, 3)  # Card(1, (2, 3))  # 将卡槽中的第 1 张卡片种在 2 行 3 列
 </code></pre>
 
-<pre><code class="python">Card(&quot;樱桃&quot;, (5, 9))  # 将卡槽中的樱桃种在 5 行 9 列
+<pre><code class="python">Card(&quot;樱桃&quot;, 5, 9)  # Card(&quot;樱桃&quot;, (5, 9))  # 将樱桃种在 5 行 9 列
+</code></pre>
+
+<h3><code>Shovel(*crood)</code></h3>
+<p>用铲子操作.</p>
+<p>@参数 crood(float/tuple): 坐标, 两个分别表示 行/列 的数字或者一个 (行, 列) 元组, 数字可为小数.</p>
+<p>@示例:</p>
+<pre><code class="python">Shovel(2, 3)  # Shovel((2, 3))  # 铲掉 2 行 3 列的普通植物
+</code></pre>
+
+<pre><code class="python">Shovel(5.1, 6)  # use_shovel((5 + 0.1, 6))  # 铲掉 5 行 6 列的南瓜头
 </code></pre>
 
 <h3><code>Pao(*params)</code></h3>
 <p>用炮操作.</p>
-<p>@参数 params(int/tuple/list): 落点.</p>
+<p>@参数 params(float/tuple/list): 落点.</p>
 <p>用两个数字指定落点行数和列数, 为了避免炮落点位于自身附近点击失效可设置第三个延时参数或者调换连续两炮的顺序.</p>
 <p>落点参数还可以为一至多个格式为 (行, 列) 的元组, 或者一个包含了这些元组的列表.</p>
 <p>@示例:</p>
@@ -961,7 +1052,7 @@ for wave in range(1, 21):
 <pre><code class="python">Pao(5, 7, 30)  # 点炮身延迟 30cs 再发射
 </code></pre>
 
-<pre><code class="python">Pao((2, 9))
+<pre><code class="python">Pao((2, 7.8))
 </code></pre>
 
 <pre><code class="python">Pao((5, 4), (1, 4))  # 调整炮序
@@ -973,22 +1064,17 @@ for wave in range(1, 21):
 <h3><code>SkipPao(num)</code></h3>
 <p>跳过列表中一定数量的玉米炮, 通常用于 wave9/19 手动收尾.</p>
 <p>@参数 num(int): 数量.</p>
-<h3><code>Shovel(*crood)</code></h3>
-<p>用铲子操作.</p>
-<p>@参数 crood(float/tuple): 坐标, 两个分别表示 行/列 的数字或者一个 (行, 列) 元组, 数字可为小数.</p>
-<p>@示例:</p>
-<pre><code class="python">Shovel(2, 3)  # Shovel((2, 3))  # 铲掉 2 行 3 列的植物
-</code></pre>
-
+<h3><code>TryPao(*params)</code></h3>
+<p>自动找炮发射. 此函数开销较大不适合精确键控. 参数格式同 <code>Pao()</code>.</p>
+<p>@返回值 (bool): 成功返回 True, 无炮可用或者中途无炮导致发射不完全则返回 False.</p>
+<h3><code>RoofPao(*params)</code></h3>
+<p>屋顶修正飞行时间发炮. 此函数开销较大不适合精确键控. 只适用于前场 (7~9 列).</p>
+<h3><code>SetFixPao(*crood)</code></h3>
+<p>设置要更换的玉米炮. 下一次该门炮发射后会自动替换并在可用时更新炮列表相关数据.</p>
+<p>@参数 crood(int/tuple): 坐标, 两个分别表示 行/列 的数字或者一个 (行, 列) 元组.</p>
 <h2>子线程操作</h2>
 <h3><code>RunningInThread</code></h3>
 <p>将此装饰器应用到需要在子线程运行的函数上.</p>
-<p>@示例:</p>
-<pre><code class="python">@RunningInThread
-def this_function_runs_on_subthread():
-    pass
-</code></pre>
-
 <h3><code>StartAutoCollectThread(collect_items=[1, 2, 3, 4, 5, 6, 17], interval_cs=12)</code></h3>
 <p>自动收集场上资源. 在单独的子线程运行.</p>
 <p>为了避免操作冲突, 鼠标光标放到游戏窗口内部时会暂停收集.</p>
@@ -1018,10 +1104,53 @@ def this_function_runs_on_subthread():
 <p>优先点临时位. 该函数需要配合自动存冰线程 StartAutoCollectThread() 使用.</p>
 <h3><code>StartStopDancerThread()</code></h3>
 <p>女仆秘籍. 通过暂停控制舞王/伴舞的跳舞/行走. (此函数实现不佳不建议使用.)</p>
+<h2>信息获取</h2>
+<h3><code>GameOn()</code></h3>
+<p>@返回值 (bool): 游戏是否开启, 没开则会尝试重新查找一次.</p>
+<h3><code>GameUI()</code></h3>
+<p>@返回值 (int): 游戏界面.</p>
+<p>1: 主界面, 2: 选卡, 3: 正常游戏/战斗, 4: 僵尸进屋, 7: 模式选择.</p>
+<h3><code>GameMode()</code></h3>
+<p>@返回值 (int): 游戏模式, 13 为生存无尽. 详情查阅附录.</p>
+<h3><code>GameScene()</code></h3>
+<p>@返回值 (int): 游戏场景.</p>
+<p>0: 白天, 1: 黑夜, 2: 泳池, 3: 浓雾, 4: 屋顶, 5: 月夜, 6: 蘑菇园, 7: 禅境花园, 8: 水族馆, 9: 智慧树.</p>
+<h3><code>GamePaused()</code></h3>
+<p>@返回值 (bool): 当前游戏是否暂停.</p>
+<h3><code>GameClock()</code></h3>
+<p>@返回值 (int): 游戏内部时钟, 暂停和选卡时停止计时.</p>
+<h3><code>WaveCountdown()</code></h3>
+<p>@返回值 (int): 下一波刷新倒计时, 触发刷新时重置为 200, 减少至 0 刷出下一波.</p>
+<h3><code>HugeWaveCountdown()</code></h3>
+<p>@返回值 (int): 大波刷新倒计时, 对于旗帜波, 刷新倒计时减少至 4 后停滞, 由该值代替减少.</p>
+<h3><code>CurrentWave()</code></h3>
+<p>@返回值 (int): 已刷新波数.</p>
+<h3><code>GetZombieTypes()</code></h3>
+<p>@返回值 (list[int]): 包含当前出怪类型的列表. 详情查阅附录.</p>
+<p>只能在选卡或者战斗界面使用.</p>
+<h3><code>GetZombieWaves(z=32)</code></h3>
+<p>@返回值 (list[bool]): 包含指定僵尸在 20 波中是否出现的列表, 默认参数为红眼.</p>
+<p>只能在选卡或者战斗界面使用.</p>
+<h2>挂机辅助</h2>
+<h3><code>GotoMainUI()</code></h3>
+<p>切换到主界面. 需要先开启后台运行.</p>
+<h3><code>GotoEndless()</code></h3>
+<p>切换到无尽模式选卡界面. 需要先开启后台运行.</p>
+<h3><code>Save()</code></h3>
+<p>备份存档. 退回主界面再调用.</p>
+<h3><code>Load()</code></h3>
+<p>还原存档. 退回主界面再调用.</p>
+<h2>功能修改</h2>
+<h3><code>BackgroundRunning()</code></h3>
+<p>允许后台运行.</p>
+<p>@参数 on(bool): 是否开启.</p>
+<h3><code>ClearFog()</code></h3>
+<p>清除浓雾.</p>
+<p>@参数 on(bool): 是否开启.</p>
 <h1>附录</h1>
 <h2>卡片(种子包)名称</h2>
 <p>部分函数(<code>SelectCards</code> <code>ClickSeed</code> <code>Card</code>)支持用卡片名称字符串作为参数, 卡片常用名称以及模仿者前缀如下.</p>
-<pre><code class="python">seeds_string = [
+<pre><code class="python">[
     [&quot;Peashooter&quot;, &quot;豌豆射手&quot;, &quot;单发&quot;],
     [&quot;Sunflower&quot;, &quot;向日葵&quot;, &quot;小向&quot;],
     [&quot;Cherry Bomb&quot;, &quot;樱桃炸弹&quot;, &quot;樱桃&quot;],
@@ -1072,8 +1201,125 @@ def this_function_runs_on_subthread():
     [&quot;Cob Cannon&quot;, &quot;玉米加农炮&quot;, &quot;玉米炮&quot;, &quot;春哥&quot;],
 ]
 
-seeds_imitater_string = [&quot;Imitater&quot;, &quot;模仿者&quot;, &quot;复制&quot;,]
+[&quot;Imitater&quot;, &quot;模仿者&quot;, &quot;复制&quot;,]
 </code></pre>
+
+<h2>游戏模式</h2>
+<pre><code class="python">{
+    0: &quot;Adventure&quot;,
+    1: &quot;Survival: Day&quot;,
+    2: &quot;Survival: Night&quot;,
+    3: &quot;Survival: Pool&quot;,
+    4: &quot;Survival: Fog&quot;,
+    5: &quot;Survival: Roof&quot;,
+    6: &quot;Survival: Day (Hard)&quot;,
+    7: &quot;Survival: Night (Hard)&quot;,
+    8: &quot;Survival: Pool (Hard)&quot;,
+    9: &quot;Survival: Fog (Hard)&quot;,
+    10: &quot;Survival: Roof (Hard)&quot;,
+    11: &quot;Survival: Day (Endless)&quot;,
+    12: &quot;Survival: Night (Endless)&quot;,
+    13: &quot;Survival: Endless&quot;,
+    14: &quot;Survival: Fog (Endless)&quot;,
+    15: &quot;Survival: Roof (Endless)&quot;,
+    16: &quot;ZomBotany&quot;,
+    17: &quot;Wall-nut Bowling&quot;,
+    18: &quot;Slot Machine&quot;,
+    19: &quot;It's Raining Seeds&quot;,
+    20: &quot;Beghouled&quot;,
+    21: &quot;Invisi-ghoul&quot;,
+    22: &quot;Seeing Stars&quot;,
+    23: &quot;Zombiquarium&quot;,
+    24: &quot;Beghouled Twist&quot;,
+    25: &quot;Big Trouble Little Zombie&quot;,
+    26: &quot;Portal Combat&quot;,
+    27: &quot;Column Like You See'Em&quot;,
+    28: &quot;Bobseld Bonanza&quot;,
+    29: &quot;Zombie Nimble Zombie Quick&quot;,
+    30: &quot;Whack a Zombie&quot;,
+    31: &quot;Last Stand&quot;,
+    32: &quot;ZomBotany 2&quot;,
+    33: &quot;Wall-nut Bowling 2&quot;,
+    34: &quot;Pogo Party&quot;,
+    35: &quot;Dr. Zomboss's Revenge&quot;,
+    36: &quot;Art Challenge Wall-nut&quot;,
+    37: &quot;Sunny Day&quot;,
+    38: &quot;Unsodded&quot;,
+    39: &quot;Big Time&quot;,
+    40: &quot;Art Challenge Sunflower&quot;,
+    41: &quot;Air Raid&quot;,
+    42: &quot;Ice Level&quot;,
+    43: &quot;Zen Garden&quot;,
+    44: &quot;High Gravity&quot;,
+    45: &quot;Grave Danger&quot;,
+    46: &quot;Can You Dig It?&quot;,
+    47: &quot;Dark Stormy Night&quot;,
+    48: &quot;Bungee Blitz&quot;,
+    49: &quot;Squirrel&quot;,
+    50: &quot;Tree of Wisdom&quot;,
+    51: &quot;Vasebreaker&quot;,
+    52: &quot;To the Left&quot;,
+    53: &quot;Third Vase&quot;,
+    54: &quot;Chain Reaction&quot;,
+    55: &quot;M is for Metal&quot;,
+    56: &quot;Scary Potter&quot;,
+    57: &quot;Hokey Pokey&quot;,
+    58: &quot;Another Chain Reaction&quot;,
+    59: &quot;Ace of Vase&quot;,
+    60: &quot;Vasebreaker Endless&quot;,
+    61: &quot;I, Zombie&quot;,
+    62: &quot;I, Zombie Too&quot;,
+    63: &quot;Can You Dig It?&quot;,
+    64: &quot;Totally Nuts&quot;,
+    65: &quot;Dead Zeppelin&quot;,
+    66: &quot;Me Smash!&quot;,
+    67: &quot;ZomBoogie&quot;,
+    68: &quot;Three Hit Wonder&quot;,
+    69: &quot;All your brainz r belong to us&quot;,
+    70: &quot;I, Zombie Endless&quot;,
+    71: &quot;Upsell&quot;,
+    72: &quot;Intro&quot;,
+}
+</code></pre>
+
+<h2>僵尸代号名称</h2>
+<pre><code class="python">zombie_names = {
+    0: &quot;Zombie&quot;,
+    1: &quot;Flag Zombie&quot;,
+    2: &quot;Conehead Zombie&quot;,
+    3: &quot;Pole Vaulting Zombie&quot;,
+    4: &quot;Buckethead Zombie&quot;,
+    5: &quot;Newspaper Zombie&quot;,
+    6: &quot;Screen Door Zombie&quot;,
+    7: &quot;Football Zombie&quot;,
+    8: &quot;Dancing Zombie&quot;,
+    9: &quot;Backup Dancer&quot;,
+    10: &quot;Ducky Tube Zombie&quot;,
+    11: &quot;Snorkel Zombie&quot;,
+    12: &quot;Zomboni&quot;,
+    13: &quot;Zombie Bobsled Team&quot;,
+    14: &quot;Dolphin Rider Zombie&quot;,
+    15: &quot;Jack-in-the-Box Zombie&quot;,
+    16: &quot;Balloon Zombie&quot;,
+    17: &quot;Digger Zombie&quot;,
+    18: &quot;Pogo Zombie&quot;,
+    19: &quot;Zombie Yeti&quot;,
+    20: &quot;Bungee Zombie&quot;,
+    21: &quot;Ladder Zombie&quot;,
+    22: &quot;Catapult Zombie&quot;,
+    23: &quot;Gargantuar&quot;,
+    24: &quot;Imp&quot;,
+    25: &quot;Dr. Zomboss&quot;,
+    26: &quot;Peashooter Zombie&quot;,
+    27: &quot;Wall-nut Zombie&quot;,
+    28: &quot;Jalapeno Zombie&quot;,
+    29: &quot;Gatling Pea Zombie&quot;,
+    30: &quot;Squash Zombie&quot;,
+    31: &quot;Tall-nut Zombie&quot;,
+    32: &quot;GigaGargantuar&quot;,
+}
+</code></pre>
+<script src="/scripts/script.js"></script>
 <script src="/scripts/highlight.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
 </body>

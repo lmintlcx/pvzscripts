@@ -5,9 +5,9 @@ Python vs. Zombies
 """
 
 __name__ = "pvz"
-__version__ = "3.1.4"
+__version__ = "3.2.0"
 __description__ = "Python vs. Zombies"
-__date__ = "2018-11-25"
+__date__ = "2018-12-18"
 __status__ = "Development"  # Prototype -> Development -> Production
 __author__ = "lmintlcx"
 __copyright__ = "Copyright 2018, lmintlcx"
@@ -34,8 +34,9 @@ from . import cobs
 from . import scene
 from . import operate
 from . import threads
+from . import helper
 from . import code
-
+from . import tools
 
 ### documented api
 
@@ -74,9 +75,12 @@ from .scene import click_grid as ClickGrid
 ## 用卡用炮铲子操作
 
 from .operate import use_seed as Card
+from .operate import use_shovel as Shovel
 from .operate import fire_cob as Pao
 from .operate import skip_cob_index as SkipPao
-from .operate import use_shovel as Shovel
+from .operate import try_to_fire_cob as TryPao
+from .operate import fire_cob_on_roof as RoofPao
+from .operate import set_replace_cob_cannon as SetFixPao
 
 ## 子线程操作
 
@@ -85,6 +89,32 @@ from .threads import auto_collect as StartAutoCollectThread
 from .threads import auto_fill_ice as StartAutoFillIceThread
 from .threads import activate_ice as Coffee
 from .threads import immobilize_dancer as StartStopDancerThread
+
+## 信息获取
+
+from .utils import game_on as GameOn
+from .utils import game_ui as GameUI
+from .utils import game_mode as GameMode
+from .utils import game_scene as GameScene
+from .utils import game_paused as GamePaused
+from .utils import game_clock as GameClock
+from .utils import wave_countdown as WaveCountdown
+from .utils import huge_wave_countdown as HugeWaveCountdown
+from .utils import current_wave as CurrentWave
+from .utils import get_zombie_spawning_types as GetZombieTypes
+from .utils import get_zombie_spawning_appear_waves as GetZombieWaves
+
+## 挂机辅助
+
+from .helper import goto_main_ui as GotoMainUI
+from .helper import goto_survival_endless as GotoEndless
+from .helper import backup_user_data as Save
+from .helper import restore_user_data as Load
+
+## 功能修改
+
+from .tools import background_running as BackgroundRunning
+from .tools import clear_fog as ClearFog
 
 
 __all__ = [
@@ -106,14 +136,34 @@ __all__ = [
     "ClickShovel",
     "ClickGrid",
     "Card",
+    "Shovel",
     "Pao",
     "SkipPao",
-    "Shovel",
+    "TryPao",
+    "RoofPao",
+    "SetFixPao",
     "RunningInThread",
     "StartAutoCollectThread",
     "StartAutoFillIceThread",
     "Coffee",
     "StartStopDancerThread",
+    "GameOn",
+    "GameUI",
+    "GameMode",
+    "GameScene",
+    "GamePaused",
+    "GameClock",
+    "WaveCountdown",
+    "HugeWaveCountdown",
+    "CurrentWave",
+    "GetZombieTypes",
+    "GetZombieWaves",
+    "GotoMainUI",
+    "GotoEndless",
+    "Save",
+    "Load",
+    "BackgroundRunning",
+    "ClearFog",
 ]
 
 
@@ -125,13 +175,9 @@ if platform.system() != "Windows":
 if sys.hexversion < 0x03050000:
     raise Exception("Python 3.5 or newer is required to run this package.")
 
-# # Hello World
-# win32.MessageBoxW(
-#     None,
-#     win32.LPCWSTR("Hello PvZ!"),
-#     win32.LPCWSTR("test"),
-#     win32.UINT(0x00000001)
-#     )
+## Hello World
+def HelloWorld():
+    win32.MessageBoxW(None, win32.LPCWSTR("Hello PvZ!"), win32.LPCWSTR("test"), win32.UINT(0x00000001))
 
 
 ### start and exit works

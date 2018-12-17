@@ -8,7 +8,8 @@ import time
 
 from . import utils
 
-# 没什么卵用 默认不开启
+
+# 大量占用 CPU, 默认不开启
 high_precision = False
 
 
@@ -24,6 +25,7 @@ def wait_for_game_start():
         time.sleep(0.01)
 
 
+# 没什么卵用, 暂不开放接口
 def enable_high_precision(on=True):
     """
     启用高精度键控, 缺点是会占满一个核心的 CPU 资源.
@@ -58,7 +60,7 @@ def game_delay_for(time_cs):
     """
     游戏内部时钟延时. 相对于线程睡眠更精确.
 
-    只能在战斗界面([[0x6A9EC0]+0x7FC] == 3)使用. 游戏暂停时计时同样暂停.
+    只能在战斗界面 `[[0x6A9EC0]+0x7FC] == 3` 使用. 游戏暂停时计时同样暂停.
 
     @参数 time_cs(int): 时间, 单位 cs, 精度 1.
     """
@@ -72,7 +74,7 @@ def until_countdown(time_cs, hugewave=False):
     """
     等待直至本波刷新倒计时数值达到指定值. 调用时需要保证上一波已经刷出.
 
-    @参数 time_cs(int): 倒计时数值, 单位 cs, 精度 1. 范围 [200, 0].
+    @参数 time_cs(int): 倒计时数值, 单位 cs, 精度 1. 范围 [200, 1].
 
     @参数 hugewave(bool): 是否为旗帜波, 默认不是. 可用 (波数 % 10 == 0) 判断.
 
@@ -86,7 +88,7 @@ def until_countdown(time_cs, hugewave=False):
         while utils.wave_countdown() > time_cs:
             delay_a_little_time()
     else:
-        while utils.wave_countdown() > 4:
+        while utils.wave_countdown() > 5:
             delay_a_little_time()
         while utils.huge_wave_countdown() > time_cs:
             delay_a_little_time()
@@ -114,20 +116,28 @@ def until_relative_time_after_refresh(time_relative_cs, wave):
     """
     global refresh_time_point
 
+    # 等待设定预判波次的上一波刷出
     while utils.current_wave() < (wave - 1):
         delay_a_little_time()
 
+    # 倒计时(大波倒计时)小于等于 200(750) 才算激活刷新
     huge_wave = wave % 10 == 0
-    until_countdown(200, huge_wave)
+    # until_countdown(200, huge_wave)
+    until_countdown(750 if huge_wave else 200, huge_wave)
 
+    # 获取当前时钟和倒计时数值
     clock = utils.game_clock()
     if huge_wave:
         countdown = utils.huge_wave_countdown()
     else:
         countdown = utils.wave_countdown()
 
-    game_delay_for(countdown + time_relative_cs)
+    # 计算刷新时间点(倒计时归零时)的时钟数值
     refresh_time_point = clock + countdown
+
+    # 等待目标相对时间和当前相对时间的差值
+    # time_relative_cs - (-countdown)
+    game_delay_for(time_relative_cs + countdown)
 
 
 def until_relative_time(time_relative_cs):

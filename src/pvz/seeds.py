@@ -48,7 +48,7 @@ seeds_string = [
     ["Blover", "三叶草", "三叶", "风扇", "吹风", "愤青"],
     ["Split Pea", "裂荚射手", "裂荚", "双头", "分裂豌豆", "双头豌豆"],
     ["Starfruit", "杨桃", "星星", "星星果", "五角星", "1437", "大帝", "桃"],
-    ["Pumpkin", "南瓜头", "南瓜", "南瓜罩", "套"],
+    ["Pumpkin", "南瓜头", "南瓜", "南瓜罩", "南瓜壳", "套"],
     ["Magnet-shroom", "磁力菇", "磁铁", "磁力蘑菇", "磁"],
     ["Cabbage-pult", "卷心菜投手", "包菜", "卷心菜", "卷心菜投抛者"],
     ["Flower Pot", "花盆", "盆"],
@@ -62,20 +62,20 @@ seeds_string = [
     ["Twin Sunflower", "双子向日葵", "双子", "双向", "双花"],
     ["Gloom-shroom", "忧郁蘑菇", "忧郁", "忧郁菇", "章鱼", "曾哥", "曾哥蘑菇", "曾"],
     ["Cattail", "香蒲", "猫尾草", "猫尾", "猫尾香蒲", "小猫", "猫"],
-    ["Winter Melon", "冰瓜", "冰西瓜", "冰冻西瓜"],
+    ["Winter Melon", "冰瓜", "'冰'瓜", '"冰"瓜', "冰西瓜", "冰冻西瓜"],
     ["Gold Magnet", "吸金磁", "吸金", "吸金草", "金磁铁"],
     ["Spikerock", "地刺王", "钢刺", "钢地刺", "尖刺岩石", "石荆棘"],
     ["Cob Cannon", "玉米加农炮", "玉米炮", "加农炮", "春哥", "春哥炮", "炮", "春", "神"],
 ]
 
-# 确保没有重复项, 发布时注释掉
+# # 确保没有重复项, 发布时注释掉
 # seeds_string_all = []
 # for items in seeds_string:
 #     seeds_string_all += items
 # assert len(seeds_string_all) == len(set(seeds_string_all))
 
 # 模仿者卡片前缀
-seeds_imitater_string = ["Imitater", "模仿者", "模仿", "复制", "白", "小白", "变身茄子"]
+seeds_imitater_string = ["Imitater", "imitater", "模仿者", "模仿", "复制", "白", "小白", "变身茄子"]
 
 # 整理成字典方便快速查找
 # key: 卡片名称
@@ -89,49 +89,84 @@ for i, items in enumerate(seeds_string):
         for j, im in enumerate(seeds_imitater_string):
             seeds_string_dict[im + item] = i + 48
             seeds_string_dict[im + " " + item] = i + 48
-# logger.info(f"Seeds string dict {seeds_string_dict}.")  # it's huge
+# logger.info(f"Seeds string dict {seeds_string_dict}.")  # it's huge!!!
 
 
-# (row, col, imitater) * n
-# 1 <= n <= 10
-seeds_list = []
-
-# 卡片在卡槽里的序号
+# 每张卡片在卡槽里的位置, 用于根据卡片代号找卡槽位置
 seeds_in_slot = [None] * (48 * 2)
+
+# 卡槽中每张卡片的序号, 用于根据卡槽位置找卡片代号
+slot_seeds = [None] * 10
 
 
 def update_seeds_list():
     """
-    更新卡槽卡片列表和常用卡片序号. 该函数须在点击"Let's Rock!"后调用.
+    更新卡片相关数据. 该函数须在点击"Let's Rock!"后调用.
     """
-    global seeds_list, seeds_in_slot
-    seeds_list = []
+    global seeds_in_slot, slot_seeds
+    seeds_in_slot = [None] * (48 * 2)
+    slot_seeds = [None] * 10
+
     slots_count = process.read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
     slots_offset = process.read_memory("unsigned int", 0x6A9EC0, 0x768, 0x144)
     for i in range(slots_count):
         seed_type = process.read_memory("int", slots_offset + 0x5C + i * 0x50)
         seed_imitater_type = process.read_memory("int", slots_offset + 0x60 + i * 0x50)
         if seed_type == 48:
-            row, col = divmod(seed_imitater_type, 8)
-            imitater = True
+            seed = seed_imitater_type + 48
         else:
-            row, col = divmod(seed_type, 8)
-            imitater = False
-        seed = row + 1, col + 1, imitater
-        seeds_list.append(seed)
-    logger.info(f"Update seeds list {seeds_list}.")
+            seed = seed_type
+        seeds_in_slot[seed] = i + 1
+        slot_seeds[i] = seed
 
-    seeds_in_slot = [None] * (48 * 2)
-    for index, seed in enumerate(seeds_list):
-        row, col, imitater = seed
-        i = (row - 1) * 8 + (col - 1) + (48 if imitater else 0)
-        seeds_in_slot[i] = index + 1
-    logger.info(f"Update seeds index {seeds_in_slot}.")
+    logger.info(f"Update seeds in slot {seeds_in_slot}.")
+    logger.info(f"Update slot seeds {slot_seeds}.")
+
+
+# 卡片名字 name
+# 卡片代号 seed
+# 卡槽位置 index
+
+
+def get_seed_by_name(name: str) -> int:
+    """
+    根据卡片名字得到卡片代号. (模仿者 +48)
+    """
+    if name not in seeds_string_dict:
+        raise Exception(f"Unknown seed: {name}.")
+    return seeds_string_dict[name]
+
+
+def get_index_by_seed(seed: int) -> int:
+    """
+    根据卡片代号得到卡槽位置. 不在返回 None.
+    """
+    if seed not in range(48 * 2):
+        raise Exception(f"Seed {seed} out of range.")
+    return seeds_in_slot[seed]
+
+
+def get_index_by_name(name: str) -> int:
+    """
+    根据卡片名字得到卡槽位置. 不在返回 None.
+    """
+    if name not in seeds_string_dict:
+        raise Exception(f"Unknown seed: {name}.")
+    return seeds_in_slot[seeds_string_dict[name]]
+
+
+def get_seed_by_index(index: int) -> int:
+    """
+    根据卡槽位置得到卡片代号.
+    """
+    if index not in range(1, 11):
+        raise Exception(f"Index {index} out of range.")
+    return slot_seeds[index - 1]
 
 
 # (50, 160) 为左上角卡片中心坐标, (215, 160) 为模仿者选卡界面左上角卡片中心坐标, 单张卡片宽度约 50px 高度约 70px.
-# 对于模仿者卡片, 需要把鼠标移动到目标位置 (490, 550) 才能成功点击, 单击完毕后移回原位, 延迟 0.3s 等待界面出现再选卡.
-# 每次选完卡均等待 0.2s.
+# 对于模仿者卡片, 需要把鼠标移动到目标位置 (490, 550) 才能成功点击, 单击完毕后移回原位, 延迟 0.2s 等待界面出现再选卡.
+# 每次选完卡均等待 0.15s.
 
 SEED_0_0_X = 50
 SEED_0_0_Y = 160
@@ -141,6 +176,10 @@ SEED_WIDTH = 50
 SEED_HEIGHT = 70
 IMITATER_X = 490
 IMITATER_Y = 550
+
+
+# 模拟手动选卡
+simulate_manual_control = False
 
 
 def select_seed_by_crood(row, col, imitater=False):
@@ -165,23 +204,36 @@ def select_seed_by_crood(row, col, imitater=False):
         if col not in (1, 2, 3, 4, 5, 6, 7, 8):
             raise Exception("'col' out of range.")
 
-    if imitater:
-        mouse.special_button_click(IMITATER_X, IMITATER_Y)
-        time.sleep(0.3)
-        x = IMITATER_SEED_0_0_X + (col - 1) * (SEED_WIDTH + 1)
-        y = IMITATER_SEED_0_0_Y + (row - 1) * (SEED_HEIGHT + 2)
+    if simulate_manual_control:
+        if imitater:
+            mouse.move_to_click(IMITATER_X, IMITATER_Y)
+            time.sleep(0.2)
+            x = IMITATER_SEED_0_0_X + (col - 1) * (SEED_WIDTH + 1)
+            y = IMITATER_SEED_0_0_Y + (row - 1) * (SEED_HEIGHT + 2)
+        else:
+            x = SEED_0_0_X + (col - 1) * (SEED_WIDTH + 3)
+            y = SEED_0_0_Y + (row - 1) * (SEED_HEIGHT + 0)
+        mouse.move_to_click(x, y)
+        time.sleep(0.05)
+
     else:
-        x = SEED_0_0_X + (col - 1) * (SEED_WIDTH + 3)
-        y = SEED_0_0_Y + (row - 1) * (SEED_HEIGHT + 0)
-    mouse.left_click(x, y)
-    time.sleep(0.2)
+        if imitater:
+            mouse.special_button_click(IMITATER_X, IMITATER_Y)
+            time.sleep(0.2)
+            x = IMITATER_SEED_0_0_X + (col - 1) * (SEED_WIDTH + 1)
+            y = IMITATER_SEED_0_0_Y + (row - 1) * (SEED_HEIGHT + 2)
+        else:
+            x = SEED_0_0_X + (col - 1) * (SEED_WIDTH + 3)
+            y = SEED_0_0_Y + (row - 1) * (SEED_HEIGHT + 0)
+        mouse.left_click(x, y)
+        time.sleep(0.15)
 
     if imitater:
-        im = seeds_imitater_string[0] + " "
+        im_str = seeds_imitater_string[0] + " "
     else:
-        im = ""
-    seed = seeds_string[(row - 1) * 8 + (col - 1)][0]
-    logger.info(f"Select seed {im}{seed}.")
+        im_str = ""
+    seed_str = seeds_string[(row - 1) * 8 + (col - 1)][0]
+    logger.info(f"Select seed {im_str}{seed_str}.")
 
 
 @functools.singledispatch
@@ -268,41 +320,61 @@ def select_all_seeds(seeds_selected=None):
     seeds_selected = [seed_to_crood(seed) for seed in seeds_selected]
     logger.info(f"Seeds transfer to {seeds_selected}.")
 
+    retry_count = 0
+
     # TODO : check if exact match
     while process.read_memory("int", 0x6A9EC0, 0x774, 0xD24) < slots_count:
+
+        if retry_count > 3:
+            raise Exception(f"Seeds selection failed, something must be wrong.")
+        retry_count += 1
+
         logger.info(f"Incomplete seeds selection, try again now.")
 
         # clear all seeds in slots
         for _ in range(10):
-            mouse.left_click(108, 42)
-            time.sleep(0.1)
-        time.sleep(0.25)
+            if simulate_manual_control:
+                mouse.move_to_click(108, 42)
+            else:
+                mouse.left_click(108, 42)
+                time.sleep(0.1)
+        time.sleep(0.2)
 
         # select all seeds
         for seed in seeds_selected:
             row, col, imitater = seed
             select_seed_by_crood(row, col, imitater)
-        time.sleep(0.75)
+        time.sleep(0.5)
 
 
 def lets_rock():
     # if still in seeds select ui
     while process.read_memory("bool", 0x6A9EC0, 0x768, 0x15C, 0x2C):
-        mouse.left_down(234, 567)
-        time.sleep(0.1)
-        mouse.left_up(234, 567)
-        time.sleep(0.2)
+        if simulate_manual_control:
+            mouse.move_to_click(234, 567)
+        else:
+            mouse.left_down(234, 567)
+            time.sleep(0.01)
+            mouse.left_up(234, 567)
+        time.sleep(0.3)
+
         # if there is dialog
         while process.read_memory("bool", 0x6A9EC0, 0x320, 0x94, 0x54):
-            mouse.left_click(320, 400)
+            if simulate_manual_control:
+                mouse.move_to_click(320, 400)
+            else:
+                mouse.left_click(320, 400)
             time.sleep(0.3)
+
+    if simulate_manual_control:
+        mouse.move_to_click(400, 640, False)
 
 
 def select_seeds_and_lets_rock(seeds_selected=None):
     """
     选卡并开始游戏.
 
-    选择所有卡片. 点击开始. 更新加农炮列表. 等待开场红字消失.
+    选择所有卡片, 点击开始游戏, 更新加农炮列表, 更新卡片列表, 更新场景数据, 等待开场红字消失.
 
     @参数 seeds_selected(list): 卡片列表, 参数为空默认选择八张紫卡和两张免费卡. 参数个数小于卡槽数则用默认卡片填充.
     

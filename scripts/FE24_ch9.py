@@ -2,53 +2,46 @@
 
 """
 Author: lmintlcx
-Date: 2018-11-24
+Date: 2018-12-18
 ---
 Name: FE二十四炮
-Rhythm: ch9-56s: PSD/PDC|IPP-PPDD|PSD/PDC|IPP-PPDD|PSD/PDC|AD/PDC|PSD/PDC, (6|13|6|13|6|6|6)
+Rhythm: ch9-56s: PSD/PDC|IPP-PPDD|PSD/PDC|IPP-PPDD|PSD/PDC|AD/PDC|PDD/PDC, (6|13|6|13|6|6|6)
 Video:
-- https://www.bilibili.com/video/av34828474
-- https://youtu.be/p-4ZbBtxBrI
+- https://www.bilibili.com/video/av38409007
+- https://youtu.be/kNBwhHvhark
 """
 
 from pvz import *
 
 
 # Ice-shroom
-def I(row, col):
-    Card("寒冰菇", (row, col))
+def I():
+    Card("寒冰菇", (2, 9))
 
 
 # Imitater Ice-shroom
-def II(row, col):
-    Card("模仿者寒冰菇", (row, col))
+def II():
+    Card("模仿者寒冰菇", (2, 9))
 
 
 # Cherry Bomb
-def A(row, col):
-    Card("樱桃炸弹", (row, col))
+def A():
+    Card("樱桃炸弹", (2, 9))
 
 
-# # Doom-shroom
-# def N(row, col):
-#     Card("睡莲", (row, col))
-#     Card("毁灭菇", (row, col))
-
-
-# Cannon Fodder Group 1
-def DianCai1():
-    Card("阳光菇", (5, 9))
-    Card("小喷菇", (6, 9))
-
-
-# Cannon Fodder Group 2
-def DianCai2():
-    Card("花盆", (5, 9))
-    Card("胆小菇", (6, 9))
-
-
-# Delete Cannon Fodder
-def ChanDianCai():
+# Cannon Fodder
+# 下标 6/7 8/9
+# 垫材 花盆/胆小菇 阳光菇/小喷菇
+# 根据小喷是否可用来决定用哪一组垫材
+@RunningInThread
+def DianCai():
+    if ReadMemory("bool", 0x6A9EC0, 0x768, 0x144, 0x70 + 9 * 0x50):
+        Card("阳光菇", (5, 9))
+        Card("小喷菇", (6, 9))
+    else:
+        Card("花盆", (5, 9))
+        Card("胆小菇", (6, 9))
+    Delay(30)
     Shovel((5, 9))
     Shovel((6, 9))
 
@@ -71,18 +64,18 @@ def wave1():
 # IPP-PPDD
 def wave2():
     Prejudge(-180, 2)
-    DianCai1()
-    Until(-150)
-    ChanDianCai()
+    DianCai()
     Until(-135)
     Pao(2, 8.5)
     Until(-95)
-    I(2, 9)
+    I()  # 原版冰
     Until(180 - 30)  # 提前 30cs 点炮
     Pao(5, 7.2, 30)  # 推迟 30cs 发射
+    Until(650)
+    DianCai()
     Until(1300 - 200 - 373)
     Pao((2, 9), (5, 9))
-    Until(1300 - 200 - 373 + 220)
+    Delay(220)
     Pao((1, 8.5), (5, 8.5))
 
 
@@ -96,23 +89,23 @@ def wave3():
     Pao(5, 8)
     Until(-95 + 110)
     Pao(1, 8.7)
-    Until(600 - 100 - 320 + 5)
-    II(2, 9)
+    Until(601 - 100 - 320 + 5)
+    II()  # 复制冰
 
 
 # IPP-PPDD
 def wave4():
     Prejudge(-180, 4)
-    DianCai1()
-    Until(-150)
-    ChanDianCai()
+    DianCai()
     Until(-135)
     Pao(2, 8.5)
     Until(180 - 30)  # 提前 30cs 点炮
     Pao(5, 7.2, 30)  # 推迟 30cs 发射
+    Until(650)
+    DianCai()
     Until(1300 - 200 - 373)
     Pao((2, 9), (5, 9))
-    Until(1300 - 200 - 373 + 220)
+    Delay(220)
     Pao((1, 8.5), (5, 8.5))
 
 
@@ -127,18 +120,16 @@ def wave6():
     Prejudge(-145, 6)  # -145
     Pao(5, 9)
     Until(-145 + 81)  # -64
-    DianCai1()
-    Until(-145 + 110)  # -39
+    DianCai()
+    Until(-145 + 110)  # -35
     Pao(5, 8)
-    Until(-145 + 81 + 30)  # -34
-    ChanDianCai()
     Until(-15 + 108)  # 93
-    Pao(1, 7.9)
-    Until(-15 + 373 - 98)  # 260
-    A(2, 9)
+    Pao(1, 7.8)
+    Until(-15 + 373 - 100)  # 258
+    A()  # 樱桃
 
 
-# PSD/PDC
+# PDD/PDC
 # 复用炮时机微调
 def wave7():
     Prejudge(-145, 7)  # -145
@@ -146,11 +137,9 @@ def wave7():
     Until(-55)  # -55
     Pao(2, 9)
     Until(-145 + 81)  # -64
-    DianCai2()
+    DianCai()
     Until(-145 + 110)  # -35
     Pao(5, 8)
-    Until(-145 + 81 + 30)  # -34
-    ChanDianCai()
     Until(-55 + 110)  # 55
     Pao(1, 8.7)
     Until(-55 + 110 + 110)  # 165
@@ -164,11 +153,9 @@ def wave8():
     Until(-95)
     Pao(2, 9)
     Until(-145 + 81)
-    DianCai1()
+    DianCai()
     Until(-145 + 110)
     Pao(5, 8)
-    Until(-145 + 81 + 30)
-    ChanDianCai()
     Until(-95 + 110)
     Pao(1, 8.7)
 
@@ -176,40 +163,37 @@ def wave8():
 # IPP-PPDD PPPP
 def wave9():
     Prejudge(-180, 9)
-    DianCai2()
-    Until(-150)
-    ChanDianCai()
+    DianCai()
     Until(-135)
     Pao(2, 8.5)
     Until(-95)
-    I(2, 9)
+    I()  # 原版冰
     Until(180 - 30)  # 提前 30cs 点炮
     Pao(5, 7.2, 30)  # 推迟 30cs 发射
+    Until(650)
+    DianCai()
     Until(1300 - 200 - 373)
     Pao((2, 9), (5, 9))
     Delay(220)
     Pao((1, 8.5), (5, 8.5))
+    # 收尾
     Delay(220)
     Pao((1, 8.5), (5, 8.5))
-    Delay(750)
+    Delay(650)
     Pao((2, 9), (5, 9))  # 清场
-    Delay(600)
+    Delay(800)
     Pao((2, 9), (5, 9))  # 哦还有伴舞
 
 
 # PSD/PDC
 # 推迟消延迟
 def wave10():
-    Prejudge(-55, 10)
-    Pao((1, 9), (5, 9))
-    Until(-55 + 100)  # 45
-    Pao(2, 9)
+    Prejudge(-55, 10)  # -55
+    Pao((1, 9), (2, 9), (5, 9))
     Until(-55 + 110)  # 55
-    Pao(5, 8)
-    Until(-55 + 100 + 110)  # 155
-    Pao(1, 8.7)
-    Until(600 - 100 - 320 + 5)  # 185
-    II(2, 9)
+    Pao((1, 8.7), (5, 8))
+    Until(601 - 100 - 320 + 5)  # 186
+    II()  # 复制冰
 
 
 # IPP-PPDD
@@ -242,7 +226,7 @@ def wave15():
     wave6()
 
 
-# PSD/PDC
+# PDD/PDC
 def wave16():
     Prejudge(-200, 16)
     wave7()
@@ -255,30 +239,28 @@ def wave17():
     Until(-95)
     Pao(2, 9)
     Until(-145 + 81)
-    DianCai1()
+    DianCai()
     Until(-145 + 110)
     Pao(5, 8)
-    Until(-145 + 81 + 30)
-    ChanDianCai()
     Until(-95 + 110)
     Pao(1, 8.7)
-    Until(600 - 100 - 320 + 5)
-    II(2, 9)
+    Until(601 + 5 - 100 - 320)
+    II()  # 复制冰
 
 
 # IPP-PPDD
 def wave18():
     Prejudge(-180, 18)
-    DianCai2()
-    Until(-150)
-    ChanDianCai()
+    DianCai()
     Until(-135)
     Pao(2, 8.5)
     Until(180 - 30)  # 提前 30cs 点炮
     Pao(5, 7.2, 30)  # 推迟 30cs 发射
+    Until(650)
+    DianCai()
     Until(1300 - 200 - 373)
     Pao((2, 9), (5, 9))
-    Until(1300 - 200 - 373 + 220)
+    Delay(220)
     Pao((1, 8.5), (5, 8.5))
 
 
@@ -293,20 +275,20 @@ def wave19():
     Until(-95 + 110)
     Pao(1, 8.7)
     # 收尾
-    Until(600 - 150)
+    Until(601 - 150)
     Pao(5, 9)
-    Until(600 - 150 + 81)
-    DianCai1()
-    Until(600 - 150 + 81 + 29)  # 81 + 29 <= 110
-    ChanDianCai()
-    Until(600 - 150 + 110)
+    Until(601 - 150 + 81)
+    DianCai()
+    Until(601 - 150 + 110)
     Pao(2, 9)
     Pao(5, 8.5)
-    Until(600 - 150 + 110 + 300)
-    Pao(5, 9)
-    # 残留伴舞...就算了吧
+    Until(601 - 150 + 110 + 300)
+    Pao(5, 9)  # 清场
+    Delay(400)
+    Pao(2, 9)  # 残留伴舞
 
 
+# PP-PPPPPPPP
 def wave20():
     Prejudge(-180, 20)
     Pao(4, 7, 30)  # 炮炸珊瑚

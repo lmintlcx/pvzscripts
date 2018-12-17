@@ -2,27 +2,27 @@
 
 """
 Author: lmintlcx
-Date: 2018-11-25
+Date: 2018-12-18
 ---
 Name: PE垫材二十四炮
 Rhythm: P6: PDC|PDC|PDC|PDC|PDC|PDC
 Video:
-- https://www.bilibili.com/video/av36724031
-- https://youtu.be/EXdlnIGzKAg
+- https://www.bilibili.com/video/av38401606
+- https://youtu.be/GTei1zO7B3w
 """
 
 from pvz import *
 
 
 # Cannon Fodder
+diancai_list = ["小喷菇", "模仿者小喷菇", "阳光菇", "胆小菇", "花盆", "向日葵", "大蒜", "大喷菇"]
+diancai_spot = [(1, 9), (2, 9), (5, 9), (6, 9)]
 diancai_index = 0
 
 
 @RunningInThread
 def DianCai():
     global diancai_index
-    diancai_list = ["小喷菇", "模仿者小喷菇", "阳光菇", "胆小菇", "花盆", "向日葵", "大蒜", "大喷菇"]
-    diancai_spot = [(1, 9), (2, 9), (5, 9), (6, 9)]
     # 种垫材
     for i in range(4):
         Card(diancai_list[diancai_index % len(diancai_list)], diancai_spot[i])
@@ -40,7 +40,7 @@ def DianCai():
 
 Sleep(300)
 
-SelectCards(["樱桃", "坚果", "小喷菇", "模仿者小喷菇", "阳光菇", "胆小菇", "花盆", "向日葵", "大蒜", "大喷菇"])
+SelectCards(["樱桃", "南瓜"] + diancai_list)
 
 UpdatePaoList(
     [
@@ -111,15 +111,15 @@ for wave in range(1, 21):
         Pao((1, 8), (5, 8))
 
         if wave in (9, 19):  # 9/19 波收尾
-            Until(600 - 150)
+            Until(601 - 150)
             Pao((2, 9), (5, 9))
-            Until(600 - 150 + 81)
+            Until(601 - 150 + 81)
             DianCai()
-            Until(600 - 150 + 108)
+            Until(601 - 150 + 108)
             Pao((1, 8), (5, 8))
-            Until(600 + 600 - 150)
+            Until(601 + 601 - 150)
             Pao((2, 9), (5, 9))
-            Until(600 + 600 - 150 + 81)
+            Until(601 + 601 - 150 + 81)
             DianCai()
             if wave == 9:  # P 用前场炮, D 用后场炮
                 SkipPao(2)
