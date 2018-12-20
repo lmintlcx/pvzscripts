@@ -72,7 +72,7 @@ for wave in range(1, 21):
         Until(50)
         Shovel((1, 7))  # 铲
         Until(1300 - 200 - 373)  # 727
-        RoofPao(4, 8.2)
+        RoofPao(4, 8.1)
         Until(1780 - 200 - 373)  # 1207
         RoofPao((2, 9), (4, 9))
         Until(1780 + 10 - 298)  # 1492
@@ -98,7 +98,7 @@ for wave in range(1, 21):
         Shovel((1, 7))  # 铲
         Shovel((4, 9))  # 铲
         Until(1250 - 200 - 373)  # 1300->1250
-        RoofPao(3, 8.25)  # 落点改为 3 路炸掉 2 路冰车
+        RoofPao(3, 8.15)  # 落点改为 3 路炸掉 2 路冰车
         Until(1780 - 200 - 373)
         RoofPao((2, 9), (4, 9))
         Until(1780 + 10 - 298)
@@ -113,7 +113,7 @@ for wave in range(1, 21):
         Until(10 + 400 - 373 + 300)
         RoofPao(2, 4.7)  # 尾炸小鬼跳跳
         Until(1300 - 200 - 373)
-        RoofPao(4, 8.2)
+        RoofPao(4, 8.1)
         Until(1780 - 200 - 373)
         RoofPao((2, 9), (4, 9))
         Until(1780 + 10 - 298)
@@ -126,7 +126,7 @@ for wave in range(1, 21):
         Until(10 + 400 - 373 + 220)
         RoofPao((2, 8.5), (4, 8.5))
         Until(1300 - 200 - 373)  # 727
-        RoofPao(3, 8.25)  # 落点改为 3 路减少小丑炸核机率
+        RoofPao(3, 8.15)  # 落点改为 3 路减少小丑炸核机率
         # 收尾
         Until(1680 - 200 - 298)  # 1182
         Card("花盆", (3, 9))
@@ -192,7 +192,7 @@ for wave in range(1, 21):
         Until(10 + 400 - 373 + 220)
         RoofPao((2, 8.5), (4, 8.5))
         Until(1300 - 200 - 373)
-        RoofPao(4, 8.2)
+        RoofPao(4, 8.1)
         Until(WL - 200 - 373)  # WL-573
         RoofPao((2, 9), (4, 9))
         if wave in (8, 18):
