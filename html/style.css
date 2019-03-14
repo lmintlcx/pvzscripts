@@ -5,7 +5,7 @@ html {
 }
 
 body {
-    max-width: 1000px;
+    max-width: 960px;
     margin: 3rem auto;
     padding: 10px;
     font-size: 1.6rem;
@@ -27,6 +27,10 @@ a {
     text-decoration: none;
 }
 
+img {
+    max-width: 98% !important;
+}
+
 code {
     font-size: 1.5rem;
     padding: 2px 4px;
@@ -35,6 +39,7 @@ code {
     background-color: #f2f2f2;
     font-family: Consolas, Menlo, Monaco, "Lucida Console", "Liberation Mono", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Courier New", monospace, sans-serif;
     overflow: auto;
+    word-break: break-all;
 }
 
 pre code {
@@ -45,4 +50,10 @@ pre code {
     overflow: auto;
     white-space: pre-wrap;
     word-break: break-all;
+}
+
+@media screen and (max-width: 959px) {
+    body {
+        width: 93%;
+    }
 }

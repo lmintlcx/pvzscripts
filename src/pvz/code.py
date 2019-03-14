@@ -6,6 +6,7 @@ Assembly Code
 
 import struct
 import time
+import ctypes
 
 from . import logger
 from . import win32
@@ -60,16 +61,7 @@ def asm_push(code):
 
 # mov exx, 0x12345678
 
-asm_mov_exx_code = {
-    "eax": [0xB8],
-    "ebx": [0xBB],
-    "ecx": [0xB9],
-    "edx": [0xBA],
-    "esi": [0xBE],
-    "edi": [0xBF],
-    "ebp": [0xBD],
-    "esp": [0xBC],
-}
+asm_mov_exx_code = {"eax": [0xB8], "ebx": [0xBB], "ecx": [0xB9], "edx": [0xBA], "esi": [0xBE], "edi": [0xBF], "ebp": [0xBD], "esp": [0xBC]}
 
 
 def asm_mov_exx(register, code):
@@ -136,16 +128,7 @@ def asm_mov_exx_dword_ptr_exx_add(register, code):
 
 # push exx
 
-asm_push_exx_code = {
-    "eax": [0x50],
-    "ebx": [0x53],
-    "ecx": [0x51],
-    "edx": [0x52],
-    "esi": [0x56],
-    "edi": [0x57],
-    "ebp": [0x55],
-    "esp": [0x54],
-}
+asm_push_exx_code = {"eax": [0x50], "ebx": [0x53], "ecx": [0x51], "edx": [0x52], "esi": [0x56], "edi": [0x57], "ebp": [0x55], "esp": [0x54]}
 
 
 def asm_push_exx(register):
@@ -154,16 +137,7 @@ def asm_push_exx(register):
 
 # pop exx
 
-asm_pop_exx_code = {
-    "eax": [0x58],
-    "ebx": [0x5B],
-    "ecx": [0x59],
-    "edx": [0x5A],
-    "esi": [0x5E],
-    "edi": [0x5F],
-    "ebp": [0x5D],
-    "esp": [0x5C],
-}
+asm_pop_exx_code = {"eax": [0x58], "ebx": [0x5B], "ecx": [0x59], "edx": [0x5A], "esi": [0x5E], "edi": [0x5F], "ebp": [0x5D], "esp": [0x5C]}
 
 
 def asm_pop_exx(register):
@@ -198,25 +172,40 @@ def asm_code_inject():
     远程注入汇编代码.
     """
 
-    length = len(asm_code)
+    size = len(asm_code)
 
     # thread_addr = LPVOID()
-    thread_addr = win32.VirtualAllocEx(process.pvz_handle, None, length, win32.MEM_COMMIT, win32.PAGE_EXECUTE_READWRITE)
+    thread_addr = win32.VirtualAllocEx(process.pvz_handle, None, size, win32.MEM_COMMIT, win32.PAGE_EXECUTE_READWRITE)
 
     if thread_addr is not None:
-        win32.WriteProcessMemory(process.pvz_handle, thread_addr, asm_code, length, None)
+
+        bytes_written = ctypes.c_ulong()
+        success = win32.WriteProcessMemory(process.pvz_handle, thread_addr, asm_code, size, ctypes.byref(bytes_written))
+        if success == 0 or bytes_written.value != size:
+            logger.critical(f"写入汇编代码失败, 错误代码 {win32.GetLastError()}.")
 
         # thread_handle = HANDLE()
         start = win32.LPTHREAD_START_ROUTINE(thread_addr)
         thread_handle = win32.CreateRemoteThread(process.pvz_handle, None, 0, start, None, 0, None)
 
         if thread_handle is not None:
-            win32.WaitForSingleObject(thread_handle, win32.INFINITE)
-            win32.CloseHandle(thread_handle)
+            success = win32.WaitForSingleObject(thread_handle, win32.INFINITE)
+            if success == win32.WAIT_FAILED:
+                logger.critical(f"等待对象返回失败, 错误代码 {win32.GetLastError()}.")
+            success = win32.CloseHandle(thread_handle)
+            if success == 0:
+                logger.critical(f"关闭远程线程句柄失败, 错误代码 {win32.GetLastError()}.")
+        else:
+            logger.critical(f"创建远程线程失败, 错误代码 {win32.GetLastError()}.")
 
-        win32.VirtualFreeEx(process.pvz_handle, thread_addr, 0, win32.MEM_RELEASE)
+        success = win32.VirtualFreeEx(process.pvz_handle, thread_addr, 0, win32.MEM_RELEASE)
+        if success == 0:
+            logger.critical(f"释放内存失败, 错误代码 {win32.GetLastError()}.")
 
-    logger.info(f"Inject assembly code {[hex(x) for x in asm_code]}.")
+    else:
+        logger.critical(f"分配内存失败, 错误代码 {win32.GetLastError()}.")
+
+    logger.info(f"远程注入代码成功: {[hex(x) for x in asm_code]}.")
 
 
 # 避免崩溃

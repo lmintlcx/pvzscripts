@@ -2,12 +2,15 @@
 
 pip uninstall pvz -y
 
-set SRC_DIR=D:\work\pvzscripts
+set SRC_DIR=%~dp0..
+set PY_DIR=C:\Python37
 
-D:
+%~d0
 cd %SRC_DIR%\src\
 
 REM test
+rd /q /s %PY_DIR%\Lib\site-packages\pvz
+del %PY_DIR%\Lib\site-packages\pvz*
 python setup.py install
 rd /q /s %SRC_DIR%\src\build\
 rd /q /s %SRC_DIR%\src\dist\

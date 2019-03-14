@@ -5,12 +5,12 @@ Python vs. Zombies
 """
 
 __name__ = "pvz"
-__version__ = "3.2.0"
+__version__ = "3.3.3"
 __description__ = "Python vs. Zombies"
-__date__ = "2018-12-18"
-__status__ = "Development"  # Prototype -> Development -> Production
+__date__ = "2019-03-14"
+__status__ = "Production"
 __author__ = "lmintlcx"
-__copyright__ = "Copyright 2018, lmintlcx"
+__copyright__ = "Copyright 2018-2019, lmintlcx"
 __credits__ = ["no_doudle", "a4l8569882"]
 __license__ = "GPL"
 __maintainer__ = "lmintlcx"
@@ -40,18 +40,31 @@ from . import tools
 
 ### documented api
 
+## 调试日志
+
+from .logger import enable_logger as EnableLogger
+
 ## 查找进程读写内存
 
 from .process import find_pvz_1051 as FindPvZ
 from .process import read_memory as ReadMemory
 from .process import write_memory as WriteMemory
+from .process import set_pvz_top_most as SetWindowTopMost
 
 ## 模拟鼠标点击
 
 from .mouse import left_click as LeftClick
 from .mouse import right_click as RightClick
-from .mouse import safe_click as SafeClick
 from .mouse import special_button_click as ButtonClick
+
+## 模拟键盘敲击
+
+from .keyboard import press_esc as PressEsc
+from .keyboard import press_space as PressSpace
+from .keyboard import press_enter as PressEnter
+from .keyboard import press_keys as PressKeys
+from .keyboard import pause_game as PauseGame
+from .keyboard import restore_game as RestoreGame
 
 ## 延时机制
 
@@ -68,6 +81,8 @@ from .cobs import update_cob_cannon_list as UpdatePaoList
 
 ## 场地相关点击函数
 
+from .scene import get_mouse_lock as MouseLock
+from .scene import safe_click as SafeClick
 from .scene import click_seed as ClickSeed
 from .scene import click_shovel as ClickShovel
 from .scene import click_grid as ClickGrid
@@ -89,6 +104,7 @@ from .threads import auto_collect as StartAutoCollectThread
 from .threads import auto_fill_ice as StartAutoFillIceThread
 from .threads import activate_ice as Coffee
 from .threads import immobilize_dancer as StartStopDancerThread
+from .threads import nuts_fixer as StartNutsFixerThread
 
 ## 信息获取
 
@@ -114,27 +130,53 @@ from .helper import restore_user_data as Load
 ## 功能修改
 
 from .tools import background_running as BackgroundRunning
+from .tools import set_quick_lineup as QuickLineup
+from .tools import set_quick_pass as QuickPass
+from .tools import jump_level as JumpLevel
+from .tools import set_sun as SetSun
+from .tools import set_money as SetMoney
 from .tools import clear_fog as ClearFog
+from .tools import zombie_no_falling as ZombieNoFalling
+from .tools import set_music as SetMusic
+from .tools import set_debug_mode as SetDebug
+from .tools import set_zombies as SetZombies
 
 
 __all__ = [
+    # 调试日志
+    "EnableLogger",
+    # 查找进程读写内存
     "FindPvZ",
     "ReadMemory",
     "WriteMemory",
+    "SetWindowTopMost",
+    # 模拟鼠标点击
     "LeftClick",
     "RightClick",
-    "SafeClick",
     "ButtonClick",
+    # 模拟键盘敲击
+    "PressEsc",
+    "PressSpace",
+    "PressEnter",
+    "PressKeys",
+    "PauseGame",
+    "RestoreGame",
+    # 延时机制
     "Sleep",
     "Delay",
     "Countdown",
     "Prejudge",
     "Until",
+    # 选卡/更新炮列表
     "SelectCards",
     "UpdatePaoList",
+    # 场地相关点击函数
+    "MouseLock",
+    "SafeClick",
     "ClickSeed",
     "ClickShovel",
     "ClickGrid",
+    # 用卡用炮铲子操作
     "Card",
     "Shovel",
     "Pao",
@@ -142,11 +184,14 @@ __all__ = [
     "TryPao",
     "RoofPao",
     "SetFixPao",
+    # 子线程操作
     "RunningInThread",
     "StartAutoCollectThread",
     "StartAutoFillIceThread",
     "Coffee",
     "StartStopDancerThread",
+    "StartNutsFixerThread",
+    # 信息获取
     "GameOn",
     "GameUI",
     "GameMode",
@@ -158,30 +203,38 @@ __all__ = [
     "CurrentWave",
     "GetZombieTypes",
     "GetZombieWaves",
+    # 挂机辅助
     "GotoMainUI",
     "GotoEndless",
     "Save",
     "Load",
+    # 功能修改
     "BackgroundRunning",
+    "QuickLineup",
+    "QuickPass",
+    "JumpLevel",
+    "SetSun",
+    "SetMoney",
     "ClearFog",
+    "ZombieNoFalling",
+    "SetMusic",
+    "SetDebug",
+    "SetZombies",
 ]
 
 
 ### check operating system and python version
 
 if platform.system() != "Windows":
-    raise Exception("This package only works on Windows.")
+    logger.critical(f"本包 (pvz) 只支持在 Windows 系统上运行.")
 
 if sys.hexversion < 0x03050000:
-    raise Exception("Python 3.5 or newer is required to run this package.")
-
-## Hello World
-def HelloWorld():
-    win32.MessageBoxW(None, win32.LPCWSTR("Hello PvZ!"), win32.LPCWSTR("test"), win32.UINT(0x00000001))
+    logger.critical(f"本包 (pvz) 要求 Python 版本 >=3.5.")
 
 
 ### start and exit works
 
+# 游戏进程原始优先级
 pvz_priority_class_original = win32.NORMAL_PRIORITY_CLASS
 
 
@@ -191,28 +244,31 @@ def on_start():
 
     # this package is time-critical which needs real-time
     gc.disable()
+    sys.setswitchinterval(0.001)
 
     win32.SetPriorityClass(win32.GetCurrentProcess(), win32.HIGH_PRIORITY_CLASS)
 
-    # disable log
-    logger.enable_logger(False)  # TODO
+    logger.enable_logger(False)
     logger.set_logger_level("INFO")
 
     mouse.get_dpi_scale()
 
     if process.find_pvz_1051():
+
         global pvz_priority_class_original
         pvz_priority_class_original = win32.GetPriorityClass(process.pvz_handle)
         if pvz_priority_class_original != win32.REALTIME_PRIORITY_CLASS:
             win32.SetPriorityClass(process.pvz_handle, win32.HIGH_PRIORITY_CLASS)
 
-        if utils.game_ui() in (2, 3):
-            global slots_count, game_scene
-            slots_count = process.read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
-            game_scene = process.read_memory("int", 0x6A9EC0, 0x768, 0x554C)
-            cobs.update_cob_cannon_list()
-            seeds.update_seeds_list()  # utils.game_ui() in (3,)
+        utils.update_game_base()
+        ui = utils.game_ui()
+        if ui in (2, 3):
             scene.update_game_scene()
+            seeds.update_seeds_list() if ui == 3 else None
+            cobs.update_cob_cannon_list()
+
+    # else:
+    #     logger.critical(f"游戏未开启或者游戏版本不受支持!")
 
 
 def on_exit():

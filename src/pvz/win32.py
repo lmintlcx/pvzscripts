@@ -59,6 +59,7 @@ MEM_COMMIT = 0x00001000
 MEM_RELEASE = 0x00008000
 PAGE_EXECUTE_READWRITE = 0x40
 INFINITE = 0xFFFFFFFF
+WAIT_FAILED = 0xFFFFFFFF
 
 WM_LBUTTONDOWN = 0x0201
 WM_LBUTTONUP = 0x0202
@@ -73,6 +74,7 @@ WM_KEYUP = 0x0101
 
 VK_ESCAPE = 0x1B
 VK_SPACE = 0x20
+VK_RETURN = 0x0D
 
 VK_LEFT = 0x25
 VK_UP = 0x26
@@ -89,6 +91,11 @@ IDLE_PRIORITY_CLASS = 0x00000040
 HORZRES = 8
 DESKTOPHORZRES = 118
 
+HWND_NOTOPMOST = -2
+HWND_TOPMOST = -1
+SWP_NOMOVE = 0x0002
+SWP_NOSIZE = 0x0001
+SWP_SHOWWINDOW = 0x0040
 
 ### win32 dlls
 
@@ -326,3 +333,30 @@ GetDeviceCaps.restype = INT
 ReleaseDC = user32.ReleaseDC
 ReleaseDC.argtypes = [HWND, HDC]
 ReleaseDC.restype = INT
+
+# HWND SetActiveWindow(
+#   HWND hWnd
+# );
+SetActiveWindow = user32.SetActiveWindow
+SetActiveWindow.argtypes = [HWND]
+SetActiveWindow.restype = HWND
+
+# BOOL SetForegroundWindow(
+#   HWND hWnd
+# );
+SetForegroundWindow = user32.SetForegroundWindow
+SetForegroundWindow.argtypes = [HWND]
+SetForegroundWindow.restype = BOOL
+
+# BOOL SetWindowPos(
+#   HWND hWnd,
+#   HWND hWndInsertAfter,
+#   int  X,
+#   int  Y,
+#   int  cx,
+#   int  cy,
+#   UINT uFlags
+# );
+SetWindowPos = user32.SetWindowPos
+SetWindowPos.argtypes = [HWND, HWND, INT, INT, INT, INT, UINT]
+SetWindowPos.restype = BOOL

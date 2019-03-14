@@ -25,6 +25,14 @@ def press_space():
     win32.PostMessageW(process.pvz_hwnd, win32.WM_KEYUP, win32.VK_SPACE, 0)
 
 
+def press_enter():
+    """
+    敲击 回车 键.
+    """
+    win32.PostMessageW(process.pvz_hwnd, win32.WM_KEYDOWN, win32.VK_RETURN, 0)
+    win32.PostMessageW(process.pvz_hwnd, win32.WM_KEYUP, win32.VK_RETURN, 0)
+
+
 def press_left():
     """
     敲击 左方向 键.
@@ -59,11 +67,25 @@ def press_down():
 
 def press_key(key):
     """
-    敲击按键. 可选值 '0' - '9' 'A' - 'Z'
+    敲击按键. 可选值 '0' - '9' 'A' - 'Z'.
     """
     code = ord(key)
     win32.PostMessageW(process.pvz_hwnd, win32.WM_KEYDOWN, code, 0)
     win32.PostMessageW(process.pvz_hwnd, win32.WM_KEYUP, code, 0)
+
+
+def press_keys(keys):
+    """
+    敲击一系列按键.
+
+    @参数 keys(str): 按键字符串, 由 '0' - '9' 'A' - 'Z' 组成.
+
+    @示例:
+
+    >>> PressKeys("FUTURE")  # 智慧树指令, 使僵尸带上眼镜
+    """
+    for k in keys:
+        press_key(k.upper())
 
 
 def pause_game():

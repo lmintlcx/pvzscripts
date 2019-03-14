@@ -4,6 +4,8 @@
 Scene
 """
 
+import threading
+
 from . import logger
 from . import process
 from . import seeds
@@ -14,17 +16,21 @@ from . import mouse
 slots_count = 10
 
 # 场景地图, 点击场上格子相关函数需要
-# 0. day
-# 1. night
-# 2. pool
-# 3. fog
-# 4. roof
-# 5. moon
-# 6. mushroom garden
-# 7. zen garden
-# 8. aquarium garden
-# 9. tree of wisdom
 game_scene = 2
+
+
+scenes = {
+    0: "Day",
+    1: "Night",
+    2: "Pool",
+    3: "Fog",
+    4: "Roof",
+    5: "Moon",
+    6: "Mushroom Garden",
+    7: "Zen Garden",
+    8: "Aquarium Garden",
+    9: "Tree of Wisdom",
+}
 
 
 def update_game_scene():
@@ -32,8 +38,42 @@ def update_game_scene():
     global slots_count, game_scene
     slots_count = process.read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
     game_scene = process.read_memory("int", 0x6A9EC0, 0x768, 0x554C)
-    logger.info(f"Update slots count {slots_count}.")
-    logger.info(f"Update game scene {game_scene}.")
+    logger.info(f"更新卡槽格数 {slots_count}.")
+    logger.info(f"更新场景地图 {scenes[game_scene]}.")
+
+
+# 唯一内置鼠标锁
+mouse_lock = threading.Lock()
+
+
+def get_mouse_lock():
+    """
+    获取鼠标锁, 进行完整的(不可分割的)鼠标操作前加锁, 操作完毕后释放.
+
+    @返回值 (object): 唯一内置鼠标锁.
+
+    @示例:
+
+    >>> MouseLock().acquire()  # 获取鼠标操作权
+    >>> SafeClick()            # 安全右键避免冲突
+    >>> pass                   # 干点什么
+    >>> MouseLock().release()  # 释放鼠标操作权
+
+    >>> with MouseLock():  # 获取鼠标操作权, 代码块结束后自动释放
+    >>>     SafeClick()    # 安全右键避免冲突
+    >>>     pass           # 干点什么
+    """
+
+    return mouse_lock
+
+
+def safe_click():
+    """
+    安全右键.
+
+    即右键单击左上角, 用于取消之前的(可能未完成的)操作以避免冲突.
+    """
+    mouse.right_click(0, 0)
 
 
 def click_seed(seed):
@@ -44,19 +84,19 @@ def click_seed(seed):
 
     @示例:
 
-    >>> click_seed(5)  # 点击第 5 格卡槽
+    >>> ClickSeed(5)  # 点击第 5 格卡槽
 
-    >>> click_seed("樱桃")  # 点击卡槽中的樱桃卡片
+    >>> ClickSeed("樱桃")  # 点击卡槽中的樱桃卡片
     """
 
     if isinstance(seed, str):
         slot_index = seeds.get_index_by_name(seed)
         if slot_index is None:
-            raise Exception(f"No seed {seed} in slots, operation failed.")
+            logger.error(f"卡槽当中没有 {seed} 卡片, 操作失败.")
     else:  # int
         slot_index = seed
         if slot_index not in range(1, 11):
-            raise Exception(f"Index {slot_index} out of range, operation failed.")
+            logger.error(f"卡槽格数 {slot_index} 超出有效范围, 操作失败.")
 
     if slots_count == 10:
         x = 63 + 51 * slot_index
@@ -123,7 +163,9 @@ def click_grid(*crood):
 
     @示例:
 
-    >>> click_grid(2, 9)  # click_grid((2, 9))  # 点击 2 行 9 列
+    >>> ClickGrid((2, 9))  # 点击 2 行 9 列
+
+    >>> ClickGrid(2, 9)  # 不推荐
     """
     x, y = rc2xy(*crood)
     mouse.left_click(x, y)

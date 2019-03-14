@@ -19,7 +19,7 @@ dpi_scale = 1.0
 
 def get_dpi_scale():
     """
-    获取 DPI 缩放比例.
+    更新 DPI 缩放比例.
     """
     screen = win32.GetDC(None)
     if screen is not None:
@@ -32,7 +32,7 @@ def get_dpi_scale():
 
     global dpi_scale
     dpi_scale = scale
-    logger.info(f"Get DPI scale {scale}.")
+    logger.info(f"更新 DPI 缩放比例 {scale}.")
 
 
 def MAKELONG(low, high):
@@ -77,7 +77,7 @@ def left_click(x, y):
 
     @示例:
 
-    >>> left_click(108, 42)  # 左键单击卡槽第一张卡片的位置
+    >>> LeftClick(108, 42)  # 左键单击卡槽第一张卡片的位置
     """
     coord = MAKELONG(x, y)
     win32.PostMessageW(process.pvz_hwnd, win32.WM_LBUTTONDOWN, win32.MK_LBUTTON, coord)
@@ -113,21 +113,11 @@ def right_click(x, y):
 
     @示例:
 
-    >>> right_click(399, 299)  # 右键单击场地中间位置
+    >>> RightClick(399, 299)  # 右键单击场地中间位置
     """
     coord = MAKELONG(x, y)
     win32.PostMessageW(process.pvz_hwnd, win32.WM_RBUTTONDOWN, win32.MK_RBUTTON, coord)
     win32.PostMessageW(process.pvz_hwnd, win32.WM_RBUTTONUP, win32.MK_RBUTTON, coord)
-
-
-# safe click
-
-
-def safe_click():
-    """
-    安全右键. 用于避免操作冲突.
-    """
-    right_click(0, 0)
 
 
 # special button click
@@ -143,7 +133,9 @@ def special_button_click(x, y):
 
     @示例:
 
-    >>> special_button_click(490, 550)  # 选卡界面左键单击模仿者卡片
+    >>> ButtonClick(490, 550)  # 选卡界面点击模仿者卡片
+
+    >>> ButtonClick(740, 10)  # 点击菜单按钮
     """
     point = win32.POINT()
     win32.GetCursorPos(ctypes.byref(point))
@@ -199,7 +191,8 @@ def move_to_click(x, y, click=True):
         win32.SetCursorPos(x_tmp, y_tmp)
     time.sleep(0.01)
     win32.SetCursorPos(x_1, y_1)
-    time.sleep(0.05)
+    delay = random.randint(10, 30)  # 随机延时
+    time.sleep(delay / 100)
     if click:
         left_click(x, y)
     delay = random.randint(10, 20)  # 随机延时

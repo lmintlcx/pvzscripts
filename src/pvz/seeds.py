@@ -10,35 +10,35 @@ import gc
 
 from . import logger
 from . import process
+from . import utils
 from . import delay
 from . import mouse
 from . import cobs
 from . import scene
 
 
-# TODO 卡片名称
 seeds_string = [
     ["Peashooter", "豌豆射手", "豌豆", "单发"],
-    ["Sunflower", "向日葵", "小向", "花"],
+    ["Sunflower", "向日葵", "小向", "太阳花", "花"],
     ["Cherry Bomb", "樱桃炸弹", "樱桃", "炸弹", "爆炸", "草莓", "樱"],
-    ["Wall-nut", "坚果墙", "坚果", "墙果", "柠檬圆"],
+    ["Wall-nut", "坚果墙", "坚果", "墙果", "建国", "柠檬圆"],
     ["Potato Mine", "土豆雷", "土豆", "地雷", "土豆地雷"],
     ["Snow Pea", "寒冰射手", "冰豆", "冰豌豆", "雪花豌豆", "雪花"],
-    ["Chomper", "大嘴花", "大嘴", "食人花", "食"],
+    ["Chomper", "大嘴花", "大嘴", "食人花", "咀嚼者", "食"],
     ["Repeater", "双发射手", "双发", "双发豌豆"],
-    ["Puff-shroom", "小喷菇", "小喷", "喷汽蘑菇", "免费蘑菇", "炮灰菇", "小蘑菇", "免费货", "免费"],
+    ["Puff-shroom", "小喷菇", "小喷", "喷汽蘑菇", "烟雾蘑菇", "免费蘑菇", "炮灰菇", "小蘑菇", "免费货", "免费"],
     ["Sun-shroom", "阳光菇", "阳光", "阳光蘑菇"],
-    ["Fume-shroom", "大喷菇", "大喷", "烟雾蘑菇", "大蘑菇", "喷子", "喷"],
-    ["Grave Buster", "墓碑吞噬者", "墓碑", "墓碑苔藓", "苔藓", "咬咬碑"],
+    ["Fume-shroom", "大喷菇", "大喷", "烟雾喷菇", "大蘑菇", "喷子", "喷"],
+    ["Grave Buster", "墓碑吞噬者", "墓碑破坏者", "墓碑", "墓碑苔藓", "苔藓", "咬咬碑"],
     ["Hypno-shroom", "魅惑菇", "魅惑", "迷惑菇", "催眠蘑菇", "催眠", "花蘑菇", "毒蘑菇"],
     ["Scaredy-shroom", "胆小菇", "胆小", "胆怯蘑菇", "胆小鬼蘑菇", "杠子蘑菇"],
     ["Ice-shroom", "寒冰菇", "冰菇", "冷冻蘑菇", "冰蘑菇", "面瘫", "蓝冰", "原版冰", "冰"],
     ["Doom-shroom", "毁灭菇", "核蘑菇", "核弹", "核武", "毁灭", "末日蘑菇", "末日菇", "末日", "黑核", "原版核", "核"],
-    ["Lily Pad", "睡莲", "荷叶", "莲叶"],
+    ["Lily Pad", "睡莲", "荷叶", "莲叶", "莲"],
     ["Squash", "窝瓜", "倭瓜", "窝瓜大叔", "倭瓜大叔", "镇压者"],
-    ["Threepeater", "三线射手", "三线", "三头豌豆", "三头", "三管", "管"],
-    ["Tangle Kelp", "缠绕海草", "海草", "缠绕海藻", "海藻", "毛线"],
-    ["Jalapeno", "火爆辣椒", "辣椒", "墨西哥胡椒", "辣", "椒"],
+    ["Threepeater", "三线射手", "三线", "三头豌豆", "三头", "三管", "三联装豌豆", "管"],
+    ["Tangle Kelp", "缠绕海草", "海草", "缠绕海藻", "海藻", "缠绕海带", "毛线"],
+    ["Jalapeno", "火爆辣椒", "辣椒", "墨西哥胡椒", "墨西哥辣椒", "辣", "椒"],
     ["Spikeweed", "地刺", "刺", "尖刺", "尖刺杂草", "棘草"],
     ["Torchwood", "火炬树桩", "火树", "火炬", "树桩", "火炬木", "火"],
     ["Tall-nut", "高坚果", "搞基果", "高建国", "巨大墙果", "巨大", "高墙果", "大土豆"],
@@ -64,15 +64,15 @@ seeds_string = [
     ["Cattail", "香蒲", "猫尾草", "猫尾", "猫尾香蒲", "小猫", "猫"],
     ["Winter Melon", "冰瓜", "'冰'瓜", '"冰"瓜', "冰西瓜", "冰冻西瓜"],
     ["Gold Magnet", "吸金磁", "吸金", "吸金草", "金磁铁"],
-    ["Spikerock", "地刺王", "钢刺", "钢地刺", "尖刺岩石", "石荆棘"],
+    ["Spikerock", "地刺王", "钢刺", "钢地刺", "尖刺岩石", "尖刺石", "石荆棘"],
     ["Cob Cannon", "玉米加农炮", "玉米炮", "加农炮", "春哥", "春哥炮", "炮", "春", "神"],
 ]
 
-# # 确保没有重复项, 发布时注释掉
-# seeds_string_all = []
-# for items in seeds_string:
-#     seeds_string_all += items
-# assert len(seeds_string_all) == len(set(seeds_string_all))
+# # 确保没有重复项, 发布时注释掉 TODO
+seeds_string_all = []
+for items in seeds_string:
+    seeds_string_all += items
+assert len(seeds_string_all) == len(set(seeds_string_all))
 
 # 模仿者卡片前缀
 seeds_imitater_string = ["Imitater", "imitater", "模仿者", "模仿", "复制", "白", "小白", "变身茄子"]
@@ -89,13 +89,13 @@ for i, items in enumerate(seeds_string):
         for j, im in enumerate(seeds_imitater_string):
             seeds_string_dict[im + item] = i + 48
             seeds_string_dict[im + " " + item] = i + 48
-# logger.info(f"Seeds string dict {seeds_string_dict}.")  # it's huge!!!
+# logger.info(f"卡片名称字符串字典 {seeds_string_dict}.")  # it's huge!!!
 
 
 # 每张卡片在卡槽里的位置, 用于根据卡片代号找卡槽位置
 seeds_in_slot = [None] * (48 * 2)
 
-# 卡槽中每张卡片的序号, 用于根据卡槽位置找卡片代号
+# 卡槽中每张卡片的代号, 用于根据卡槽位置找卡片代号
 slot_seeds = [None] * 10
 
 
@@ -119,8 +119,8 @@ def update_seeds_list():
         seeds_in_slot[seed] = i + 1
         slot_seeds[i] = seed
 
-    logger.info(f"Update seeds in slot {seeds_in_slot}.")
-    logger.info(f"Update slot seeds {slot_seeds}.")
+    # logger.info(f"更新卡槽位置 {seeds_in_slot}.")  # 每张卡片在卡槽里的位置
+    logger.info(f"更新卡片代号 {slot_seeds}.")  # 卡槽中每张卡片的代号
 
 
 # 卡片名字 name
@@ -133,7 +133,7 @@ def get_seed_by_name(name: str) -> int:
     根据卡片名字得到卡片代号. (模仿者 +48)
     """
     if name not in seeds_string_dict:
-        raise Exception(f"Unknown seed: {name}.")
+        logger.error(f"未知卡片名称: {name}.")
     return seeds_string_dict[name]
 
 
@@ -142,7 +142,7 @@ def get_index_by_seed(seed: int) -> int:
     根据卡片代号得到卡槽位置. 不在返回 None.
     """
     if seed not in range(48 * 2):
-        raise Exception(f"Seed {seed} out of range.")
+        logger.error(f"卡片代号 {seed} 超出有效范围.")
     return seeds_in_slot[seed]
 
 
@@ -151,7 +151,7 @@ def get_index_by_name(name: str) -> int:
     根据卡片名字得到卡槽位置. 不在返回 None.
     """
     if name not in seeds_string_dict:
-        raise Exception(f"Unknown seed: {name}.")
+        logger.error(f"未知卡片名称: {name}.")
     return seeds_in_slot[seeds_string_dict[name]]
 
 
@@ -160,7 +160,7 @@ def get_seed_by_index(index: int) -> int:
     根据卡槽位置得到卡片代号.
     """
     if index not in range(1, 11):
-        raise Exception(f"Index {index} out of range.")
+        logger.error(f"卡槽位置 {index} 超出有效范围.")
     return slot_seeds[index - 1]
 
 
@@ -195,14 +195,14 @@ def select_seed_by_crood(row, col, imitater=False):
 
     if imitater:
         if row not in (1, 2, 3, 4, 5):
-            raise Exception("'row' out of range.")
+            logger.critical(f"卡片行数 {row} 超出有效范围.")
         if col not in (1, 2, 3, 4, 5, 6, 7, 8):
-            raise Exception("'col' out of range.")
+            logger.critical(f"卡片列数 {col} 超出有效范围.")
     else:
         if row not in (1, 2, 3, 4, 5, 6):
-            raise Exception("'row' out of range.")
+            logger.critical(f"卡片行数 {row} 超出有效范围.")
         if col not in (1, 2, 3, 4, 5, 6, 7, 8):
-            raise Exception("'col' out of range.")
+            logger.critical(f"卡片列数 {col} 超出有效范围.")
 
     if simulate_manual_control:
         if imitater:
@@ -233,7 +233,7 @@ def select_seed_by_crood(row, col, imitater=False):
     else:
         im_str = ""
     seed_str = seeds_string[(row - 1) * 8 + (col - 1)][0]
-    logger.info(f"Select seed {im_str}{seed_str}.")
+    logger.info(f"选择单张卡片 {im_str}{seed_str}.")
 
 
 @functools.singledispatch
@@ -256,7 +256,7 @@ def seed_to_crood(seed):
     >>> seed_to_crood("复制冰")
     (2, 7, True)
     """
-    raise Exception(f"Unknown seed type {type(seed)}.")
+    logger.error(f"卡片参数不支持 {type(seed)} 类型.")
 
 
 @seed_to_crood.register(int)
@@ -286,7 +286,7 @@ def _(seed):
 @seed_to_crood.register(str)
 def _(seed):
     if not seed in seeds_string_dict:
-        raise Exception(f"Unknown seed: {seed}.")
+        logger.error(f"未知卡片名称: {seed}.")
     seed_index = seeds_string_dict[seed]  # 卡片代号(+48)
     imitater = seed_index >= 48
     index = seed_index % 48
@@ -314,11 +314,11 @@ def select_all_seeds(seeds_selected=None):
                 break
 
     if len(seeds_selected) != slots_count:
-        raise Exception(f"Seeds count {len(seeds_selected)} != slots count {slots_count}.")
+        logger.critical(f"已选卡片数 {len(seeds_selected)} 不等于卡槽格数 {slots_count}.")
 
     # 卡片列表转换为标准形式
     seeds_selected = [seed_to_crood(seed) for seed in seeds_selected]
-    logger.info(f"Seeds transfer to {seeds_selected}.")
+    logger.info(f"所选卡片转换为标准形式 {seeds_selected}.")
 
     retry_count = 0
 
@@ -326,10 +326,10 @@ def select_all_seeds(seeds_selected=None):
     while process.read_memory("int", 0x6A9EC0, 0x774, 0xD24) < slots_count:
 
         if retry_count > 3:
-            raise Exception(f"Seeds selection failed, something must be wrong.")
+            logger.critical(f"选卡重试多次失败, 哪里出错了.")
         retry_count += 1
 
-        logger.info(f"Incomplete seeds selection, try again now.")
+        logger.info(f"选卡过程未完成, 正在重试.")
 
         # clear all seeds in slots
         for _ in range(10):
@@ -359,7 +359,8 @@ def lets_rock():
         time.sleep(0.3)
 
         # if there is dialog
-        while process.read_memory("bool", 0x6A9EC0, 0x320, 0x94, 0x54):
+        time.sleep(0.1)
+        while process.read_memory("int", 0x6A9EC0, 0x320, 0x94) != 0:
             if simulate_manual_control:
                 mouse.move_to_click(320, 400)
             else:
@@ -378,7 +379,7 @@ def select_seeds_and_lets_rock(seeds_selected=None):
 
     @参数 seeds_selected(list): 卡片列表, 参数为空默认选择八张紫卡和两张免费卡. 参数个数小于卡槽数则用默认卡片填充.
     
-    列表长度需与卡槽格数相同. 单张卡片 seed 可用 int/tuple/str 表示, 不同表示方法可混用.
+    列表长度不大于卡槽格数. 单张卡片 seed 可用 int/tuple/str 表示, 不同表示方法可混用.
 
     seed(int): 卡片序号, 0 为豌豆射手, 47 为玉米加农炮, 对于模仿者这个数字再加上 48.
 
@@ -388,19 +389,28 @@ def select_seeds_and_lets_rock(seeds_selected=None):
 
     @示例:
 
-    >>> select_seeds_and_lets_rock()
+    >>> SelectCards()
 
-    >>> select_seeds_and_lets_rock([14, 14 + 48, 17, 2, 3, 30, 33, 13, 9, 8])
+    >>> SelectCards([14, 14 + 48, 17, 2, 3, 30, 33, 13, 9, 8])
 
-    >>> select_seeds_and_lets_rock([(2, 7), (2, 7, True), (3, 2), (1, 3), (1, 4), (4, 7), (5, 2), (2, 6), (2, 2), (2, 1),])
+    >>> SelectCards([(2, 7), (2, 7, True), (3, 2), (1, 3, False), (1, 4, False), (4, 7), (5, 2), (2, 6), (2, 2), (2, 1),])
 
-    >>> select_seeds_and_lets_rock(["寒冰菇", "复制冰", "窝瓜", "樱桃", "坚果", "南瓜", "花盆", "胆小", "阳光", "小喷"])
+    >>> SelectCards(["寒冰菇", "复制冰", "窝瓜", "樱桃", "坚果", "南瓜", "花盆", "胆小", "阳光", "小喷"])
+
+    >>> SelectCards(["小喷菇", "模仿者小喷菇"])
     """
     gc.collect()
 
+    # process.set_pvz_foreground()
+    delay.wait_for_game_stop()
+
+    utils.update_game_base()
+
     select_all_seeds(seeds_selected)
     lets_rock()
-    cobs.update_cob_cannon_list()
-    update_seeds_list()
+
     scene.update_game_scene()
+    update_seeds_list()
+    cobs.update_cob_cannon_list()
+
     delay.wait_for_game_start()

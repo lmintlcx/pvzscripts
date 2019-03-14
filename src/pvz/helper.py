@@ -132,11 +132,11 @@ def backup_user_data():
     src_file = os.path.join(source_path, data_file)
     dst_file = os.path.join(backup_path, now, data_file)
     if not os.path.isfile(src_file):
-        logger.error(f"No data file! Abandon!")
+        logger.error(f"未找到原始存档文件, 备份失败.")
         return
     shutil.copyfile(src_file, dst_file)
 
-    logger.info(f"Backup data file to {dst_file}.")
+    logger.info(f"备份存档文件至 {dst_file}.")
 
 
 def restore_user_data():
@@ -148,7 +148,7 @@ def restore_user_data():
 
     # 没有备份目录
     if not os.path.exists(backup_path):
-        logger.error(f"No backup file! Abandon!")
+        logger.error(f"未找到存档备份目录, 还原失败.")
         return
 
     # 获取存档文件名
@@ -164,7 +164,7 @@ def restore_user_data():
             _, t = os.path.split(f)
             time_list.append(time.mktime(time.strptime(t, "%Y-%m-%d_%H-%M-%S")))  # 转为时间戳
     if len(time_list) == 0:
-        logger.error(f"No backup file! Abandon!")
+        logger.error(f"存档备份目录为空, 备份失败.")
         return
     last_backup_time = max(time_list)  # 找出最大值, 即最近的一次备份
     last_backup_time = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime(last_backup_time))  # 再转回字符串 ==
@@ -173,10 +173,10 @@ def restore_user_data():
     src_file = os.path.join(backup_path, last_backup_time, data_file)
     dst_file = os.path.join(source_path, data_file)
     if not os.path.isfile(src_file):
-        logger.error(f"No data file! Abandon!")
+        logger.error(f"未找到备份存档文件, 备份失败.")
         return
     if os.path.exists(dst_file):
         os.remove(dst_file)
     shutil.copyfile(src_file, dst_file)
 
-    logger.info(f"Restore data file from {src_file}.")
+    logger.info(f"从 {src_file} 还原存档文件.")
