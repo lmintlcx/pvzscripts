@@ -1,7 +1,14 @@
 # coding=utf-8
 
+try:
+    import markdown
+except:
+    import os
+
+    os.system("pip install markdown")
+    import markdown
+
 import os
-import markdown
 
 
 def md2html(md_str):
@@ -15,15 +22,15 @@ def md2html(md_str):
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PvZ Scripts</title>
     <link rel="icon" href="/favicon.ico">
-    <link rel="stylesheet" href="normalize.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styles/github.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/styles/github.css">
     </head>
 
     <body>
     %s
-    <script src="script.js"></script>
-    <script src="highlight.js"></script>
+    <script src="/js/script.js"></script>
+    <script src="/js/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     </body>
 
@@ -32,14 +39,20 @@ def md2html(md_str):
     return html % markdown.markdown(md_str, extensions=["markdown.extensions.extra"])
 
 
-SRC = os.path.join(os.getcwd(), "..", "html", "index.md")
-DST = os.path.join(os.getcwd(), "..", "html", "index.html")
+for m in ("endless", "pvz.py", "scripts", "docs"):
 
-src_file = open(SRC, "r", encoding="utf-8")
-md = src_file.read()
-src_file.close()
+    SRC = os.path.join(os.getcwd(), "..", "html", m, "index.md")
+    DST = os.path.join(os.getcwd(), "..", "html", m, "index.html")
 
-os.remove(DST)
-dst_file = open(DST, "a", encoding="utf-8")
-dst_file.write(md2html(md))
-dst_file.close()
+    if not os.path.exists(SRC):
+        exit(0)
+    if os.path.exists(DST):
+        os.remove(DST)
+
+    src_file = open(SRC, "r", encoding="utf-8")
+    md = src_file.read()
+    src_file.close()
+
+    dst_file = open(DST, "a", encoding="utf-8")
+    dst_file.write(md2html(md))
+    dst_file.close()
