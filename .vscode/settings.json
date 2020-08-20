@@ -1,7 +1,8 @@
 {
-    "python.formatting.provider": "black",
-    "files.associations": {
-        "thread": "cpp",
-        "mutex": "cpp"
-    }
+    "python.pythonPath": "C:\\Python34\\python.exe",
+    "python.formatting.provider": "yapf",
+    "python.formatting.yapfArgs": [
+        "--style",
+        "{column_limit: 128}"
+    ],
 }
