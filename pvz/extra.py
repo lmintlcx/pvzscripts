@@ -99,6 +99,18 @@ def current_wave():
 ### 修改出怪
 
 
+# 从出怪种子生成出怪类型
+def update_zombies_type():
+    write_memory("bool", [False] * 33, 0x6A9EC0, 0x768, 0x54D4)
+    asm_init()
+    asm_mov_exx_dword_ptr("esi", 0x6A9EC0)
+    asm_mov_exx_dword_ptr_exx_add("esi", 0x768)
+    asm_mov_exx_dword_ptr_exx_add("esi", 0x160)
+    asm_call(0x00425840) if pvz_ver() == "1.0.0.1051" else asm_call(0x004258A0)
+    asm_ret()
+    asm_code_inject_safely()
+
+
 # 从出怪类型生成出怪列表
 def update_zombies_list():
     asm_init()
@@ -266,8 +278,8 @@ def set_zombies(zombies=None, mode="极限刷怪"):
 # (50, 160) 为左上角卡片中心坐标
 # (215, 160) 为模仿者选卡界面左上角卡片中心坐标
 # 单张卡片宽度约 50px 高度约 70px
-# 对于模仿者卡片位置 (490, 550), 成功点击后延迟 0.2s 等待界面出现再选卡
-# 每次选完卡均等待 0.12s
+# 模仿者卡片位置 (490, 550), 成功点击后等待界面出现再选卡
+# 每次选完卡均等待一定时间
 
 SEED_0_0_X = 50
 SEED_0_0_Y = 160
@@ -277,8 +289,8 @@ SEED_WIDTH = 50
 SEED_HEIGHT = 70
 IMITATER_X = 490
 IMITATER_Y = 550
-IMITATER_SHOW_UP = 20
-SEED_DELAY_TIME = 12
+IMITATER_SHOW_UP = 0
+SEED_DELAY_TIME = 5
 
 
 def select_seed_by_crood(row, col, imitater=False):
@@ -311,7 +323,17 @@ def select_seed_by_crood(row, col, imitater=False):
     else:
         x = SEED_0_0_X + (col - 1) * (SEED_WIDTH + 3)
         y = SEED_0_0_Y + (row - 1) * (SEED_HEIGHT + 0)
-    left_click(x, y)
+
+    # 不小心点进了图鉴或者商店
+    window_type = read_memory("int", 0x6A9EC0, 0x320, 0x88, 0xC)
+    if window_type == 1:
+        left_click(720, 580)
+        thread_sleep_for(5)
+    elif window_type == 4:
+        left_click(430, 550)
+        thread_sleep_for(5)
+
+    special_button_click(x, y)
     thread_sleep_for(SEED_DELAY_TIME)
 
     if imitater:
@@ -380,10 +402,62 @@ def _(seed):
     return row + 1, col + 1, imitater
 
 
+# 检查已选卡片是否完全相符
+def slots_exact_match(seeds_selected):
+    slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
+    slots_selected = read_memory("int", 0x6A9EC0, 0x774, 0xD24)
+    if slots_selected < slots_count:
+        return False
+    match = True
+    for i in range(slots_count):
+        row, col, imitater = seeds_selected[i]
+        seed_index = (row - 1) * 8 + (col - 1)
+        if imitater:
+            seed_index = 48
+        seed_plant = read_memory("int", 0x6A9EC0, 0x774, 0xC4 + seed_index * 0x3C)
+        seed_status = read_memory("int", 0x6A9EC0, 0x774, 0xC8 + seed_index * 0x3C)
+        # !卡片对应的植物正确并且位于卡槽中
+        if not (seed_plant == seed_index and seed_status == 1):
+            match = False
+            break
+    return match
+
+
+# 清空卡槽所有卡片
+def clear_slots():
+    slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
+    for slot_index in reversed(range(slots_count)):  # 逆序
+        slot_index += 1
+        if slots_count == 10:
+            x = 63 + 51 * slot_index
+        elif slots_count == 9:
+            x = 63 + 52 * slot_index
+        elif slots_count == 8:
+            x = 61 + 54 * slot_index
+        elif slots_count == 7:
+            x = 61 + 59 * slot_index
+        else:
+            x = 61 + 59 * slot_index
+        x -= 10
+        y = 12
+        special_button_click(x, y)
+        thread_sleep_for(5)
+    thread_sleep_for(5)
+
+
 def select_all_seeds(seeds_selected=None):
     """
     选择所有卡片.
     """
+
+    # 不小心点进了图鉴或者商店
+    window_type = read_memory("int", 0x6A9EC0, 0x320, 0x88, 0xC)
+    if window_type == 1:
+        left_click(720, 580)
+        thread_sleep_for(5)
+    elif window_type == 4:
+        left_click(430, 550)
+        thread_sleep_for(5)
 
     default_seeds = [40, 41, 42, 43, 44, 45, 46, 47, 8, 8 + 48]
     slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
@@ -399,35 +473,31 @@ def select_all_seeds(seeds_selected=None):
                 seeds_selected += [seed]
                 break
 
-    if len(seeds_selected) != slots_count:
-        critical("已选卡片数 %d 不等于卡槽格数 %d." % (len(seeds_selected), slots_count))
+    if len(seeds_selected) > slots_count:
+        critical("已选卡片数 %d 超过卡槽格数 %d." % (len(seeds_selected), slots_count))
 
     # 卡片列表转换为标准形式
     seeds_selected = [seed_to_crood(seed) for seed in seeds_selected]
     info("所选卡片转换为标准形式 %s." % seeds_selected)
 
+    clear_slots()  # 清空卡槽已选卡片
     retry_count = 0
 
-    # TODO : 检查已选卡片是否完全相符
-    while read_memory("int", 0x6A9EC0, 0x774, 0xD24) < slots_count:
+    while not slots_exact_match(seeds_selected):
 
         if retry_count > 3:
             critical("选卡重试多次失败.")
         retry_count += 1
-
         info("选卡过程未完成, 正在重试.")
 
-        # 清空卡槽已选卡片
-        for _ in range(10):
-            left_click(108, 42)
-            thread_sleep_for(10)
-        thread_sleep_for(20)
-
-        # 选择所有卡片
+        # 清空卡槽并选择所有卡片
+        clear_slots()
         for seed in seeds_selected:
             row, col, imitater = seed
             select_seed_by_crood(row, col, imitater)
-        thread_sleep_for(40)  # 卡片移动需要时间
+        thread_sleep_for(5)  # 等内存变化
+
+    thread_sleep_for(5)  # 等内存变化
 
 
 def lets_rock():
@@ -435,10 +505,10 @@ def lets_rock():
         left_down(234, 567)
         thread_sleep_for(1)
         left_up(234, 567)
-        thread_sleep_for(30)
+        thread_sleep_for(10)
         while read_memory("int", 0x6A9EC0, 0x320, 0x94) != 0:  # 出现了对话框
             left_click(320, 400)
-            thread_sleep_for(30)
+            thread_sleep_for(10)
 
 
 def select_seeds_and_lets_rock(seeds_selected=None):
@@ -806,7 +876,7 @@ def update_cob_cannon_list(cobs=None):
     # 自动查找
     if cobs is None:
         cob_list = cob_list_tmp
-        info("自动查找场上玉米炮 %s." % str(cob_list))
+        info("查找场上玉米炮 %s." % str(cob_list))
 
     # 手动更新
     else:

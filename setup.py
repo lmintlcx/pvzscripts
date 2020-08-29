@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name="pvz",
-    version="4.0.0",
+    version="4.0.1",
     author="lmintlcx",
     author_email="lmintlcx@gmail.com",
     url="https://github.com/lmintlcx/pvzscripts",

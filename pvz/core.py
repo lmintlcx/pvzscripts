@@ -1070,9 +1070,6 @@ def left_click(x, y):
     PostMessageW(pvz_hwnd, WM_LBUTTONUP, MK_LBUTTON, coord)
 
 
-click = left_click
-
-
 def right_down(x, y):
     """
     鼠标右键按下.
@@ -1122,9 +1119,10 @@ def special_button_click(x, y):
 
     >>> ButtonClick(740, 10)  # 点击菜单按钮
     """
-    left_click(x, y)
-    time.sleep(0.02)
-    left_click(0, 0)
+    left_down(x, y)
+    right_down(x, y)
+    left_up(x, y)
+    right_up(x, y)
     time.sleep(0.01)
 
 

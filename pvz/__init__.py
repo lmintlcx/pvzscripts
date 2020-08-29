@@ -4,9 +4,9 @@ Python vs. Zombies
 """
 
 __name__ = "pvz"
-__version__ = "4.0.0"
+__version__ = "4.0.1"
 __description__ = "Python vs. Zombies"
-__date__ = "2020-08-20"
+__date__ = "2020-08-29"
 __status__ = "Production"
 __author__ = "lmintlcx"
 __copyright__ = "Copyright 2018-2020, lmintlcx"

@@ -4,6 +4,9 @@ from pvz import ReadMemory
 from pvz.core import seeds_string
 from pvz.core import zombies_string
 
+sun = ReadMemory("int", 0x6A9EC0, 0x768, 0x5560)
+print("当前阳光数: " + str(sun))
+
 zombies_count_max = ReadMemory("unsigned int", 0x6A9EC0, 0x768, 0x94)
 zombies_offset = ReadMemory("unsigned int", 0x6A9EC0, 0x768, 0x90)
 for i in range(zombies_count_max):
