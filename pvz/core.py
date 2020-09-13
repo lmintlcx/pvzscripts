@@ -1030,6 +1030,7 @@ def set_dpi_scale(scale):
 
 
 def MAKELONG(low, high):
+    # low += 0  # 加上画面横坐标偏移 [[[6a9ec0]+768]+30]
     if dpi_scale != 1.0:
         low, high = int(low / dpi_scale), int(high / dpi_scale)
     else:

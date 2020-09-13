@@ -474,7 +474,7 @@ def select_all_seeds(seeds_selected=None):
                 break
 
     if len(seeds_selected) > slots_count:
-        critical("已选卡片数 %d 超过卡槽格数 %d." % (len(seeds_selected), slots_count))
+        critical("卡片数量 %d 超过卡槽格数 %d." % (len(seeds_selected), slots_count))
 
     # 卡片列表转换为标准形式
     seeds_selected = [seed_to_crood(seed) for seed in seeds_selected]

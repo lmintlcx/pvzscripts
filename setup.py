@@ -1,10 +1,10 @@
 # coding=utf-8
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name="pvz",
-    version="4.0.1",
+    version="4.0.2",
     author="lmintlcx",
     author_email="lmintlcx@gmail.com",
     url="https://github.com/lmintlcx/pvzscripts",
