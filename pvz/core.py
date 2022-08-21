@@ -733,10 +733,10 @@ def asm_push(code):
     asm_add_dword(code)
 
 
-# push byte
-def asm_push(code):
+# push 0x12
+def asm_push_byte(code):
     asm_add_byte(0x6a)
-    asm_add_dword(code)
+    asm_add_byte(code)
 
 
 # mov exx, 0x12345678
