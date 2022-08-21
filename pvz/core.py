@@ -733,6 +733,12 @@ def asm_push(code):
     asm_add_dword(code)
 
 
+# push byte
+def asm_push(code):
+    asm_add_byte(0x6a)
+    asm_add_dword(code)
+
+
 # mov exx, 0x12345678
 asm_mov_exx_code = {
     "eax": [0xB8],
