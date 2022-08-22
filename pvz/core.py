@@ -735,7 +735,7 @@ def asm_push(code):
 
 # push 0x12
 def asm_push_byte(code):
-    asm_add_byte(0x6a)
+    asm_add_byte(0x6A)
     asm_add_byte(code)
 
 
