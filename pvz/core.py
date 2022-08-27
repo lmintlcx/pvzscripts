@@ -567,6 +567,7 @@ def read_memory(data_type, *address, array=1):
             size = ctypes.sizeof(buffer)
             success = ReadProcessMemory(pvz_handle, offset, ctypes.byref(buffer), size, ctypes.byref(bytes_read))
             if success == 0 or bytes_read.value != size:
+                memory_lock.release()
                 critical("读取内存失败, 错误代码 %d." % GetLastError())
 
         else:
@@ -575,6 +576,7 @@ def read_memory(data_type, *address, array=1):
             buff = ctypes.create_string_buffer(size)  # 目标数据缓冲
             success = ReadProcessMemory(pvz_handle, offset, ctypes.byref(buff), size, ctypes.byref(bytes_read))
             if success == 0 or bytes_read.value != size:
+                memory_lock.release()
                 critical("读取内存失败, 错误代码 %d." % GetLastError())
 
             result = struct.unpack(fmt_str, buff.raw)
@@ -627,6 +629,7 @@ def write_memory(data_type, values, *address):
             size = ctypes.sizeof(buffer)
             success = ReadProcessMemory(pvz_handle, offset, ctypes.byref(buffer), size, ctypes.byref(bytes_read))
             if success == 0 or bytes_read.value != size:
+                memory_lock.release()
                 critical("读取内存失败, 错误代码 %d." % GetLastError())
 
         else:
@@ -637,6 +640,7 @@ def write_memory(data_type, values, *address):
             buff.value = struct.pack(fmt_str, *values)  # 将目标数据载入缓冲区
             success = WriteProcessMemory(pvz_handle, offset, ctypes.byref(buff), size, ctypes.byref(bytes_written))
             if success == 0 or bytes_written.value != size:
+                memory_lock.release()
                 critical("写入内存失败, 错误代码 %d." % GetLastError())
 
     memory_lock.release()
@@ -731,6 +735,12 @@ def asm_add_bytes(codes):
 def asm_push(code):
     asm_add_byte(0x68)
     asm_add_dword(code)
+
+
+# push 0x12
+def asm_push_byte(code):
+    asm_add_byte(0x6A)
+    asm_add_byte(code)
 
 
 # mov exx, 0x12345678
