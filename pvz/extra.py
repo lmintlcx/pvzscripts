@@ -9,10 +9,7 @@ def game_on():
     """
     @返回值 (bool): 游戏是否开启, 没开则会尝试重新查找一次.
     """
-    if is_valid():
-        return True
-    else:
-        return find_pvz()
+    return is_valid() or find_pvz()
 
 
 def game_ui():
@@ -21,14 +18,20 @@ def game_ui():
 
     1: 主界面, 2: 选卡, 3: 正常游戏/战斗, 4: 僵尸进屋, 7: 模式选择.
     """
-    return read_memory("int", 0x6A9EC0, 0x7FC)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("int", 0x6A9EC0, 0x7FC)
+    else:
+        return read_memory("int", 0x731C50, 0x7FC + 0x120)
 
 
 def game_mode():
     """
     @返回值 (int): 游戏模式, 13 为生存无尽.
     """
-    return read_memory("int", 0x6A9EC0, 0x7F8)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("int", 0x6A9EC0, 0x7F8)
+    else:
+        return read_memory("int", 0x731C50, 0x7F8 + 0x120)
 
 
 def game_scene():
@@ -37,63 +40,90 @@ def game_scene():
 
     0: 白天, 1: 黑夜, 2: 泳池, 3: 浓雾, 4: 屋顶, 5: 月夜, 6: 蘑菇园, 7: 禅境花园, 8: 水族馆, 9: 智慧树.
     """
-    return read_memory("int", 0x6A9EC0, 0x768, 0x554C)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("int", 0x6A9EC0, 0x768, 0x554C)
+    else:
+        return read_memory("int", 0x731C50, 0x768 + 0x100, 0x554C + 0x18)
 
 
 def game_paused():
     """
     @返回值 (bool): 当前游戏是否暂停.
     """
-    return read_memory("bool", 0x6A9EC0, 0x768, 0x164)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("bool", 0x6A9EC0, 0x768, 0x164)
+    else:
+        return read_memory("bool", 0x731C50, 0x768 + 0x100, 0x164 + 0x18)
 
 
 def mouse_in_game():
     """
     @返回值 (bool): 鼠标是否在游戏窗口内部.
     """
-    return read_memory("bool", 0x6A9EC0, 0x768, 0x138, 0x18)  # 0x6A9EC0, 0x768, 0x59
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("bool", 0x6A9EC0, 0x768, 0x138, 0x18)
+    else:
+        return read_memory("bool", 0x731C50, 0x768 + 0x100, 0x138 + 0x18, 0x18)
 
 
 def mouse_have_something():
     """
     @返回值 (bool): 鼠标是否选中卡炮或铲子.
     """
-    return read_memory("int", 0x6A9EC0, 0x768, 0x138, 0x30) in (1, 6, 8)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("int", 0x6A9EC0, 0x768, 0x138, 0x30) in (1, 6, 8)
+    else:
+        return read_memory("int", 0x731C50, 0x768 + 0x100, 0x138 + 0x18, 0x30) in (1, 6, 8)
 
 
 def game_clock():
     """
     @返回值 (int): 内部时钟, 游戏暂停和选卡时会暂停计时.
     """
-    return read_memory("int", 0x6A9EC0, 0x768, 0x5568)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("int", 0x6A9EC0, 0x768, 0x5568)
+    else:
+        return read_memory("int", 0x731C50, 0x768 + 0x100, 0x5568 + 0x18)
 
 
 def wave_init_countdown():
     """
     @返回值 (int): 刷新倒计时初始值.
     """
-    return read_memory("int", 0x6A9EC0, 0x768, 0x55A0)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("int", 0x6A9EC0, 0x768, 0x55A0)
+    else:
+        return read_memory("int", 0x731C50, 0x768 + 0x100, 0x55A0 + 0x18)
 
 
 def wave_countdown():
     """
     @返回值 (int): 下一波刷新倒计时, 触发刷新时重置为 200, 减少至 1 后刷出下一波.
     """
-    return read_memory("int", 0x6A9EC0, 0x768, 0x559C)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("int", 0x6A9EC0, 0x768, 0x559C)
+    else:
+        return read_memory("int", 0x731C50, 0x768 + 0x100, 0x559C + 0x18)
 
 
 def huge_wave_countdown():
     """
     @返回值 (int): 大波刷新倒计时, 对于旗帜波, 刷新倒计时减少至 4 后停滞, 由该值代替减少.
     """
-    return read_memory("int", 0x6A9EC0, 0x768, 0x55A4)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("int", 0x6A9EC0, 0x768, 0x55A4)
+    else:
+        return read_memory("int", 0x731C50, 0x768 + 0x100, 0x55A4 + 0x18)
 
 
 def current_wave():
     """
     @返回值 (int): 已刷新波数.
     """
-    return read_memory("int", 0x6A9EC0, 0x768, 0x557C)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("int", 0x6A9EC0, 0x768, 0x557C)
+    else:
+        return read_memory("int", 0x731C50, 0x768 + 0x100, 0x557C + 0x18)
 
 
 ### 修改出怪
@@ -101,6 +131,9 @@ def current_wave():
 
 # 从出怪种子生成出怪类型
 def update_zombies_type():
+    if pvz_ver() == "1.2.0.1096":
+        info("Steam 版暂不支持生成出怪类型")
+        return
     write_memory("bool", [False] * 33, 0x6A9EC0, 0x768, 0x54D4)
     asm_init()
     asm_mov_exx_dword_ptr("esi", 0x6A9EC0)
@@ -113,6 +146,9 @@ def update_zombies_type():
 
 # 从出怪类型生成出怪列表
 def update_zombies_list():
+    if pvz_ver() == "1.2.0.1096":
+        info("Steam 版暂不支持生成出怪列表")
+        return
     asm_init()
     asm_mov_exx_dword_ptr("edi", 0x6A9EC0)
     asm_mov_exx_dword_ptr_exx_add("edi", 0x768)
@@ -123,6 +159,9 @@ def update_zombies_list():
 
 # 更新选卡界面出怪预览
 def update_zombies_preview():
+    if pvz_ver() == "1.2.0.1096":
+        info("Steam 版暂不支持更新出怪预览")
+        return
     write_memory("byte", 0x80, 0x0043A153) if pvz_ver() == "1.0.0.1051" else write_memory("byte", 0x80, 0x0043A1C3)
     asm_init()
     asm_mov_exx_dword_ptr("ebx", 0x6A9EC0)
@@ -162,6 +201,10 @@ def set_internal_spawn(zombies=None):
     if not (game_on() and game_ui() in (2, 3)):
         return
 
+    if pvz_ver() == "1.2.0.1096":
+        info("Steam 版暂不支持修改出怪")
+        return
+
     if zombies is None:
         zombies = []
     zombies += [0]  # 普僵必出
@@ -184,6 +227,10 @@ def set_customize_spawn(zombies=None):
     """
 
     if not (game_on() and game_ui() in (2, 3)):
+        return
+
+    if pvz_ver() == "1.2.0.1096":
+        info("Steam 版暂不支持修改出怪")
         return
 
     if zombies is None:
@@ -287,8 +334,8 @@ IMITATER_SEED_0_0_X = 215
 IMITATER_SEED_0_0_Y = 160
 SEED_WIDTH = 50
 SEED_HEIGHT = 70
-IMITATER_X = 490
-IMITATER_Y = 550
+IMITATER_X = 470
+IMITATER_Y = 580
 IMITATER_SHOW_UP = 0
 SEED_DELAY_TIME = 5
 
@@ -325,7 +372,10 @@ def select_seed_by_crood(row, col, imitater=False):
         y = SEED_0_0_Y + (row - 1) * (SEED_HEIGHT + 0)
 
     # 不小心点进了图鉴或者商店
-    window_type = read_memory("int", 0x6A9EC0, 0x320, 0x88, 0xC)
+    if pvz_ver() != "1.2.0.1096":
+        window_type = read_memory("int", 0x6A9EC0, 0x320, 0x88, 0xC)
+    else:
+        window_type = read_memory("int", 0x731C50, 0x320, 0x88 + 0x18, 0x1C)
     if window_type == 1:
         left_click(720, 580)
         thread_sleep_for(5)
@@ -404,8 +454,12 @@ def _(seed):
 
 # 检查已选卡片是否完全相符
 def slots_exact_match(seeds_selected):
-    slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
-    slots_selected = read_memory("int", 0x6A9EC0, 0x774, 0xD24)
+    if pvz_ver() != "1.2.0.1096":
+        slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
+        slots_selected = read_memory("int", 0x6A9EC0, 0x774, 0xD24)
+    else:
+        slots_count = read_memory("int", 0x731C50, 0x768 + 0x100, 0x144 + 0x18, 0x24)
+        slots_selected = read_memory("int", 0x731C50, 0x774 + 0x100, 0xD24 + 0x18)
     if slots_selected < slots_count:
         return False
     match = True
@@ -414,8 +468,12 @@ def slots_exact_match(seeds_selected):
         seed_index = (row - 1) * 8 + (col - 1)
         if imitater:
             seed_index = 48
-        seed_plant = read_memory("int", 0x6A9EC0, 0x774, 0xC4 + seed_index * 0x3C)
-        seed_status = read_memory("int", 0x6A9EC0, 0x774, 0xC8 + seed_index * 0x3C)
+        if pvz_ver() != "1.2.0.1096":
+            seed_plant = read_memory("int", 0x6A9EC0, 0x774, 0xC4 + seed_index * 0x3C)
+            seed_status = read_memory("int", 0x6A9EC0, 0x774, 0xC8 + seed_index * 0x3C)
+        else:
+            seed_plant = read_memory("int", 0x731C50, 0x774 + 0x100, 0xC4 + 0x18 + seed_index * 0x3C)
+            seed_status = read_memory("int", 0x731C50, 0x774 + 0x100, 0xC8 + 0x18 + seed_index * 0x3C)
         # !卡片对应的植物正确并且位于卡槽中
         if not (seed_plant == seed_index and seed_status == 1):
             match = False
@@ -425,7 +483,10 @@ def slots_exact_match(seeds_selected):
 
 # 清空卡槽所有卡片
 def clear_slots():
-    slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
+    if pvz_ver() != "1.2.0.1096":
+        slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
+    else:
+        slots_count = read_memory("int", 0x731C50, 0x768 + 0x100, 0x144 + 0x18, 0x24)
     for slot_index in reversed(range(slots_count)):  # 逆序
         slot_index += 1
         if slots_count == 10:
@@ -451,7 +512,10 @@ def select_all_seeds(seeds_selected=None):
     """
 
     # 不小心点进了图鉴或者商店
-    window_type = read_memory("int", 0x6A9EC0, 0x320, 0x88, 0xC)
+    if pvz_ver() != "1.2.0.1096":
+        window_type = read_memory("int", 0x6A9EC0, 0x320, 0x88, 0xC)
+    else:
+        window_type = read_memory("int", 0x731C50, 0x320, 0x88 + 0x18, 0x1C)
     if window_type == 1:
         left_click(720, 580)
         thread_sleep_for(5)
@@ -460,7 +524,10 @@ def select_all_seeds(seeds_selected=None):
         thread_sleep_for(5)
 
     default_seeds = [40, 41, 42, 43, 44, 45, 46, 47, 8, 8 + 48]
-    slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
+    if pvz_ver() != "1.2.0.1096":
+        slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
+    else:
+        slots_count = read_memory("int", 0x731C50, 0x768 + 0x100, 0x144 + 0x18, 0x24)
 
     # 默认八张紫卡和两张免费卡
     if seeds_selected is None:
@@ -501,14 +568,24 @@ def select_all_seeds(seeds_selected=None):
 
 
 def lets_rock():
-    while read_memory("bool", 0x6A9EC0, 0x768, 0x15C, 0x2C):  # 位于选卡界面
-        left_down(234, 567)
-        thread_sleep_for(1)
-        left_up(234, 567)
-        thread_sleep_for(10)
-        while read_memory("int", 0x6A9EC0, 0x320, 0x94) != 0:  # 出现了对话框
-            left_click(320, 400)
+    if pvz_ver() != "1.2.0.1096":
+        while read_memory("bool", 0x6A9EC0, 0x768, 0x15C, 0x2C):  # 位于选卡界面
+            left_down(234, 567)
+            thread_sleep_for(1)
+            left_up(234, 567)
             thread_sleep_for(10)
+            while read_memory("int", 0x6A9EC0, 0x320, 0x94) != 0:  # 出现了对话框
+                left_click(320, 400)
+                thread_sleep_for(10)
+    else:
+        while read_memory("bool", 0x731C50, 0x768 + 0x100, 0x15C + 0x18, 0x2C):  # 位于选卡界面
+            left_down(234, 567)
+            thread_sleep_for(1)
+            left_up(234, 567)
+            thread_sleep_for(10)
+            while read_memory("int", 0x731C50, 0x320, 0x94 + 0x18) != 0:  # 出现了对话框
+                left_click(320, 400)
+                thread_sleep_for(10)
 
 
 def select_seeds_and_lets_rock(seeds_selected=None):
@@ -584,8 +661,12 @@ def update_seeds_list():
     seeds_in_slot = [None] * (48 * 2)
     slot_seeds = [None] * 10
 
-    slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
-    slots_offset = read_memory("unsigned int", 0x6A9EC0, 0x768, 0x144)
+    if pvz_ver() != "1.2.0.1096":
+        slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
+        slots_offset = read_memory("unsigned int", 0x6A9EC0, 0x768, 0x144)
+    else:
+        slots_count = read_memory("int", 0x731C50, 0x768 + 0x100, 0x144 + 0x18, 0x24)
+        slots_offset = read_memory("unsigned int", 0x731C50, 0x768 + 0x100, 0x144 + 0x18)
     for i in range(slots_count):
         seed_type = read_memory("int", slots_offset + 0x5C + i * 0x50)
         seed_imitater_type = read_memory("int", slots_offset + 0x60 + i * 0x50)
@@ -670,8 +751,12 @@ scenes = {
 # 更新卡槽格数和场景地图
 def update_game_scene():
     global slots_count, game_scene
-    slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
-    game_scene = read_memory("int", 0x6A9EC0, 0x768, 0x554C)
+    if pvz_ver() != "1.2.0.1096":
+        slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
+        game_scene = read_memory("int", 0x6A9EC0, 0x768, 0x554C)
+    else:
+        slots_count = read_memory("int", 0x731C50, 0x768 + 0x100, 0x144 + 0x18, 0x24)
+        game_scene = read_memory("int", 0x731C50, 0x768 + 0x100, 0x554C + 0x18)
     info("更新卡槽格数 %d." % slots_count)
     info("更新场景地图 %s." % scenes[game_scene])
 
@@ -855,8 +940,12 @@ def update_cob_cannon_list(cobs=None):
     global cob_list, cob_index
 
     cob_list_tmp = []
-    plants_count_max = read_memory("unsigned int", 0x6A9EC0, 0x768, 0xB0)
-    plants_offset = read_memory("unsigned int", 0x6A9EC0, 0x768, 0xAC)
+    if pvz_ver() != "1.2.0.1096":
+        plants_count_max = read_memory("unsigned int", 0x6A9EC0, 0x768, 0xB0)
+        plants_offset = read_memory("unsigned int", 0x6A9EC0, 0x768, 0xAC)
+    else:
+        plants_count_max = read_memory("unsigned int", 0x731C50, 0x768 + 0x100, 0xB0 + 0x18)
+        plants_offset = read_memory("unsigned int", 0x731C50, 0x768 + 0x100, 0xAC + 0x18)
     for i in range(plants_count_max):
         plant_dead = read_memory("bool", plants_offset + 0x141 + 0x14C * i)
         plant_crushed = read_memory("bool", plants_offset + 0x142 + 0x14C * i)
@@ -1417,9 +1506,14 @@ def auto_collect(collect_items=None, interval_cs=12):
     info("启动自动收集线程.")
 
     while game_ui() == 3:
-        items_count = read_memory("int", 0x6A9EC0, 0x768, 0xF4)
-        items_count_max = read_memory("int", 0x6A9EC0, 0x768, 0xE8)
-        items_offset = read_memory("int", 0x6A9EC0, 0x768, 0xE4)
+        if pvz_ver() != "1.2.0.1096":
+            items_count = read_memory("int", 0x6A9EC0, 0x768, 0xF4)
+            items_count_max = read_memory("int", 0x6A9EC0, 0x768, 0xE8)
+            items_offset = read_memory("int", 0x6A9EC0, 0x768, 0xE4)
+        else:
+            items_count = read_memory("int", 0x731C50, 0x768 + 0x100, 0xF4 + 0x18)
+            items_count_max = read_memory("int", 0x731C50, 0x768 + 0x100, 0xE8 + 0x18)
+            items_offset = read_memory("int", 0x731C50, 0x768 + 0x100, 0xE4 + 0x18)
 
         if items_count == 0:
             thread_sleep_for(interval_cs)
@@ -1483,8 +1577,12 @@ def get_seeds_index(seed):
     seed %= 48
 
     seed_indexes = []
-    slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
-    slots_offset = read_memory("unsigned int", 0x6A9EC0, 0x768, 0x144)
+    if pvz_ver() != "1.2.0.1096":
+        slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
+        slots_offset = read_memory("unsigned int", 0x6A9EC0, 0x768, 0x144)
+    else:
+        slots_count = read_memory("int", 0x731C50, 0x768 + 0x100, 0x144 + 0x18, 0x24)
+        slots_offset = read_memory("unsigned int", 0x731C50, 0x768 + 0x100, 0x144 + 0x18)
     for i in range(slots_count):
         seed_type = read_memory("int", slots_offset + 0x5C + i * 0x50)
         seed_imitater_type = read_memory("int", slots_offset + 0x60 + i * 0x50)
@@ -1498,8 +1596,12 @@ def get_plants_croods():
     获取场上植物坐标.
     """
     croods = []
-    plants_count_max = read_memory("unsigned int", 0x6A9EC0, 0x768, 0xB0)
-    plants_offset = read_memory("unsigned int", 0x6A9EC0, 0x768, 0xAC)
+    if pvz_ver() != "1.2.0.1096":
+        plants_count_max = read_memory("unsigned int", 0x6A9EC0, 0x768, 0xB0)
+        plants_offset = read_memory("unsigned int", 0x6A9EC0, 0x768, 0xAC)
+    else:
+        plants_count_max = read_memory("unsigned int", 0x731C50, 0x768 + 0x100, 0xB0 + 0x18)
+        plants_offset = read_memory("unsigned int", 0x731C50, 0x768 + 0x100, 0xAC + 0x18)
     for i in range(plants_count_max):
         plant_dead = read_memory("bool", plants_offset + 0x141 + 0x14C * i)
         plant_crushed = read_memory("bool", plants_offset + 0x142 + 0x14C * i)
@@ -1520,7 +1622,10 @@ def get_block_type(*crood):
     else:
         row, col = crood
     row, col = row - 1, col - 1
-    return read_memory("int", 0x6a9ec0, 0x768, 0x168 + row * 0x04 + col * 0x18)
+    if pvz_ver() != "1.2.0.1096":
+        return read_memory("int", 0x6A9EC0, 0x768, 0x168 + row * 0x04 + col * 0x18)
+    else:
+        return read_memory("int", 0x731C50, 0x768 + 0x100, 0x168 + 0x18 + row * 0x04 + col * 0x18)
 
 
 # 存冰位
@@ -1564,7 +1669,10 @@ def auto_fill_ice(spots=None, total=0x7FFFFFFF):
     ice_spots = spots
     ice_total = total
 
-    slots_offset = read_memory("unsigned int", 0x6A9EC0, 0x768, 0x144)
+    if pvz_ver() != "1.2.0.1096":
+        slots_offset = read_memory("unsigned int", 0x6A9EC0, 0x768, 0x144)
+    else:
+        slots_offset = read_memory("unsigned int", 0x731C50, 0x768 + 0x100, 0x144 + 0x18)
 
     ice_seeds_index = get_seeds_index("寒冰菇")  # 获取所有寒冰菇卡片的下标
     if ice_seeds_index == []:
@@ -1612,18 +1720,18 @@ def auto_fill_ice(spots=None, total=0x7FFFFFFF):
                 break
 
             # 如果该位置无植物则尝试存冰
-            if pvz_ver() == "1.0.0.1051":
-                seed_ice_cost = read_memory("int", 0x69F2C0 + 14 * 0x24)
+            if pvz_ver() != "1.2.0.1096":
+                sun = read_memory("int", 0x6A9EC0, 0x768, 0x5560)
             else:
-                seed_ice_cost = read_memory("int", 0x69F2D0 + 14 * 0x24)
-            sun = read_memory("int", 0x6A9EC0, 0x768, 0x5560)
-            if sun < seed_ice_cost:
+                sun = read_memory("int", 0x731C50, 0x768 + 0x100, 0x5560 + 0x18)
+
+            if sun < 75:
                 thread_sleep_for(1)
                 continue
             block_type = get_block_type(spot)
             # 1.草地 2.裸地 3.泳池 16.睡莲 33.花盆
             if (spot not in ice_spot_which_has_plant \
-                and sun >= seed_ice_cost \
+                and sun >= 75 \
                 and ((block_type == 1 and game_scene not in (4, 5)) \
                     or (block_type == 1 and game_scene in (4, 5) and (33, spot[0], spot[1]) in plants) \
                     or (block_type == 3 and (16, spot[0], spot[1]) in plants))):
@@ -1671,3 +1779,4 @@ def activate_ice():
         click_grid((row, col))
     safe_click()
     mouse_lock.release()
+    info("唤醒寒冰菇.")

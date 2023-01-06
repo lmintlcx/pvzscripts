@@ -477,6 +477,12 @@ def find_pvz():
             pvz_version = "1.2.0.1065"
             info("已找到游戏 1.2.0.1065 !!!")
             return True
+        elif True:
+            # TODO 缺少 steam 版检测机制
+            # 暂时默认非 1051、1065 的版本一定是 steam 版
+            pvz_version = "1.2.0.1096"
+            info("已找到游戏 1.2.0.1096 !!!")
+            return True
         else:
             pvz_version = None
             warning("不支持的游戏版本 !!!")
@@ -912,15 +918,19 @@ def asm_code_inject():
 def asm_code_inject_safely():
     if pvz_ver() == "1.0.0.1051":
         write_memory("unsigned char", 0xFE, 0x00552014)
-    else:
+    elif pvz_ver() == "1.2.0.1065":
         write_memory("unsigned char", 0xFE, 0x00552244)
+    else:
+        write_memory("unsigned char", 0xFE, 0x005DD25E)
     time.sleep(0.01)
     if is_valid():
         asm_code_inject()
     if pvz_ver() == "1.0.0.1051":
         write_memory("unsigned char", 0xDB, 0x00552014)
-    else:
+    elif pvz_ver() == "1.2.0.1065":
         write_memory("unsigned char", 0xDB, 0x00552244)
+    else:
+        write_memory("unsigned char", 0xC8, 0x005DD25E)
 
 
 ### 键盘操作

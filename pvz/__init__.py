@@ -153,7 +153,7 @@ def _on_start():
     else:
         critical("游戏未开启或者游戏版本不受支持!")
 
-    enable_logging(False)  # 是否输出调试日志
+    enable_logging(True)  # 是否输出调试日志
     set_logging_level("INFO")
 
 
