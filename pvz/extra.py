@@ -523,7 +523,7 @@ def select_all_seeds(seeds_selected=None):
         left_click(430, 550)
         thread_sleep_for(5)
 
-    default_seeds = [40, 41, 42, 43, 44, 45, 46, 47, 8, 8 + 48]
+    default_seeds = [8 + 48, 8, 40, 41, 42, 43, 44, 45, 46, 47]
     if pvz_ver() != "1.2.0.1096":
         slots_count = read_memory("int", 0x6A9EC0, 0x768, 0x144, 0x24)
     else:
@@ -1097,7 +1097,7 @@ def fire_cob(*croods):
 
 
 @fire_cob.register(int)
-def _(fall_row, fall_col):
+def _(fall_row, fall_col, delay_cs = 0):
     global cob_list, cob_index
     cob_count = len(cob_list)
     if cob_count == 0:
@@ -1105,7 +1105,7 @@ def _(fall_row, fall_col):
 
     cob_lock.acquire()
     cob_row, cob_col = cob_list[cob_index]
-    fire_cob_by_crood(cob_row, cob_col, fall_row, fall_col)
+    fire_cob_by_crood(cob_row, cob_col, fall_row, fall_col, delay_cs)
     cob_index += 1
     cob_index %= cob_count
     cob_lock.release()
@@ -1241,18 +1241,21 @@ CLICK_COUNT = 3
 
 
 # 无视内置炮列表直接指定炮位和落点
-def fire_cob_by_crood(cob_row, cob_col, fall_row, fall_col):
+def fire_cob_by_crood(cob_row, cob_col, fall_row, fall_col, delay_cs = 0):
 
     mouse_lock.acquire()
     safe_click()
     for _ in range(CLICK_COUNT):
         # 点炮位置稍微偏离, 配合改内存解决炮粘手的问题
         click_grid(cob_row + 2 / 85, cob_col - 2 / 80)
+    if delay_cs > 0:
+        info("(%d, %d) 炮已捏在手上, 将于 %dcs 后发射至 (%d, %d)." % (cob_row, cob_col, delay_cs, fall_row, fall_col))
+        game_delay_for(delay_cs)
     click_grid(fall_row, fall_col)
     safe_click()
     mouse_lock.release()
 
-    info("从 (%d, %d) 向 (%d, %d) 发射玉米炮." % (cob_row, cob_col, fall_row, fall_col))
+    info("从 (%d, %d) 向 (%d, %.1f) 发射玉米炮." % (cob_row, cob_col, fall_row, fall_col))
 
 
 ### 阻塞延时
@@ -1272,7 +1275,7 @@ def game_delay_for(time_cs):
 
     if time_cs > 0:
         clock = game_clock()
-        while (game_clock() - clock) < time_cs:
+        while game_ui() == 3 and (game_clock() - clock) < time_cs:
             delay_a_little_time()
     elif time_cs == 0:
         pass
