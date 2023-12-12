@@ -143,6 +143,10 @@ def _on_start():
     # set_dpi_scale(1.25)  # 出错则手动设置
 
     if find_pvz():
+        if pvz_ver() != "1.2.0.1096":
+            set_addr(0x6A9EC0, 0x768, 0x00)
+        else:
+            set_addr(0x731C50, 0x868, 0x18)
         ui = game_ui()
         if ui in (2, 3):
             set_pvz_foreground()
